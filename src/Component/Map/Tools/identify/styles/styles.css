@@ -1,0 +1,29 @@
+.identify{
+    width:30px; 
+    height:30px; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.identify-container{
+    position:relative;
+
+}
+
+.identify-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.identify-box div{
+    position: absolute;
+    top:50%; 
+    right:50%; 
+    transform:translate(55%,20%)
+    
+}
+
+.identify-box div i{
+    color:rgb(10,10,10); 
+}

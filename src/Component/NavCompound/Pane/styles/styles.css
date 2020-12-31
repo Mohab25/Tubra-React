@@ -1,0 +1,77 @@
+.notification-pane{
+    width:25%; 
+    height:85%; 
+    position: absolute;
+    top:50px; 
+    right:50px; 
+    border:1px solid grey; 
+    border-radius:5px; 
+    z-index:2; 
+    background-color: white;
+}
+
+.notification-pane-container{
+    width:100%; 
+    height:100%;
+    position: relative;
+}
+
+.notification-cards-holder{
+    width:100%; 
+    height:100%; 
+}
+
+.notification-card{
+    width:90%; 
+    height:400px; 
+    margin:auto; 
+    padding:10px;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+}
+
+.notification-card-title{
+    width:100%; 
+    display:flex; 
+    justify-content: space-between;
+    padding:10px; 
+}
+
+.notification-close-icon{
+    font-size:20px;
+    margin-top:5px; 
+}
+
+.notification-card-body{
+    height:fit-content;  
+}
+
+.notification-card-body p{
+    color:grey; 
+    padding:15px; 
+    border:1px solid grey; 
+    border-radius: 5px;
+}
+
+.notification-card-footer button{
+    width:150px; 
+    position:absolute;
+    bottom:20px; 
+    left:50%; 
+    transform:translateX(-50%);  
+    padding:10px 20px; 
+    color:white; 
+    background-color:blue; 
+    border:none; 
+    cursor: pointer;
+    border-radius:8px; 
+}
+.notification-backdrop{
+    width:100%; 
+    height: 100%;
+    position: absolute;
+    top:0px; 
+    left:0px; 
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:1; 
+}

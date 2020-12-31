@@ -1,0 +1,39 @@
+
+.files-viewer{
+    width: 100%;
+    height:100%; 
+
+}
+
+.files-viewer-container{
+    width: 100%;
+    height:100%; 
+    display:grid;
+    grid-template-columns: 25% 75%; 
+}
+
+.files-viewer-side{
+    height:100%; 
+    border:1px solid black; 
+}
+
+.files-viewer-main-area{
+    height:100%;
+    padding-left:25px; 
+    display:flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.document-section-headers{
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+}
+
+.document-content{
+    width: 80%;
+    text-align: justify;
+    text-justify:inter-word;
+    padding: 20px;
+}

@@ -1,0 +1,30 @@
+.measure{
+    width:30px; 
+    height:30px; 
+    background-color: orange;
+    border-radius: 5px;
+    margin-top:20px; 
+}
+
+.measure-container{
+    position:relative;
+
+}
+
+.measure-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.measure-box div{
+    position: absolute;
+    top:50%; 
+    right:50%; 
+    transform:translate(55%,20%)
+    
+}
+
+.measure-box div i{
+    color:rgb(10,10,10); 
+}

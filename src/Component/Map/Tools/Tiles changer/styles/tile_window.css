@@ -1,0 +1,28 @@
+.Tiles-changer-window{
+    width:100%; 
+    height:100%; 
+}
+.Tiles-changer-window-container{
+    width:100%; 
+    height:100%; 
+    position:relative;
+}
+.preview-container{
+    width:100%; 
+    height:90%; 
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    
+
+}
+.preview-image{
+    width:80%; 
+    height:150px;
+    background-position: center;
+    background-size:cover; 
+}
+.preview-text{
+    color:white;
+}
+

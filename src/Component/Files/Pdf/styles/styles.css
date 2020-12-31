@@ -1,0 +1,18 @@
+.Pdf{
+    padding-bottom: 40px;
+}
+
+.Pdf div h5{
+    width:fit-content;
+    margin-left:15px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 6px solid red; 
+}
+
+.files-row{
+    height:25%; 
+    display:grid; 
+    grid-template-columns: repeat(4,1fr);
+
+}

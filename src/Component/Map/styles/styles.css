@@ -1,0 +1,20 @@
+.Map-outer-container{
+    width:100%;
+    height: 100%;
+    margin-left:55px; 
+}
+
+.Map-container{
+    height: 100%;
+    overflow:hidden;
+    position: relative;
+}
+
+.Map{
+    height: 100%;
+}
+
+.layers-control{
+    left:100px;
+    bottom:10px; 
+}

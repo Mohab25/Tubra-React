@@ -1,0 +1,47 @@
+.Project-page-nav{
+    width:100%; 
+    height:40px; 
+}
+
+.Project-page-nav-container{
+    width:100%; 
+    height: 100%;
+    margin-left:50px;  
+    padding-top:4px; 
+    display:flex; 
+    justify-content: space-between;
+    overflow-x:hidden; 
+}
+
+.Project-page-nav-first-icons-set-container{
+    display: flex;
+    flex-direction: row;
+    margin-left:10px; 
+}
+
+.Project-page-nav-first-icons-set-container i{
+    margin-left:20px;
+    color:#8493a5; 
+    cursor: pointer;
+}
+
+.Project-page-nav-first-icons-set-container span{
+    padding-left: 10px;
+    margin-top: -2.5px;
+}
+.Project-page-nav-second-icons-set-container{
+    width:200px;  /* i need to know why this is obligatory width */
+    display: flex;
+    flex-direction: row;
+}
+
+
+.Project-page-nav-second-icons-set-container i{
+    margin-left:20px;
+    color:#8493a5;
+    cursor: pointer;
+}
+
+.close-icon{
+    cursor:pointer; 
+}

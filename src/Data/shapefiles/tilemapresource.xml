@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <TileMap version="1.0.0" tilemapservice="http://tms.osgeo.org/1.0.0">
+      <Title>test_tiles.tif</Title>
+      <Abstract></Abstract>
+      <SRS>GEOCCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["unknown",1],AXIS["Geocentric X",OTHER],AXIS["Geocentric Y",OTHER],AXIS["Geocentric Z",NORTH]]</SRS>
+      <BoundingBox minx="451831.87400000001071" miny="1723924.39600000018254" maxx="451927.42599999997765" maxy="1724019.94800000009127"/>
+      <Origin x="451831.87400000001071" y="1723924.39600000018254"/>
+      <TileFormat width="256" height="256" mime-type="image/png" extension="png"/>
+      <TileSets profile="raster">
+        <TileSet href="12" units-per-pixel="0.00011664062500" order="12"/>
+      </TileSets>
+    </TileMap>
+    
