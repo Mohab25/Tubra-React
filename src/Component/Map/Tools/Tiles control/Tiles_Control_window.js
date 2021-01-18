@@ -4,7 +4,7 @@ import  dark  from "./images/Dark.jpg";
 import  light  from "./images/Light.jpg";
 import './styles/tile_window.css';
 
-export default function Tiles_Changer_window() {
+export default function Tiles_control_window() {
     
     let [previewImages,setPreviewImages]=useState([dark,light,topo])
 
@@ -13,9 +13,11 @@ export default function Tiles_Changer_window() {
         <p className='preview-text'></p>
         </>)})
 
+
+
     return (
-        <div className='Tiles-changer-window'>
-            <div className='Tiles-changer-window-container'>
+        <div className='Tiles-control-window'>
+            <div className='Tiles-control-window-container'>
                 <div className='preview-container'>
                     {previews}
                 </div>

@@ -3,7 +3,7 @@ import {useState,useEffect,useRef} from 'react'
 import './styles/styles.css'
 import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup} from 'react-leaflet'
 import './leaflet/leaflet.css'
-import MapToolsPane from './MapToolsPane/MapToolsPane'
+import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import city from '../../Data/Obied_city.json'
 import streets from '../../Data/Obied_city_streets.json'
 import aerodrome from '../../Data/Obeid_Airport.json'
@@ -59,7 +59,7 @@ export default function MapComponent() {
                     {/*<GeoJSON data={streets} key={2} style={{color:'orange'}}/>*/}
                 </LayersControl>
                 </Map>
-                <MapToolsPane/>
+                <MapToolsHolder/>
             </div>
         </div>
     )

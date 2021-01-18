@@ -53,3 +53,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+.ToolsContainer div{ 
+    cursor:pointer
+}

@@ -5,13 +5,15 @@ import Measure from '../Tools/measure/measure'
 import Buffer from '../Tools/Vector Geometry/buffer/buffer'
 import Path from '../Tools/Path/path'
 import Search from '../Tools/search/search'
-import TilesChanger from '../Tools/Tiles changer/tiles'
-import MapToolsWindows from '../MapToolsWindows/MapToolsWindows'
+import TilesControl from '../Tools/Tiles control/tiles'
 
 export default function MapToolsPane(props) {
     
     let [PaneVisibility,togglePaneVisibility] = useState('off')
     
+    
+
+
     let PaneOn=()=>{
         togglePaneVisibility('on')
     }
@@ -20,6 +22,7 @@ export default function MapToolsPane(props) {
         togglePaneVisibility('off')
 
     }
+
 
     if(PaneVisibility=='off'){
         return(
@@ -44,8 +47,7 @@ export default function MapToolsPane(props) {
                         <Measure/>
                         <Buffer/>
                         <Path/>
-                        <TilesChanger/>
-                        <MapToolsWindows/>
+                        <TilesControl toggleWindowVisibility={props.toggleWindowVisibility}/>
                     </div>
                 </div>
             </div>
