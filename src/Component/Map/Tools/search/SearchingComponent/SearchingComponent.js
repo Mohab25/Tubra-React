@@ -3,7 +3,7 @@ import './styles/styles.css'
 import SearchResultsHolder from './SearchResultsHolder'
 import data from './music_json.json'
 
-export default function SearchingComponent() {
+export default function SearchingComponent(props) {
     
     const [searchResultsHolderDisplay,setSearchResultsHolderDisplay] = useState('none')
     const [Data,setData] = useState()
@@ -35,7 +35,7 @@ export default function SearchingComponent() {
 
         <div className='Search-Component'>
         <div className='Search-Component-container'>
-            <div className='Search-input-container'>
+            <div className='Search-input-container' style={{display:props.SearchBarDisplay}}>
                 <input className='searchInput' placeholder='search..' onChange={handleChange}/>
                 <button>Enter</button>
             </div>  

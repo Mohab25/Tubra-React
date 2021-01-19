@@ -62,7 +62,7 @@ export default function SearchingComponent() {
 
 ~~~
 
-1. the search results holder:
+1. \<SearchingResultsHolder/>
 
 ~~~jsx
     console.log(props.matches)
@@ -99,7 +99,15 @@ useEffect(()=>{
 
 ### \<Search/> component state
 
- no state variables used.
+#### SearchBarDisplay,toggleSearchBar
+
+ this state variable controls the visibility of the search bar, it takes toggle between two values 'none' and 'block', these values are sent as properties to \<SearchingComponent/>
+
+#### SearchBoxColor,toggleSearchBoxColor
+
+a state  variable to control the color of the search tool box to illustrate if the tool is used currently or not, it toggles between two values 'orange' and 'orangered', figures below illustrate it's functionality:
+!['Search box default color']()
+!['Search box active color']()
 
 ### \<SearchingComponent/> state
 
@@ -129,7 +137,11 @@ no properties variables used.
 
 ### \<SearchingComponent/> properties
 
-no properties variables used.
+#### SearchBarDisplay
+
+a prop that control the display of the search bar, according to the value passed from the \<Search/> component, it either to be 'none' to prevent the display of the search bar or 'block' to show it, figures below illustrates the search bar toggling.
+!['Search bar active']()
+!['Search bar inactive']()
 
 ### \<SearchResultsHolder>
 
