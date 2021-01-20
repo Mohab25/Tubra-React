@@ -1,5 +1,4 @@
-.BufferParameterPane{
-    display:none; 
+.LinearMeasurePane{
     width:500px; 
     height: 50px;
     position: absolute;
@@ -7,59 +6,46 @@
     right:300px; 
 }
 
-.BufferParameterPaneContainer{
+.LinearMeasurePaneContainer{
     position: relative;
-    background-color: black;
     width:100%;
-    height:100%; 
-    display: flex;
-    
+    height:50px;
+    display: flex;    
+    background-color:black; 
 }
 
-.bufferCoordinates{
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    background-color: teal;
-}
-
-.bufferCoordinates p{
-    color:white
-}
-
-.buffer-distance-input{
-    width:30%; 
+.linear-distance-input{
+    width:40%; 
     height: 100%;
     display: flex;
     align-items: center;
     margin-left:10px;
 }
-.buffer-distance-input p{
+.linear-distance-input p{
     padding-top:14px;
     color:white; 
 }
 
-.buffer-distance-input input{
+.linear-distance-input input{
     width: 100%;
     height: 50%;
     margin-left:5px;
 }
 
-.buffer-units-input{
-    width:30%; 
+.linear-units-input{
+    width:40%; 
     height: 100%;
     display: flex;
     align-items: center;
     margin-left:10px;
 }
 
-.buffer-units-input p{
+.linear-units-input p{
     padding-top:14px;
     color:white;
 }
 
-.buffer-units-input input{
+.linear-units-input input{
     width:100%; 
     height: 50%;
     margin-left:5px;

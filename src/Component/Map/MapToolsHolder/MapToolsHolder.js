@@ -3,7 +3,7 @@ import ToolsPane from '../MapToolsPane/MapToolsPane'
 import ToolsWindow from '../MapToolsWindows/MapToolsWindows'
 
 
-export default function MapToolsHolder() {
+export default function MapToolsHolder(props) {
     
     let [WindowVisibility,setWindowVisibility] = useState('none')
 
@@ -16,7 +16,7 @@ export default function MapToolsHolder() {
 
     return (
         <div>
-            <ToolsPane toggleWindowVisibility={toggleWindowVisibility}/>
+            <ToolsPane toggleWindowVisibility={toggleWindowVisibility} turf_distance={props.turf_distance}/>
             <ToolsWindow display={WindowVisibility}/>
         </div>
     )

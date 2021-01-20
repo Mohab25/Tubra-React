@@ -21,6 +21,11 @@ export default function MapComponent() {
     let overlay_2_Ref = useRef()
     const [lineTest,setLineTest] =  useState({})          
     const [pointTest,setPointTest] = useState({})
+    
+    /* Linear Measurements */
+
+    const [linear_coords,setLinearCoords]=useState([])
+    const [turf_distance,getTurfDistance] = useState(0)
 
     useEffect(()=>{
           let binga = {
@@ -70,7 +75,6 @@ export default function MapComponent() {
     }
 
     const handleClick=(e)=>{
-        console.log(e.latlng)
         const {lat,lng} = e.latlng;
         const JSON_point = {
             "type": "Feature",
@@ -82,9 +86,35 @@ export default function MapComponent() {
               "name": "click point"
             }
           }
-
+        
+        linear_measure(e.latlng)
         make_turf(JSON_point)
     }
+
+    const linear_measure=(coords)=>{
+        console.log('linear coords:',linear_coords)
+        console.log('linear coords length:',linear_coords.length)
+        const {lat,lng} = coords
+        let coords_arr=[lat,lng]
+        let coords_arr_of_arr = [coords_arr]
+        if(linear_coords.length==0){
+            console.log('first condition')
+            setLinearCoords(coords_arr_of_arr)
+        }
+        if(linear_coords.length==1){
+            console.log('condition')
+            console.log('is it array ?',linear_coords[0])
+            let from = window.turf.point(linear_coords[0])
+            let to = window.turf.point(coords_arr_of_arr[0])
+            let options = {units: 'kilometers'};
+            let distance = window.turf.distance(from, to, options);
+            console.log('distance:',distance)
+            const distance_meters = distance*1000
+            getTurfDistance(distance_meters)
+        }
+
+    }
+
 
     const make_turf=(Point_JSON)=>{
         const turf_buffer = window.turf.buffer(Point_JSON,0.3,{units:'kilometers'})
@@ -115,7 +145,7 @@ export default function MapComponent() {
                 {lineTest}
                     
                 </Map>
-                <MapToolsHolder/>
+                <MapToolsHolder turf_distance={turf_distance}/>
             </div>
         </div>
     )

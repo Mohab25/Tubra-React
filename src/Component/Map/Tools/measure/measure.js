@@ -1,7 +1,10 @@
 import React from 'react'
 import './styles/styles.css'
-export default function Measure() {
+import LinearMeasurePane from './LinearMeasurePane'
+
+export default function Measure(props) {
     return (
+        <>
         <div className='measure'>
             <div className='measure-container'>
                 <div className='measure-box'>
@@ -11,5 +14,7 @@ export default function Measure() {
                 </div>
             </div>
         </div>
+        <LinearMeasurePane turf_distance={props.turf_distance}/>
+        </>
     )
 }
