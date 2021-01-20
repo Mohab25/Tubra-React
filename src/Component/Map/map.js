@@ -15,7 +15,7 @@ export default function MapComponent() {
     const [mapCenter,setMapCenter] = useState([13.1538432,30.2154278])
     let [zoom,setZoomLevel] = useState(15)
     let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png')
-    
+    let [turfJSON,setTurfJSON] = useState()
     let mapRef = useRef();
     let overlay_1_Ref = useRef()
     let overlay_2_Ref = useRef()
@@ -40,10 +40,25 @@ export default function MapComponent() {
                       
         }
     }
+
+    const handleClick=(e)=>{
+        console.log(e.latlng);
+        //$my_geoJSON = '{ "type": "Point", "coordinates": ['.$longitude.' ,'.$latitude.'] }';
+
+    }
+
+    const make_turf=()=>{
+        console.log('Clicked')
+        const turf_buffer = window.turf.buffer(aerodrome,0.3,{units:'kilometers'})
+        console.log('Turf:',turf_buffer)
+        const leafBuffer = <GeoJSON data={turf_buffer} key={2} style={{color:'orange'}}/>
+        setTurfJSON(leafBuffer)
+    }
+
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
-                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef}>
+                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={handleClick}>
                     <LayersControl position='topleft' className='layers-control'>
                     <TileLayer url={tile}/>
                     <Overlay name='Obeid Blocks'>
@@ -58,9 +73,12 @@ export default function MapComponent() {
                     </Overlay>
                     {/*<GeoJSON data={streets} key={2} style={{color:'orange'}}/>*/}
                 </LayersControl>
+                    {turfJSON}
                 </Map>
                 <MapToolsHolder/>
             </div>
+            <button onClick={make_turf}>make buffer </button>
+
         </div>
     )
 }
