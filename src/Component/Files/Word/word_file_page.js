@@ -6,7 +6,7 @@ export default function Word_file_page() {
     const [data,setData] = useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:8003/Data/docx_test.json').then((res)=>res.json()).then(data=>setData(data))
+        fetch('http://localhost:8000/Data/docx_test.json').then((res)=>res.json()).then(data=>setData(data))
     },[])
 
 

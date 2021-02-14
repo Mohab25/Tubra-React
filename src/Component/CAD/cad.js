@@ -4,7 +4,7 @@ import { Map } from "react-leaflet";
 import { CRS } from "leaflet";
 import L from 'leaflet'
 import img from '../../Data/Tiles/g.jpeg'
-
+import './styles/styles.css'
 
 export default function Cad() {
 
@@ -23,7 +23,7 @@ export default function Cad() {
     }, []);
   
     return (
-      <>
+      <div className='CAD-container'>
         <Map
           ref={mapRef}
           minZoom={0}
@@ -32,6 +32,6 @@ export default function Cad() {
           boundsOptions={{ padding: [50, 50] }}
           style={{ height: "100%" }}
         />
-      </>
+      </div>
     );
 }
