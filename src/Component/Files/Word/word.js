@@ -11,8 +11,8 @@ export default function Word(props) {
         <div className='Word'>
             <div>
                 <h5> Documented Reports</h5>
-                <div className='files-row'>{cards.map(item=>{
-                    return <FileCard handleClick={props.handleClick} title={item} fileType='word'/>
+                <div className='files-row'>{cards.map((item,index)=>{
+                    return <FileCard key={index} handleClick={props.handleClick} title={item} fileType='word'/>
                 })}
             </div>
         </div>

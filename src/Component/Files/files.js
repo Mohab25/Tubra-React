@@ -58,7 +58,7 @@ switch(view){
                         <div className='files-side'></div>
                         <div className='files-main-area'>
                             <form onSubmit={handleSubmit}>
-                            <input name='search' handleClick={handleChange} placeholder='search..'/>
+                            <input name='search' onClick={handleChange} placeholder='search..'/>
                             </form>
                             <Word cards={cards} handleClick={handleClick}/>
                             <Excel cards={cards} handleClick={handleClick}/>

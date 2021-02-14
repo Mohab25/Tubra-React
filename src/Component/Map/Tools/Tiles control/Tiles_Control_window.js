@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{Fragment, useState} from 'react'
 import  topo  from "./images/Topo.jpg";
 import  dark  from "./images/Dark.jpg";
 import  light  from "./images/Light.jpg";
@@ -8,10 +8,10 @@ export default function Tiles_control_window() {
     
     let [previewImages,setPreviewImages]=useState([dark,light,topo])
 
-    let previews = previewImages.map((image,index)=>{return(<>
-        <div key={index} className='preview-image' style={{backgroundImage:`url(${image})`}}></div>
+    let previews = previewImages.map((image,index)=>{return(<Fragment key={index}>
+        <div className='preview-image' style={{backgroundImage:`url(${image})`}}></div>
         <p className='preview-text'></p>
-        </>)})
+        </Fragment>)})
 
 
 

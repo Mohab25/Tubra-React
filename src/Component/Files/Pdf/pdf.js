@@ -9,8 +9,8 @@ export default function Pdf(props) {
         <div className='Pdf'>
             <div>
                 <h5> Documented Reports</h5>
-                <div className='files-row'>{cards.map(item=>{
-                    return <FileCard title={item} fileType='pdf' handleClick={props.handleClick}/>
+                <div className='files-row'>{cards.map((item,index)=>{
+                    return <FileCard key={index} title={item} fileType='pdf' handleClick={props.handleClick}/>
                 })}
             </div>
         </div>
