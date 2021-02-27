@@ -7,13 +7,16 @@ import ExcelDoc from './Excel/excel_page'
 import Pdf from './Pdf/pdf.js'
 import PdfDoc from './Pdf/pdf_page'
 import data from './files.json'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 
 export default function Files() {
     let [view,setView] = useState('Main')
+    // the cards here hold titles of the documents.
     let [cards,setCards]=useState(["Runway Report-1","Runway Report-2","Taxiway Report","Apron Report","Tarmac Report"])
-    
+    let [wordDocs,SetWordDocs] = useState([])
+    let [excelDocs,SetExcelDocs] = useState([])
+    let [pdfDocs,SetPdfDocs] = useState([])
     const handleChange=(e)=>{
         let matches = [] 
         // fetch. filter the response with regex, set state with the title of the filtered elem. 
@@ -23,9 +26,29 @@ export default function Files() {
                 if(item.Title.match(regx)){
                     matches.push(item.Title)
                 }
-            })            
+            })
+        // setting the cards according to the filter above. 
         setCards(matches)
     }
+
+    useEffect(()=>{
+        fetch('http://localhost:8000/Reports/word_docs/').then(res=>res.json()).then(
+            data=>{
+                SetWordDocs(data)
+            }
+        )
+        fetch('http://localhost:8000/Reports/excel_docs/').then(res=>res.json()).then(
+            data=>{
+                SetExcelDocs(data)
+            }
+        )
+        fetch('http://localhost:8000/Reports/pdf_docs/').then(res=>res.json()).then(
+            data=>{
+                SetPdfDocs(data)
+            }
+        )
+    },[])
+
 
     const handleSubmit=(e)=>{
         e.preventDefault()
@@ -39,11 +62,6 @@ export default function Files() {
             case 'pdf':{setView('pdf')};break;  
         }
     }
-
-
-
-
-
 
 
 switch(view){
@@ -60,9 +78,9 @@ switch(view){
                             <form onSubmit={handleSubmit}>
                             <input name='search' onClick={handleChange} placeholder='search..'/>
                             </form>
-                            <Word cards={cards} handleClick={handleClick}/>
-                            <Excel cards={cards} handleClick={handleClick}/>
-                            <Pdf cards={cards} handleClick={handleClick}/>
+                            <Word cards={wordDocs} handleClick={handleClick}/>
+                            <Excel cards={excelDocs} handleClick={handleClick}/>
+                            <Pdf cards={pdfDocs} handleClick={handleClick}/>
                         </div>
                     </div>
                     <p style={{marginTop:'250px',marginLeft:'250px'}}>Files</p>

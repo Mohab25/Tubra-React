@@ -12,7 +12,8 @@ export default function Word(props) {
             <div>
                 <h5> Documented Reports</h5>
                 <div className='files-row'>{cards.map((item,index)=>{
-                    return <FileCard key={index} handleClick={props.handleClick} title={item} fileType='word'/>
+                    let word_name = item.Name.substring(0,16)
+                    return <FileCard key={index} handleClick={props.handleClick} title={word_name} fileType='word'/>
                 })}
             </div>
         </div>
