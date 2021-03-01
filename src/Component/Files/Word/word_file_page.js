@@ -4,12 +4,11 @@ import './styles/styles2.css'
 
 export default function Word_file_page() {
     const [data,setData] = useState([])
-
     useEffect(()=>{
-        fetch('http://localhost:8000/Data/docx_test.json').then((res)=>res.json()).then(data=>setData(data))
+        //fetch('http://localhost:8000/Data/docx_test.json').then((res)=>res.json()).then(data=>setData(data))
     },[])
 
-
+    // constructing the actual file.
     let doc = data.map(elem=>{
         return(
         <>
@@ -19,6 +18,7 @@ export default function Word_file_page() {
         )
     })
 
+    // constructing the page body.
         return (
         <div className='files-viewer'>
             <div className='files-viewer-container'>
@@ -27,7 +27,6 @@ export default function Word_file_page() {
                     <form>
                     <input name='search' placeholder='search doc..'/>
                     </form>
-                    {doc}
                 </div>
             </div>
         </div>

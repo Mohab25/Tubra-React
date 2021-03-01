@@ -6,29 +6,30 @@ import Excel from './Excel/excel.js'
 import ExcelDoc from './Excel/excel_page'
 import Pdf from './Pdf/pdf.js'
 import PdfDoc from './Pdf/pdf_page'
-import data from './files.json'
 import {useState,useEffect} from 'react'
 
 
 export default function Files() {
     let [view,setView] = useState('Main')
     // the cards here hold titles of the documents.
-    let [cards,setCards]=useState(["Runway Report-1","Runway Report-2","Taxiway Report","Apron Report","Tarmac Report"])
     let [wordDocs,SetWordDocs] = useState([])
     let [excelDocs,SetExcelDocs] = useState([])
     let [pdfDocs,SetPdfDocs] = useState([])
-    const handleChange=(e)=>{
+    const handleChange=async (e)=>{
         let matches = [] 
         // fetch. filter the response with regex, set state with the title of the filtered elem. 
-            let regx = new RegExp(`${e.target.value}`,'gi')
-
-            data.filter(item=>{ 
-                if(item.Title.match(regx)){
-                    matches.push(item.Title)
-                }
-            })
+            // let regx = new RegExp(`${e.target.value}`,'gi')
+            // console.log(e.target.value)
+            // data.filter(item=>{ 
+            //     if(item.Title.match(regx)){
+            //         matches.push(item.Title)
+            //     }
+            // })
+      await  fetch(`http://localhost:8000/Reports?title=${e.target.value}/`).then(res=>res.json()).then(data=>matches=data)
         // setting the cards according to the filter above. 
-        setCards(matches)
+        for(let i of matches){
+            console.log(i)
+        }
     }
 
     useEffect(()=>{
@@ -76,7 +77,7 @@ switch(view){
                         <div className='files-side'></div>
                         <div className='files-main-area'>
                             <form onSubmit={handleSubmit}>
-                            <input name='search' onClick={handleChange} placeholder='search..'/>
+                            <input name='search' onChange={handleChange} placeholder='search..'/>
                             </form>
                             <Word cards={wordDocs} handleClick={handleClick}/>
                             <Excel cards={excelDocs} handleClick={handleClick}/>

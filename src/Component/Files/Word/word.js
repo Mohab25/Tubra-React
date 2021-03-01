@@ -5,7 +5,7 @@ import data from '../files.json'
 
 export default function Word(props) {
     let {cards} = props; 
-    
+    console.log(cards)
     return (
         <>
         <div className='Word'>
