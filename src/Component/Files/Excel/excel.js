@@ -11,7 +11,8 @@ export default function Excel(props) {
                 <h5> Documented Calcs</h5>
                 <div className='files-row'>{cards.map((item,index)=>{
                     let excel_name = item.Name.substring(0,16)
-                    return <FileCard key={index} title={excel_name} fileType='excel' handleClick={props.handleClick}/>
+                    let pk = item.pk
+                    return <FileCard key={index} title={excel_name} fileType='excel' pk={pk} handleClick={props.handleClick}/>
                 })}
             </div>
         </div>
