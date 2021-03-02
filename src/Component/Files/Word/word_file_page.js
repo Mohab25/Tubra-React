@@ -1,23 +1,16 @@
 import React from 'react'
-import { useState,useEffect } from "react";
 import './styles/styles2.css'
 
-export default function Word_file_page() {
-    const [data,setData] = useState([])
-    useEffect(()=>{
-        //fetch('http://localhost:8000/Data/docx_test.json').then((res)=>res.json()).then(data=>setData(data))
-    },[])
+export default function Word_file_page(props) {
+    let {title,content} = props
 
     // constructing the actual file.
-    let doc = data.map(elem=>{
-        return(
+    let doc = 
         <>
-            <h2 className='document-section-headers'>{elem.heading.replace('(This is Heading #H2)','')}</h2>
-            <p className='document-content'>{elem.content}</p>
-            </>
-        )
-    })
-
+            <h2 className='document-section-headers'>{title.replace('(This is Heading #H2)','')}</h2>
+            <p className='document-content'>{content}</p>
+        </>
+        
     // constructing the page body.
         return (
         <div className='files-viewer'>
@@ -27,6 +20,7 @@ export default function Word_file_page() {
                     <form>
                     <input name='search' placeholder='search doc..'/>
                     </form>
+                    {doc}
                 </div>
             </div>
         </div>

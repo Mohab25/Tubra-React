@@ -1,7 +1,6 @@
 import React from 'react'
 import './styles/styles.css'
 import FileCard from "../FileCard/fileCard.js";
-import data from '../files.json'
 
 export default function Word(props) {
     let {cards} = props; 
@@ -13,7 +12,8 @@ export default function Word(props) {
                 <h5> Documented Reports</h5>
                 <div className='files-row'>{cards.map((item,index)=>{
                     let word_name = item.Name.substring(0,16)
-                    return <FileCard key={index} handleClick={props.handleClick} title={word_name} fileType='word'/>
+                    let pk = item.pk
+                    return <FileCard key={index} handleClick={props.handleClick} title={word_name} pk={pk} fileType='word'/>
                 })}
             </div>
         </div>
