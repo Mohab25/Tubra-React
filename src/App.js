@@ -10,7 +10,7 @@ import  Product_Page from "./Component/Main";
 import Chart from './Component/Charts/charts'
 import Schedule from './Component/Schedules/schedules'
 import Map from './Component/Map/map'
-import CAD from './Component/CAD/cad'
+import CADS from './Component/CAD/cads'
 import Files from './Component/Files/files'
 
 
@@ -28,7 +28,7 @@ class App extends Component {
               <Route exact path='/schedule' component={Schedule}/>
               <Route exact path='/charts' component={Chart}/>
               <Route exact path='/map' component={Map}/>
-              <Route exact path='/cad' component={CAD}/>
+              <Route exact path='/cad' component={CADS}/>
               <Route exact path='/files' component={Files}/>
             </Switch>
           </Provider>

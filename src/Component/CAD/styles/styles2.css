@@ -1,0 +1,25 @@
+.CAD{
+    width: 100%;
+    height:100%; 
+
+}
+
+.CAD-container{
+    width: 100%;
+    height:100%; 
+    display:grid;
+    grid-template-columns: 25% 75%; 
+}
+
+.CAD-side{
+    height:100%; 
+    background-color: black;    
+}
+
+.CAD-main-area{
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
