@@ -15,8 +15,8 @@ export default function Files() {
     
     // holders for actual content coming from the backend.
     let [word_content,setWordContent] = useState({}) // this will be sent to the word_page component.
-    let [excel_content,setExcelContent] = useState({}) // this will be sent to the word_page component.
-
+    let [excel_content,setExcelContent] = useState({})
+    let [pdf_content,setPdfContent] = useState({})
     // the cards here hold titles of the documents.
     let [wordDocs,SetWordDocs] = useState([])
     let [excelDocs,SetExcelDocs] = useState([])
@@ -71,20 +71,20 @@ export default function Files() {
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
         console.log(pk)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
-        if(filetype=='word'){
-            await fetch(`http://localhost:8000/Reports/doc_content/${pk}/`).then(res=>res.json()).then(data=>{setWordContent(data)})
-        }
-
-        if(filetype=='excel'){
-            await fetch(`http://localhost:8000/Reports/doc_content/${pk}/`).then(res=>res.json()).then(data=>{setExcelContent(data)})
-        }
+            await fetch(`http://localhost:8000/Reports/doc_content/${pk}/`).then(res=>res.json()).then(data=>{
+            if(filetype=='word'){setWordContent(data)}    
+            else if(filetype=='excel'){setExcelContent(data)}    
+            else if(filetype=='pdf'){let pdf_path=data['path'];window.location.href = pdf_path;}    
+            
+                
+            })
         
-        
+          
         // setting up the views (main view or one of the detail views)
         switch(filetype){
             case 'word':{setView('word')};break;  
             case 'excel':{setView('excel')};break;  
-            case 'pdf':{setView('pdf')};break;  
+            //case 'pdf':{setView('pdf')};break;  
         }
     
     }
@@ -93,7 +93,7 @@ export default function Files() {
     switch(view){
         case 'word':{return(<WordDoc title={word_content.title} content={word_content.content}/>)};break;
         case 'excel':{return(<ExcelDoc title={excel_content.title} content={excel_content.content}/>)};break; 
-        case 'pdf':{return(<PdfDoc/>)};break;  
+        case 'pdf':{return(<PdfDoc title={pdf_content.title} url={pdf_content.url}/>)};break;  
         default:{
             return (
                 <>
