@@ -26,7 +26,7 @@ const mapRef = useRef(null);
     }, []);
   
     return (
-      <div className='CAD-container'>
+      <div className='Single-CAD-Drawing-Holder'>
         <Map
           ref={mapRef}
           minZoom={0}

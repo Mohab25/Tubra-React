@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{Fragment} from 'react'
 import './styles/styles2.css'
 import Cad_card from './cad_card.js'
 import CAD from './cad.js'
@@ -54,9 +54,9 @@ export default function CADS() {
         default:{
           let cads = CADDocs.map((item,index)=>{
             return(
-              <div key={index}>
+              <Fragment key={index}>
               <Cad_card handleClick={handleClick} title={item.Title} url={item.url} pk={item.id}/>
-              </div>
+              </Fragment>
             )
           })
             return (
@@ -68,7 +68,9 @@ export default function CADS() {
                                 <form onSubmit={handleSubmit}>
                                 <input name='search' placeholder='search..'/>
                                 </form>
+                                <div className='CAD-Cards-Holder'>
                                 {cads}
+                                </div>
                             </div>
                         </div>
                         <p style={{marginTop:'250px',marginLeft:'250px'}}>CAD</p>

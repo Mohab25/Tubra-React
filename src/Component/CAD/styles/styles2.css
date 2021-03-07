@@ -23,3 +23,8 @@
     overflow-y: auto;
 }
 
+.CAD-Cards-Holder{
+    display:grid; 
+    grid-template-columns: repeat(3,1fr);
+    margin-top:20px;
+}
