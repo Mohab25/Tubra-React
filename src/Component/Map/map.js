@@ -12,16 +12,21 @@ import aerodrome from '../../Data/Obeid_Airport.json'
 const {Overlay} = LayersControl 
 
 export default function MapComponent() {
-    const [mapCenter,setMapCenter] = useState([19.4344033,37.2383915])
-    let [zoom,setZoomLevel] = useState(10)
+    const [mapCenter,setMapCenter] = useState([19.43520370922581,37.23775744610511])
+    let [zoom,setZoomLevel] = useState(14)
     let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png')
     let [turfJSON,setTurfJSON] = useState()
     let mapRef = useRef();
-    let overlay_1_Ref = useRef()
+    let Aerodrome_entities_ref = useRef()
     let overlay_2_Ref = useRef()
+    let pavement_construction_ref = useRef()
     const [lineTest,setLineTest] =  useState({})          
     const [pointTest,setPointTest] = useState({})
     
+
+    // geojson of Aerodrome Entities
+    const [AerodromeEntities,setAerodromeEntitiesData] = useState([])
+
     // geojson about pavements constructions
     const [pavementsData, setPavementsData] = useState([])
 
@@ -51,6 +56,7 @@ export default function MapComponent() {
         // const binag = <Polygon pathOptions={{color:'orange'}} positions={polygon} />
         // //<GeoJSON data={binga} key={10} style={{color:'orange'}}/>
         // setLineTest(binag)
+        import_aerodrome_features()
         import_pavement_constructions()
     },[])
           
@@ -83,8 +89,13 @@ export default function MapComponent() {
     //     }
     // }
 
+    
+    const import_aerodrome_features=()=>{
+        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}}/>)})
+    }
+    
     const import_pavement_constructions=()=>{
-    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{console.log(data.features);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}}/>)})
+    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}}/>)})
     }
 
     // const handleClick=(e)=>{
@@ -142,9 +153,9 @@ export default function MapComponent() {
                 <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef}>
                     <LayersControl position='topleft' className='layers-control'>
                     <TileLayer url={tile}/>
-                    <Overlay name='Obeid Blocks'>
-                        <LayerGroup ref={overlay_1_Ref}>
-                        <GeoJSON data={city} key={1} style={{fillColor:'white',color:'none'}}/>
+                    <Overlay name='Aerodrome Entities'>
+                        <LayerGroup ref={Aerodrome_entities_ref}>
+                            {AerodromeEntities}
                         </LayerGroup>
                     </Overlay>
                     <Overlay name='Aerodrome'>
@@ -152,8 +163,13 @@ export default function MapComponent() {
                             <GeoJSON data={aerodrome} key={3} style={{fillColor:'red',color:'none',display:'none'}}/>
                         </LayerGroup> 
                     </Overlay>
-
-                    {pavementsData}
+                    
+                    <Overlay name='pavement construction'>
+                        <LayerGroup ref={pavement_construction_ref}>
+                            {pavementsData}
+                        </LayerGroup>
+                    </Overlay>
+                    
                     
                 </LayersControl>
                     
