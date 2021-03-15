@@ -4,10 +4,15 @@ import './styles/styles.css'
 import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup,Polyline,Polygon} from 'react-leaflet'
 import './leaflet/leaflet.css'
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
-import city from '../../Data/Obied_city.json'
-import streets from '../../Data/Obied_city_streets.json'
-import aerodrome from '../../Data/Obeid_Airport.json'
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet'
 
+// this is for maker to show up:
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
 
 const {Overlay} = LayersControl 
 
