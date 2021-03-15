@@ -6,7 +6,8 @@ import './leaflet/leaflet.css'
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import L from 'leaflet'
+import L, { FeatureGroup } from 'leaflet'
+import Modal from './Modal/modal'
 
 // this is for maker to show up:
 let DefaultIcon = L.icon({
@@ -37,6 +38,9 @@ export default function MapComponent() {
     const [pavementsData, setPavementsData] = useState([])
 
 
+    // what is shown on the modal 
+    const [entityModalData,setEntityModalData] = useState(null)
+
     /* Linear Measurements */
 
     const [linear_coords,setLinearCoords]=useState([])
@@ -66,7 +70,15 @@ export default function MapComponent() {
         import_pavement_constructions()
     },[])
           
-
+    // putting data to the modal 
+    // useEffect(()=>{
+    //     /* this will sense any change on the values provided in the list, 
+    //         if the change happened the data from the values will be sent to the modal
+    //     */
+    //    pavementsData.features.map(item=>{
+    //     setModalEntity(item.id)
+    //    })
+    // },[AerodromeEntities,pavementsData])
 
 
 
@@ -97,11 +109,26 @@ export default function MapComponent() {
 
     
     const import_aerodrome_features=()=>{
-        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}}/>)})
+        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)})
     }
     
     const import_pavement_constructions=()=>{
-    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}}/>)})
+    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
+    }
+
+    const onEachEntity=(feature,layer)=>{
+        //console.log('entity:',layer)
+        layer.on({
+            click: EntityModalSetter
+        })
+    }
+
+    const onEachPavementConstruction=(feature,layer)=>{
+        //console.log(feature)
+    }
+
+    const EntityModalSetter=(e)=>{
+        setEntityModalData(e.target.feature.properties)
     }
 
     // const handleClick=(e)=>{
@@ -173,7 +200,7 @@ export default function MapComponent() {
                     
                     
                 </LayersControl>
-                    
+                    {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                 </Map>
                 <MapToolsHolder turf_distance={turf_distance}/>
             </div>
