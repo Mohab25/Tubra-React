@@ -40,6 +40,7 @@ export default function MapComponent() {
 
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
+    const [pavementModalData,setPavementModalData] = useState(null)
 
     /* Linear Measurements */
 
@@ -124,11 +125,18 @@ export default function MapComponent() {
     }
 
     const onEachPavementConstruction=(feature,layer)=>{
-        //console.log(feature)
+        layer.on({
+            click:PavementModalSetter
+        })
+        
     }
 
     const EntityModalSetter=(e)=>{
         setEntityModalData(e.target.feature.properties)
+    }
+
+    const PavementModalSetter=(e)=>{
+        setPavementModalData(e.target.feature.properties)
     }
 
     // const handleClick=(e)=>{
@@ -201,6 +209,7 @@ export default function MapComponent() {
                     
                 </LayersControl>
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
+                    {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
                 <MapToolsHolder turf_distance={turf_distance}/>
             </div>
