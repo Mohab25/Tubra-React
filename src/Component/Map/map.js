@@ -13,6 +13,7 @@ let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow
 });
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const {Overlay} = LayersControl 
 
@@ -163,12 +164,7 @@ export default function MapComponent() {
                             {AerodromeEntities}
                         </LayerGroup>
                     </Overlay>
-                    <Overlay name='Aerodrome'>
-                        <LayerGroup ref={overlay_2_Ref}> 
-                            <GeoJSON data={aerodrome} key={3} style={{fillColor:'red',color:'none',display:'none'}}/>
-                        </LayerGroup> 
-                    </Overlay>
-                    
+
                     <Overlay name='pavement construction'>
                         <LayerGroup ref={pavement_construction_ref}>
                             {pavementsData}
