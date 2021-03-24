@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import Nav from './Component/NavCompound'
 import VerticalNav from './Component/VerticalNaV'
 import NotePane from './Component/NavCompound/Pane'
-import  Product_Page from "./Component/Main";
+import  Dashboard from "./Component/Dashboard";
 import Chart from './Component/Charts/charts'
 import Schedule from './Component/Schedules/schedules'
 import Map from './Component/Map/map'
@@ -24,7 +24,7 @@ class App extends Component {
         <VerticalNav/>
         <NotePane/>
             <Switch>
-              <Route exact path='/' component={Product_Page}/>
+              <Route exact path='/' component={Dashboard}/>
               <Route exact path='/schedule' component={Schedule}/>
               <Route exact path='/charts' component={Chart}/>
               <Route exact path='/map' component={Map}/>

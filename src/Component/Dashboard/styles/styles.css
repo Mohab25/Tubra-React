@@ -1,0 +1,21 @@
+.Dashboard{
+    width:100%; 
+    height:100%;
+}
+
+.Dashboard-container{
+    width:100%; 
+    height:100%;
+    display:flex;
+}
+
+.ganttChart-container{
+    flex-basis: 60%;
+}
+
+.Dashboard-pieCharts-container{
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
