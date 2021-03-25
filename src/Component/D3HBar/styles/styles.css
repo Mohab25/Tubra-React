@@ -1,0 +1,11 @@
+.x_axis line{
+    stroke:gainsboro
+}
+
+.x_axis path{
+    stroke:none
+}
+
+.x_axis text{
+    fill:grey
+}
