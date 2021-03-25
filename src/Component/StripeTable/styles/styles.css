@@ -1,0 +1,8 @@
+.table-striped>tbody>tr:nth-child(odd)>td{
+    background-color: black;
+    color:white
+}
+
+.table-striped>tbody>tr:nth-child(even)>td {
+    color:orange;
+ }
