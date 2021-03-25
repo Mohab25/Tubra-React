@@ -1,7 +1,7 @@
 .Dashboard{
     width:100%; 
     height:100%;
-    
+    background-color:#f7f7f7;
 }
 
 .Dashboard-container{
@@ -10,8 +10,13 @@
     display:flex;
 }
 
-.ganttChart-container{
-    flex-basis: 60%;
+.Dashboard-ganttChart-container{
+    flex-basis: 50%;
+    height:306px;
+    margin:10px 20px;
+    margin-left:90px; 
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
 }
 
 .Dashboard-pieCharts-container{
@@ -21,10 +26,11 @@
 }
 
 .Dashboard-PieChart-card-container{
-    height:fit-content;
-    margin:0px 10px; 
+    height: 306px;;
+    margin:10px 10px; 
     padding:20px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
 }
 
 .Dashboard-PieChart-card-container h4{

@@ -1,15 +1,27 @@
 // read Dashboard.md 
-import React from 'react'
+import React,{createRef,useState,useLayoutEffect} from 'react'
 import './styles/styles.css'
 import PieChart from '../D3Circle/D3Circle'
-
+import HorizontalBarChart from '../D3HBar/D3HBar'
 
 export default function Dashboard() {
+    let GunttContainerRef = createRef()
+    let [GunttContainerDimension,setGunttContainerDimension] = useState({x:0,y:0})
     
+    useLayoutEffect(()=>{
+        if(GunttContainerRef.current){
+            setGunttContainerDimension({
+                width:GunttContainerRef.current.clientWidth,
+                height:GunttContainerRef.current.clientHeight
+            })
+        }
+    },[])
     return (
         <div className='Dashboard' style={{width:'100%',height:'100%'}}>
             <div className='Dashboard-container' style={{width:'100%',height:'100%'}}>
-                <div className='ganttChart-container'></div>
+                <div className='Dashboard-ganttChart-container' ref={GunttContainerRef}>
+                    <HorizontalBarChart width={GunttContainerDimension.width} height={GunttContainerDimension.height}/>
+                </div>
                 <div className='Dashboard-pieCharts-container'>
                     <div className='Dashboard-PieChart-card-container'>
                         <h4>Overall progress</h4>
