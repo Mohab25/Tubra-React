@@ -2,7 +2,7 @@ import React from 'react'
 import './styles/styles2.css'
 export default function LinearMeasurePane(props) {
     return (
-        <div className='LinearMeasurePane'>
+        <div className='LinearMeasurePane' style={{display:props.display}}>
             <div className='LinearMeasurePaneContainer'>
                     <div className='linear-distance-input'>
                         <p>Distance:</p>

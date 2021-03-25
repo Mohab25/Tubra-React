@@ -44,7 +44,7 @@ export default function MapToolsPane(props) {
                     <div className='ToolsContainer'>
                         <Identify/>
                         <Search/>
-                        <Measure turf_distance={props.turf_distance}/>
+                        <Measure toggleLinearMeasurement={props.toggleLinearMeasurement}/>
                         <Buffer/>
                         <Path/>
                         <TilesControl toggleWindowVisibility={props.toggleWindowVisibility}/>
