@@ -5,7 +5,7 @@ import CAD from './cad.js'
 import {useState,useEffect} from 'react'
 
 
-export default function CADS() {
+export default function CADS(props) {
     // setting up the view (Main view which holds all file types, and specific views for specific CAD(actual reading views))
     let [view,setView] = useState('CADS')
     
@@ -62,10 +62,10 @@ export default function CADS() {
             return (
                 <>
                     <div className='CAD'>
-                        <div className='CAD-container'>
-                            <div className='CAD-side'></div>
+                        <div className='CAD-container' style={{display:props.CADContainerDisplay}}>
+                            <div className='CAD-side' style={{display:props.sidebarDisplay}}></div>
                             <div className='CAD-main-area'>
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} style={{display:props.formDisplay}}>
                                 <input name='search' placeholder='search..'/>
                                 </form>
                                 <div className='CAD-Cards-Holder'>
@@ -73,11 +73,18 @@ export default function CADS() {
                                 </div>
                             </div>
                         </div>
-                        <p style={{marginTop:'250px',marginLeft:'250px'}}>CAD</p>
                     </div>
                 </>
             )
         
         }
 }
+    }
+
+
+    CADS.defaultProps={
+        CADContainerDisplay:'grid',
+        sidebarDisplay:'',
+        formDisplay:''
+
     }
