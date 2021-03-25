@@ -53,17 +53,26 @@ export default function MapComponent() {
 
     const makeLinearMeasurement=(e)=>{
         if(linear_measure_is_on){
-            if(linear_coords==[]){
-                let first_pair = [e.lat,e.lng]
+            if(linear_coords.length==0){
+                console.log("it's empty ")
+                let first_pair = [e.latlng.lat,e.latlng.lng]
                 setLinearCoords(first_pair)
             }
             else{
                 let first_pairs = linear_coords
-                let second_paris = [e.lat,e.lng]
-                // call the api end point here 
-            }
-        }
+                let second_pairs = [e.latlng.lat,e.latlng.lng]
+                console.log("i'm here ")
+                fetch('http://localhost:8000/spatial_analysis/linear_measure/',{
+                    method:'POST',
+                    mode:'cors',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({coord1:first_pairs,coord2:second_pairs})
+            }).then(res=>res.json()).then(data=>console.log(data))
+            setLinearCoords([])
     }
+    }}
 
     useEffect(()=>{
         import_aerodrome_features()
@@ -104,7 +113,7 @@ export default function MapComponent() {
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
-                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef}>
+                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={makeLinearMeasurement}>
                     <LayersControl position='topleft' className='layers-control'>
                     <TileLayer url={tile}/>
                     <Overlay name='Aerodrome Entities'>
@@ -132,6 +141,3 @@ export default function MapComponent() {
 
 
 //ref={e => { this.mapInstance = e }}
-
-
-
