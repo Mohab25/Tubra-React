@@ -19,7 +19,7 @@ export default function D3HBar(props) {
         let g = svg.selectAll('g').data(data).enter().append('g').attr('width',props.width).attr('height',barHeight).attr('transform',function(d,index){return `translate(${props.marginHorizontal+props.axisHorizontalMargin},${index*(barHeight+barPadding)+barPadding})`})
         // get the label width so the bars are horizontally push by the value of the labels 
         let labelWidth=0
-        g.append('text').attr('x',0).attr('y',barHeight/2).attr('dy','0.35em').text(function(d){return d.label}).each(function(){labelWidth=this.getBBox().width})
+        g.append('text').attr('x',0).attr('y',barHeight/2).attr('dy','0.35em').attr('fill','white').text(function(d){return d.label}).each(function(){labelWidth=this.getBBox().width})
         g.append('rect').attr('height',barHeight).attr('width',function(d){return scale(d.value)}).attr('transform',`translate(${labelWidth},0)`).attr('fill','steelblue')
         // create the Axis 
         let x_axis_scale = window.d3.scaleLinear().domain([0,max]).range([0,props.width-props.marginHorizontal*2-labelWidth])

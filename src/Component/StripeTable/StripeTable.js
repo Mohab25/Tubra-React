@@ -1,9 +1,19 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
 export default function StripeTable() {
+
+    const randomDate=(start, end)=>{
+        let d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+    }
     
+    let dates=[[new Date(), new Date()],[new Date(), new Date()],[new Date(), new Date()],[new Date(), new Date()],[new Date(), new Date()]]
+
+    let [tabular,setTabular] = useState([]) 
+
     useEffect(()=>{
-        setTabular(<table style={{width:'100%',position:'relative',top:'38px'}}className='table table-striped'>    
+        
+        setTabular(<table style={{width:'100%',position:'relative',top:'38px'}}className='table table-striped table-dark'>    
         <thead className='thead-dark'>
             <tr>
                 <th>Phase Name</th>
@@ -14,25 +24,30 @@ export default function StripeTable() {
             </tr>
         </thead>
         <tbody>
-            {match.map((block,index)=>   
+            {dates.map((date,index)=>{
+            let d1 = randomDate(new Date(), new Date());
+            let d2 = randomDate(new Date(), new Date());
+            return(   
             <tr key={index}>
-                <td style={{fontFamily:'Cairo'}}>{block.properties.au_name}</td>
-                <td style={{fontFamily:'Cairo'}}>{block.properties.pau_name}</td>
-                <td style={{textAlign:'center',fontFamily:'Open Sans',fontSize:'19px'}}>{isNaN(parseInt(block.properties.census))?'No Data':parseInt(block.properties.census)}</td>
-                <td style={{textAlign:'center',fontFamily:'Open Sans',fontSize:'19px'}}>{isNaN(parseInt(block.properties.es1))?'No Data':parseInt(block.properties.es1)}</td>
-                <td style={{textAlign:'center',fontFamily:'Open Sans',fontSize:'19px'}}>{isNaN(parseInt(block.properties.es2))?'No Data':parseInt(block.properties.es2)}</td>
+                <td style={{fontFamily:'Open Sans',fontSize:'15px'}}>Phase{index}</td>
+                <td style={{fontFamily:'Open Sans',fontSize:'15px'}}>{d1}</td>
+                <td style={{fontFamily:'Open Sans',fontSize:'15px'}}>{d2}</td>
+                <td style={{fontFamily:'Open Sans',fontSize:'15px'}}>M.Mohsin Shagar</td>
+                <td style={{fontFamily:'Open Sans',fontSize:'15px'}}></td>
             </tr>)
+            }
+            )
 
             }
         </tbody>
     </table>)
 
-    },[match])
+    },[])
     
     
     return (
-        <div className>
-            
+        <div className=''>
+            {tabular}
         </div>
     )
 }

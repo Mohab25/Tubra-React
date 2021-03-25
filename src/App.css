@@ -4,7 +4,7 @@
 }
 body{
     overflow-x: hidden;   /* for some reason the browser adds scrolls, prevented here */
-    overflow-y: hidden;
+    
 }
 /* Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap');
