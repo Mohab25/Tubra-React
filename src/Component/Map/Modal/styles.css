@@ -16,6 +16,7 @@
     margin:60px auto;
     box-shadow: rgba(0,0,0,0.5);
     background-color: white;  
+    overflow-y: auto;
 
 }
 
