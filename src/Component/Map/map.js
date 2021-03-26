@@ -29,7 +29,8 @@ export default function MapComponent() {
     let pavement_construction_ref = useRef()
     const [lineTest,setLineTest] =  useState({})          
     const [pointTest,setPointTest] = useState({})
-    
+     // Distance from the database 
+    const [Calculated_distance,setCalculatedDistance] = useState(0)
 
     // geojson of Aerodrome Entities
     const [AerodromeEntities,setAerodromeEntitiesData] = useState([])
@@ -54,14 +55,14 @@ export default function MapComponent() {
     const makeLinearMeasurement=(e)=>{
         if(linear_measure_is_on){
             if(linear_coords.length==0){
-                console.log("it's empty ")
-                let first_pair = [e.latlng.lat,e.latlng.lng]
+                // the decimal degrees from leaflet comes with 14 decimal places, limit it to 6
+                let first_pair = [parseFloat(e.latlng.lat.toFixed(6)),parseFloat(e.latlng.lng.toFixed(6))]
                 setLinearCoords(first_pair)
             }
             else{
                 let first_pairs = linear_coords
-                let second_pairs = [e.latlng.lat,e.latlng.lng]
-                console.log("i'm here ")
+                let second_pairs = [parseFloat(e.latlng.lat.toFixed(6)),parseFloat(e.latlng.lng.toFixed(6))]
+                console.log(first_pairs,second_pairs)
                 fetch('http://localhost:8000/spatial_analysis/linear_measure/',{
                     method:'POST',
                     mode:'cors',
@@ -69,7 +70,7 @@ export default function MapComponent() {
                         'Content-Type':'application/json'
                     },
                     body:JSON.stringify({coord1:first_pairs,coord2:second_pairs})
-            }).then(res=>res.json()).then(data=>console.log(data))
+            }).then(res=>res.json()).then(data=>setCalculatedDistance(data*111.32*1000))
             setLinearCoords([])
     }
     }}
@@ -133,7 +134,7 @@ export default function MapComponent() {
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement}/>
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance}/>
             </div>
         </div>
     )

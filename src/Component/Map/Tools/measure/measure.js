@@ -27,7 +27,7 @@ export default function Measure(props) {
                 </div>
             </div>
         </div>
-        <LinearMeasurePane display={LinearMeasurePaneDisplay} turf_distance={props.turf_distance}/>
+        <LinearMeasurePane display={LinearMeasurePaneDisplay} distance={props.distance}/>
         </>
     )
 }

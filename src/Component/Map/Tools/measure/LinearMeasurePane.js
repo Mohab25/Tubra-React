@@ -6,11 +6,11 @@ export default function LinearMeasurePane(props) {
             <div className='LinearMeasurePaneContainer'>
                     <div className='linear-distance-input'>
                         <p>Distance:</p>
-                        <input value={props.turf_distance}/>
+                        <input value={props.distance.toFixed(3)} readOnly={true}/>
                     </div>
                     <div className='linear-units-input'>
                         <p>Units:</p>
-                        <input/>
+                        <input value='Meters' readOnly={true}/>
                     </div>
             </div>
         </div>
