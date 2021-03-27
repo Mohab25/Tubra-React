@@ -109,7 +109,6 @@ export default function Files() {
                                 <Pdf cards={pdfDocs} handleClick={handleClick}/>
                             </div>
                         </div>
-                        <p style={{marginTop:'250px',marginLeft:'250px'}}>Files</p>
                     </div>
                 </>
             )

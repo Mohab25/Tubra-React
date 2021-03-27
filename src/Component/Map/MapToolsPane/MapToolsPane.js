@@ -45,7 +45,7 @@ export default function MapToolsPane(props) {
                         <Identify/>
                         <Search/>
                         <Measure toggleLinearMeasurement={props.toggleLinearMeasurement} distance={props.distance}/>
-                        <Buffer/>
+                        <Buffer activateBuffer={props.activateBuffer}/>
                         <Path/>
                         <TilesControl toggleWindowVisibility={props.toggleWindowVisibility}/>
                     </div>

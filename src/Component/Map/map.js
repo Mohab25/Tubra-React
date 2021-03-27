@@ -37,7 +37,7 @@ export default function MapComponent() {
 
     // geojson about pavements constructions
     const [pavementsData, setPavementsData] = useState([])
-
+    const [pavementJSONData,reservePavementData]=useState([])
 
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
@@ -46,8 +46,12 @@ export default function MapComponent() {
     /* Linear Measurements */
     const [linear_measure_is_on,toggle_linear_measure] = useState(false)
     const [linear_coords,setLinearCoords]=useState([])
-    const [turf_distance,getTurfDistance] = useState(0)
+    
+    /* Buffer creation */
+    const [isBufferActivated,setBufferActive] = useState(false)
 
+
+/***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
         linear_measure_is_on==false?toggle_linear_measure(true):toggle_linear_measure(false)
     }
@@ -62,7 +66,6 @@ export default function MapComponent() {
             else{
                 let first_pairs = linear_coords
                 let second_pairs = [parseFloat(e.latlng.lat.toFixed(6)),parseFloat(e.latlng.lng.toFixed(6))]
-                console.log(first_pairs,second_pairs)
                 fetch('http://localhost:8000/spatial_analysis/linear_measure/',{
                     method:'POST',
                     mode:'cors',
@@ -75,19 +78,68 @@ export default function MapComponent() {
     }
     }}
 
+
+    let activateBuffer=()=>{
+        isBufferActivated?setBufferActive(false):setBufferActive(true)
+    }
+
+    let createBuffer=()=>{
+        /* this takes a geometry and pass it to the backend. */
+        /*
+        1. when the user clicks prevent the modal if the buffer is activated
+        2. get the the geom and pass it.  
+        */
+    }
+
+
+/**********************************Geometry Creation****************************** */
+    // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
+
+
+    let createPolygon=()=>{
+        /* takes a group of coords and pass it to the backend, then receive a geometry 
+         and pass it as a geojson object to the map, the problematic part is keep 
+         tracking of the geometry being created.
+         */
+        
+
+    }
+
+    let createLine=()=>{
+
+    }
+
+    let createPoint=()=>{
+
+    }
+
+
     useEffect(()=>{
         import_aerodrome_features()
         import_pavement_constructions()
     },[])
-    
+
+    const onEachPavementConstruction=(feature,layer)=>{
+        let bufferState = isBufferActivated
+        layer.on({
+            click:function(e){
+                bufferState==false?setPavementModalData(e.target.feature.properties):console.log('') // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+            }
+        })
+        
+    }
+
+
     
     const import_aerodrome_features=()=>{
         fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)})
     }
     
     const import_pavement_constructions=()=>{
-    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
+    fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
     }
+
+    useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)},[isBufferActivated])
 
     const onEachEntity=(feature,layer)=>{
         //console.log('entity:',layer)
@@ -96,21 +148,10 @@ export default function MapComponent() {
         })
     }
 
-    const onEachPavementConstruction=(feature,layer)=>{
-        layer.on({
-            click:PavementModalSetter
-        })
-        
-    }
-
     const EntityModalSetter=(e)=>{
         setEntityModalData(e.target.feature.properties)
     }
 
-    const PavementModalSetter=(e)=>{
-        setPavementModalData(e.target.feature.properties)
-    }
-    console.log('is linear measurement is on?',linear_measure_is_on)
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
@@ -134,7 +175,7 @@ export default function MapComponent() {
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance}/>
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer}/>
             </div>
         </div>
     )

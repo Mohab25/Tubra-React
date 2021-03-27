@@ -13,7 +13,6 @@ import Map from './Component/Map/map'
 import CADS from './Component/CAD/cads'
 import Files from './Component/Files/files'
 
-
 class App extends Component {
   render(){
     return(
