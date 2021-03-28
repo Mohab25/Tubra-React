@@ -8,6 +8,8 @@ import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import {divIcon } from 'leaflet'
 import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
+import Legend from './Legend/Legend'
+
 
 const {Overlay} = LayersControl 
 
@@ -48,6 +50,9 @@ export default function MapComponent() {
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
     const [Markers,setMarkers] = useState([])
+
+    /*Legend */
+    const [legend,setLegendNames]=useState([])
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -140,7 +145,7 @@ export default function MapComponent() {
             if(item.geometry.type!='Point'){return item}
             else {points_only.push(item)}
         })
-        setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)
+        setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'green'}} onEachFeature={onEachEntity}/>)
         reserveAerodromeData(filtered_data_without_points);
         setPointsMarkers(points_only)
     })
@@ -152,7 +157,7 @@ export default function MapComponent() {
     }
 
     useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
-                   setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'orange'}} onEachFeature={onEachEntity}/>)
+                   setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'green'}} onEachFeature={onEachEntity}/>)
             },[isBufferActivated])
     const onEachPavementConstruction=(feature,layer)=>{
         layer.on({
@@ -196,6 +201,19 @@ useEffect(()=>{
             return <Marker icon={item} position={[pos[1],pos[0]]} key={Math.random()}/>
     })
     setMarkers(markers)
+
+    //also you can account for the legend names here, as the legend names should be unique
+    let legend_names = PointsMarkers.map(item=>item.properties.Feature_Name)
+    let unique_names = legend_names.filter((value,index,self)=>{
+        return self.indexOf(value) === index;
+    })
+    let Legend_names_object = {}
+    unique_names.map(item=>{
+        Legend_names_object[item.slice(0,1)]=item
+    })
+    setLegendNames(Legend_names_object)
+
+
 },[PointsMarkers])
 
 
@@ -225,6 +243,7 @@ useEffect(()=>{
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
                 <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer}/>
+                <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
             </div>
         </div>
     )
