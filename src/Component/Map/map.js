@@ -1,20 +1,13 @@
 import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {useState,useEffect,useRef} from 'react'
 import './styles/styles.css'
-import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup,Polyline,Polygon} from 'react-leaflet'
+import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup,Polyline,Polygon,Marker} from 'react-leaflet'
 import './leaflet/leaflet.css'
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import L, { FeatureGroup } from 'leaflet'
+import {divIcon } from 'leaflet'
 import Modal from './Modal/modal'
-
-// this is for maker to show up:
-let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow
-});
-L.Marker.prototype.options.icon = DefaultIcon;
+import './MakerIcon/styles/styles.css'
 
 const {Overlay} = LayersControl 
 
@@ -51,6 +44,10 @@ export default function MapComponent() {
     /* Buffer creation */
     const [isBufferActivated,setBufferActive] = useState(false)
     const [buffer_ob,setBufferOb] = useState()
+
+    /* filtered points for custom markers */ 
+    const [PointsMarkers,setPointsMarkers] = useState([])
+    const [Markers,setMarkers] = useState([])
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -137,7 +134,17 @@ export default function MapComponent() {
     },[])
     
     const import_aerodrome_features=()=>{
-        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{console.log('do i get the geom?:',data);reserveAerodromeData(data);setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)})
+        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
+        let points_only=[]
+        let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
+            if(item.geometry.type!='Point'){return item}
+            else {points_only.push(item)}
+        })
+        setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)
+        reserveAerodromeData(filtered_data_without_points);
+        setPointsMarkers(points_only)
+    })
+        
     }
     
     const import_pavement_constructions=()=>{
@@ -164,6 +171,34 @@ export default function MapComponent() {
         })
     }
 
+/***********************Custom Marker Filtering *******************************/
+
+useEffect(()=>{
+    if(PointsMarkers.length==0){return}
+    let points_icons = PointsMarkers.map((item,index)=>{
+        return(
+            renderToStaticMarkup(        
+                <div className='Maker-icon'>
+                <div className='Marker-icon-container'>
+                    <p>{item.properties.Feature_Name.slice(0,1)}</p>
+                </div>
+                </div>)
+        )
+    })
+    let icons = points_icons.map((item,index)=>{
+        return divIcon({
+                html: item,
+          });
+    })
+    
+    let markers = icons.map((item,index)=>{
+            let pos = PointsMarkers[index].geometry.coordinates
+            return <Marker icon={item} position={[pos[1],pos[0]]} key={Math.random()}/>
+    })
+    setMarkers(markers)
+},[PointsMarkers])
+
+
 /****************************** Rendering  *********************************/
     return (
         <div className='Map-outer-container'>
@@ -173,6 +208,7 @@ export default function MapComponent() {
                     <TileLayer url={tile}/>
                     <Overlay name='Aerodrome Entities'>
                         <LayerGroup ref={Aerodrome_entities_ref}>
+                            {Markers}
                             {AerodromeEntities}
                         </LayerGroup>
                     </Overlay>

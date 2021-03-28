@@ -27,7 +27,7 @@ export default function Buffer(props) {
         </div>
         <BufferPane display={bufferPaneDisplay}/>
         <BufferParametersPane/>
-        <Tooltip display={toolTipDisplay} name='route'/>
+        <Tooltip display={toolTipDisplay} name='buffer'/>
         </>
     )
 }
