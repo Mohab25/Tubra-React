@@ -1,0 +1,16 @@
+.ToolTip{
+}
+
+.Tooltip-container{
+    width:fit-content;
+    height: fit-content;
+    padding: 5px 20px;
+    padding-bottom:0px ;
+    background-color: rgba(0,0,0,0.5);
+    color:white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:relative; 
+    right:100px;
+}

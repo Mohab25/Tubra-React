@@ -19,13 +19,13 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const {Overlay} = LayersControl 
 
 export default function MapComponent() {
+
+/****************************State Variables  *************************************/
     const [mapCenter,setMapCenter] = useState([19.43520370922581,37.23775744610511])
     let [zoom,setZoomLevel] = useState(14)
     let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png')
-    let [turfJSON,setTurfJSON] = useState()
     let mapRef = useRef();
     let Aerodrome_entities_ref = useRef()
-    let overlay_2_Ref = useRef()
     let pavement_construction_ref = useRef()
     const [lineTest,setLineTest] =  useState({})          
     const [pointTest,setPointTest] = useState({})
@@ -34,6 +34,7 @@ export default function MapComponent() {
 
     // geojson of Aerodrome Entities
     const [AerodromeEntities,setAerodromeEntitiesData] = useState([])
+    const [AerodromeJSONData,reserveAerodromeData] = useState([])
 
     // geojson about pavements constructions
     const [pavementsData, setPavementsData] = useState([])
@@ -49,7 +50,7 @@ export default function MapComponent() {
     
     /* Buffer creation */
     const [isBufferActivated,setBufferActive] = useState(false)
-
+    const [buffer_ob,setBufferOb] = useState()
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -83,12 +84,25 @@ export default function MapComponent() {
         isBufferActivated?setBufferActive(false):setBufferActive(true)
     }
 
-    let createBuffer=()=>{
+    let createBuffer=(json_geom)=>{
         /* this takes a geometry and pass it to the backend. */
         /*
         1. when the user clicks prevent the modal if the buffer is activated
         2. get the the geom and pass it.  
         */
+       fetch('http://localhost:8000/spatial_analysis/make_buffer/',{
+        method:'POST',
+        mode:'cors',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(json_geom)
+       }).then(res=>res.json()).then(data=>load_buffer(data))
+    }
+
+    const load_buffer=(buffer_geojson)=>{
+        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_geojson} style={{color:'green'}}/>
+        setBufferOb(geojson_ob) 
     }
 
 
@@ -101,7 +115,6 @@ export default function MapComponent() {
          and pass it as a geojson object to the map, the problematic part is keep 
          tracking of the geometry being created.
          */
-        
 
     }
 
@@ -114,44 +127,44 @@ export default function MapComponent() {
     }
 
 
+
+
+
+/*****************************Getting the data from Backend *****************8*/
     useEffect(()=>{
         import_aerodrome_features()
         import_pavement_constructions()
     },[])
-
-    const onEachPavementConstruction=(feature,layer)=>{
-        let bufferState = isBufferActivated
-        layer.on({
-            click:function(e){
-                bufferState==false?setPavementModalData(e.target.feature.properties):console.log('') // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
-            }
-        })
-        
-    }
-
-
     
     const import_aerodrome_features=()=>{
-        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)})
+        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{console.log('do i get the geom?:',data);reserveAerodromeData(data);setAerodromeEntitiesData(<GeoJSON data={data.features} key={3} style={{color:'orange'}} onEachFeature={onEachEntity}/>)})
     }
     
     const import_pavement_constructions=()=>{
     fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
     }
 
-    useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)},[isBufferActivated])
+    useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
+                   setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'orange'}} onEachFeature={onEachEntity}/>)
+            },[isBufferActivated])
+    const onEachPavementConstruction=(feature,layer)=>{
+        layer.on({
+            click:function(e){
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):console.log('') // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+            }
+        })
+        
+    }
 
     const onEachEntity=(feature,layer)=>{
-        //console.log('entity:',layer)
         layer.on({
-            click: EntityModalSetter
+            click:function(e){ 
+            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':0.05})
+        }
         })
     }
 
-    const EntityModalSetter=(e)=>{
-        setEntityModalData(e.target.feature.properties)
-    }
-
+/****************************** Rendering  *********************************/
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
@@ -169,7 +182,7 @@ export default function MapComponent() {
                             {pavementsData}
                         </LayerGroup>
                     </Overlay>
-                    
+                    {buffer_ob}
                     
                 </LayersControl>
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}

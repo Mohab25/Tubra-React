@@ -1,7 +1,11 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './styles/styles.css'
+import Tooltip from '../../../Tooltips/Tooltips'
 
-export default function tiles(props) {
+export default function Tiles(props) {
+
+    // handle toolTips here
+    const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
 
     let toggleWindowVisibility=()=>{
         props.toggleWindowVisibility()
@@ -9,7 +13,7 @@ export default function tiles(props) {
 
 
     return (
-    <div className='tiles' onClick={toggleWindowVisibility}>
+    <div className='tiles' onClick={toggleWindowVisibility} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
         <div className='tiles-container'>
             <div className='tiles-box'>
                 <div>
@@ -17,6 +21,7 @@ export default function tiles(props) {
                 </div>
             </div>
         </div>
+        <Tooltip display={toolTipDisplay} name='tiles'/>
     </div>
     )
 }

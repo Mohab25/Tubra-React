@@ -1,12 +1,18 @@
 import React,{useState} from 'react'
 import './styles/styles.css'
 import LinearMeasurePane from './LinearMeasurePane'
+import Tooltip from '../../../Tooltips/Tooltips'
 
 export default function Measure(props) {
     
     const [MeasureToolColor,setMeasureToolColor] = useState('orange')
     const [LinearMeasurePaneDisplay,setLinearMeasurePaneDisplay] = useState('none')
 
+    // handle toolTips here
+    const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
+    
+    
+    
     const toggleMeasureToolColor=()=>{
         MeasureToolColor=='orange'?setMeasureToolColor('orangered'):setMeasureToolColor('orange')
     }
@@ -18,7 +24,7 @@ export default function Measure(props) {
 
     return (
         <>
-        <div className='measure' onClick={()=>{toggleMeasureToolColor();toggleLinearMeasurePaneDisplay();props.toggleLinearMeasurement()}} style={{backgroundColor:MeasureToolColor}}>
+        <div className='measure' onClick={()=>{toggleMeasureToolColor();toggleLinearMeasurePaneDisplay();props.toggleLinearMeasurement()}} style={{backgroundColor:MeasureToolColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
             <div className='measure-container'>
                 <div className='measure-box'>
                     <div>
@@ -28,6 +34,7 @@ export default function Measure(props) {
             </div>
         </div>
         <LinearMeasurePane display={LinearMeasurePaneDisplay} distance={props.distance}/>
+        <Tooltip display={toolTipDisplay} name='measure'/>
         </>
     )
 }
