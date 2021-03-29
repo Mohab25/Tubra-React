@@ -10,11 +10,13 @@ export default function SearchResultsHolder(props) {
     const [lineBufferOptionColor,setLineBufferOptionColor] = useState('orange')
     const [polygonBufferOptionColor,setPolygonBufferOptionColor] = useState('orange')
     const [itemBufferOptionColor,setItemBufferOptionColor] = useState('orange')
-
+    const [pointerStyle,setPointerStyle] = useState('cursor')
     const handlePointBufferClick=()=>{
         pointBufferOptionColor=='orange'?setPointBufferOptionColor('orangered'):setPointBufferOptionColor('orange')
-        document.body.style.cursor='crosshair';
+        pointerStyle=='crosshair'?setPointerStyle('default'):setPointerStyle('crosshair')
     }
+    document.body.style.cursor=pointerStyle
+
     const handleLineBufferClick=()=>{
         lineBufferOptionColor=='orange'?setLineBufferOptionColor('orangered'):setLineBufferOptionColor('orange')
     }

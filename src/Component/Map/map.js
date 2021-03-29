@@ -1,6 +1,7 @@
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {useState,useEffect,useRef} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import './styles/styles.css'
 import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup,Polyline,Polygon,Marker} from 'react-leaflet'
 import './leaflet/leaflet.css'
@@ -9,7 +10,8 @@ import {divIcon } from 'leaflet'
 import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
 import Legend from './Legend/Legend'
-
+import toggleGeometryCreationFormVisibility from '../../Actions/GeometryCreation/ShowHideCreationForm'
+import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 
 const {Overlay} = LayersControl 
 
@@ -53,6 +55,10 @@ export default function MapComponent() {
 
     /*Legend */
     const [legend,setLegendNames]=useState([])
+
+    /* Geometry Creation */
+    const GeometryActionDispatch = useDispatch()
+
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -124,10 +130,12 @@ export default function MapComponent() {
 
     }
 
-    let createPoint=()=>{
-
+    let createPoint=(e)=>{
+        /* what is need to create a point geometry is to get the coords, and send them
+            to the backend, where the geometry will be created.  
+        */
+            GeometryActionDispatch(toggleGeometryCreationFormVisibility())
     }
-
 
 
 
@@ -221,7 +229,7 @@ useEffect(()=>{
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
-                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={makeLinearMeasurement}>
+                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?createPoint:makeLinearMeasurement}>
                     <LayersControl position='topleft' className='layers-control'>
                     <TileLayer url={tile}/>
                     <Overlay name='Aerodrome Entities'>
@@ -242,8 +250,9 @@ useEffect(()=>{
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer}/>
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer} createPoint={createPoint}/>
                 <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
+                <GeometryCreationModal/>
             </div>
         </div>
     )

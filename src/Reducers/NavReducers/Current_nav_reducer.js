@@ -1,5 +1,6 @@
 import { CHANGECURRENTNAVNAME } from "../../Actions/NavActions/types";
 import {CHANGECURRENTNAVLOGO } from "../../Actions/NavActions/types";
+
 const initialState={
     current_name:'Main',
     logo:'fa fa-home'
