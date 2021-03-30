@@ -118,11 +118,13 @@ export default function MapComponent() {
     // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
 
 
-    let createPolygon=()=>{
+    let createPolygon=(e)=>{
         /* takes a group of coords and pass it to the backend, then receive a geometry 
          and pass it as a geojson object to the map, the problematic part is keep 
          tracking of the geometry being created.
-         */
+         */ 
+         // create a Geojson from the data json 
+         // add it to the points 
 
     }
 
@@ -134,8 +136,29 @@ export default function MapComponent() {
         /* what is need to create a point geometry is to get the coords, and send them
             to the backend, where the geometry will be created.  
         */
-            GeometryActionDispatch(toggleGeometryCreationFormVisibility())
-    }
+        
+        /*
+            who to redraw GeoJSON:
+
+        */
+            
+            //GeometryActionDispatch(toggleGeometryCreationFormVisibility())
+            
+            if(PointsMarkers.length!==0){
+            console.log('am here~')
+            console.log(e.latlng)
+            //let points=PointsMarkers if you do like this, it will point to the same array 
+            let points = [...PointsMarkers]
+            console.log(points)
+            const json_point = { "type": "Feature", "properties": {'Feature_Name':'Random Point'}, "geometry": { "type": "Point", "coordinates":[e.latlng.lng,e.latlng.lat]}}           
+            points.push(json_point)
+            console.log(points)
+            setPointsMarkers(points)
+            }
+    
+
+
+        }
 
 
 
@@ -187,6 +210,7 @@ export default function MapComponent() {
 /***********************Custom Marker Filtering *******************************/
 
 useEffect(()=>{
+    console.log('is the change sensed ?')
     if(PointsMarkers.length==0){return}
     let points_icons = PointsMarkers.map((item,index)=>{
         return(

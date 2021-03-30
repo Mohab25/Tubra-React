@@ -12,15 +12,17 @@ export default function GeometryCreationForm(props) {
         <div>
             <form className='creation-form'>
                 {titles.form_titles.length==0?<></>:
+                
                 titles.form_titles.map((item,index)=>{
                     return(
-                        <div key={index}>
-                            <h3>{item}</h3>
+                        <div key={index} className='creation-form-fields-holder'>
+                            <h5>{item}</h5>
                             <input />
                         </div>
                     )
                 })
                 }
+                <div className='creation-form-button-holder'><button className='creation-form-button'>Submit</button></div>
             </form>        
         </div>
     )
