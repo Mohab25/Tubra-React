@@ -34,7 +34,7 @@ export default function Measure(props) {
             </div>
         </div>
         <LinearMeasurePane display={LinearMeasurePaneDisplay} distance={props.distance}/>
-        <Tooltip display={toolTipDisplay} name='measure'/>
+        <Tooltip display={toolTipDisplay} name='measure' toolIndex={3}/>
         </>
     )
 }

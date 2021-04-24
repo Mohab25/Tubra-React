@@ -6,4 +6,4 @@ const toggleGeometryCreationFormVisibility=()=>dispatch=>{
     })
 }
 
-export default toggleGeometryCreationFormVisibility
+export default toggleGeometryCreationFormVisibility;

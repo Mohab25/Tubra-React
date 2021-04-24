@@ -11,6 +11,7 @@ import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
 import Legend from './Legend/Legend'
 import toggleGeometryCreationFormVisibility from '../../Actions/GeometryCreation/ShowHideCreationForm'
+import prePopulateGeometry from '../../Actions/GeometryCreation/GeometryCreation'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 
 const {Overlay} = LayersControl 
@@ -58,7 +59,7 @@ export default function MapComponent() {
 
     /* Geometry Creation */
     const GeometryActionDispatch = useDispatch()
-
+    const GeometryDispatch = useDispatch()
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -89,11 +90,12 @@ export default function MapComponent() {
 
 
     let activateBuffer=()=>{
+        // simple action of buffer activation (toggling the state). 
         isBufferActivated?setBufferActive(false):setBufferActive(true)
     }
 
     let createBuffer=(json_geom)=>{
-        /* this takes a geometry and pass it to the backend. */
+        /* this takes a geometry and pass it to the backend (calling the ST_MakeBuffer). */
         /*
         1. when the user clicks prevent the modal if the buffer is activated
         2. get the the geom and pass it.  
@@ -141,29 +143,28 @@ export default function MapComponent() {
             who to redraw GeoJSON:
 
         */
-            
-            //GeometryActionDispatch(toggleGeometryCreationFormVisibility())
-            
+            // calling redux to open the Modal. 
+            GeometryActionDispatch(toggleGeometryCreationFormVisibility())
+            // you need to get the data from creation form... it goes as useSelector and sense the change on redux store, update the state and use the updated state to complete the geometry creation.  
+            let json_point=''
             if(PointsMarkers.length!==0){
-            console.log('am here~')
-            console.log(e.latlng)
-            //let points=PointsMarkers if you do like this, it will point to the same array 
+            //spread the PointsMarkers array and add a jon point to it.  
             let points = [...PointsMarkers]
-            console.log(points)
-            const json_point = { "type": "Feature", "properties": {'Feature_Name':'Random Point'}, "geometry": { "type": "Point", "coordinates":[e.latlng.lng,e.latlng.lat]}}           
+            json_point = { "type": "Feature", "properties": {'Feature_Name':'Random Point'}, "geometry": { "type": "Point", "coordinates":[e.latlng.lng,e.latlng.lat]}}           
             points.push(json_point)
-            console.log(points)
             setPointsMarkers(points)
             }
     
-
+            // also because the geometry is not defined in the form, it needs to be dispatched from here
+            console.log('the json points:',json_point)
+            GeometryDispatch(prePopulateGeometry(json_point))
 
         }
 
 
 
 
-/*****************************Getting the data from Backend *****************8*/
+/*****************************Getting the Aerodrome Geometric data from Backend ************************************/
     useEffect(()=>{
         import_aerodrome_features()
         import_pavement_constructions()
@@ -210,7 +211,6 @@ export default function MapComponent() {
 /***********************Custom Marker Filtering *******************************/
 
 useEffect(()=>{
-    console.log('is the change sensed ?')
     if(PointsMarkers.length==0){return}
     let points_icons = PointsMarkers.map((item,index)=>{
         return(

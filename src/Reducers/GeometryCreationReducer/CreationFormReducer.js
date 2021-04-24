@@ -1,7 +1,9 @@
 import {SHOWHIDECREATIONFORM} from '../../Actions/GeometryCreation/types'
+import {GETGEOMTERY} from '../../Actions/GeometryCreation/types'
 
 const initialState = {
-    display:'none'
+    display:'none',
+    geom:''
 }
 
 export default function CreationFormReducer(state=initialState,action){
@@ -12,6 +14,10 @@ export default function CreationFormReducer(state=initialState,action){
                 ...state,
                 display:dis
             }
+        case GETGEOMTERY:return{
+            ...state, 
+            geom:action.payload
+        }
         default:return state
     }
 }
