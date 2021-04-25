@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import './styles/styles.css'
-import BufferPane from './BufferPane'
 import BufferParametersPane from './BufferParametersPane/BufferParametersPane'
 import Tooltip from '../../../../Tooltips/Tooltips'
 
@@ -10,8 +9,9 @@ export default function Buffer(props) {
     const [bufferToolDisplayColor,toggleBufferToolDisplayColor] = useState('orange')
     // handle toolTips here
     const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
+    
     const handleClick=(e)=>{
-        //bufferPaneDisplay==='none'?toggleBufferPaneDisplay('block'):toggleBufferPaneDisplay('none')
+        bufferPaneDisplay==='none'?toggleBufferPaneDisplay('block'):toggleBufferPaneDisplay('none')
         bufferToolDisplayColor=='orange'?toggleBufferToolDisplayColor('orangered'):toggleBufferToolDisplayColor('orange')
         props.activateBuffer()
     }
@@ -27,8 +27,8 @@ export default function Buffer(props) {
                 </div>
             </div>
         </div>
-        <BufferPane display={bufferPaneDisplay} createPoint={props.createPoint}/>
-        <BufferParametersPane/>
+
+        <BufferParametersPane display={bufferPaneDisplay}/>
         <Tooltip display={toolTipDisplay} name='buffer' toolIndex={4}/>
         </>
     )

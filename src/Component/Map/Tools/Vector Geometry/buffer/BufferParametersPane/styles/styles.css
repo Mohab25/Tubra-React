@@ -1,10 +1,11 @@
 .BufferParameterPane{
-    display:none; 
-    width:500px; 
-    height: 50px;
+    width:100px; 
+    height: 200px;
     position: absolute;
-    top:-30px;
-    right:300px; 
+    top:10px;
+    right:120px; 
+    display: flex;
+    flex-direction: column;
 }
 
 .BufferParameterPaneContainer{
@@ -13,54 +14,43 @@
     width:100%;
     height:100%; 
     display: flex;
-    
-}
-
-.bufferCoordinates{
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    background-color: teal;
-}
-
-.bufferCoordinates p{
-    color:white
-}
-
-.buffer-distance-input{
-    width:30%; 
-    height: 100%;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-left:10px;
-}
-.buffer-distance-input p{
-    padding-top:14px;
-    color:white; 
+    justify-content: center;
 }
 
-.buffer-distance-input input{
-    width: 100%;
-    height: 50%;
-    margin-left:5px;
-}
-
-.buffer-units-input{
-    width:30%; 
-    height: 100%;
+.addBufferButton{
+    width: 80%;
+    height: 40px;
+    margin-top:10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-left:10px;
+    justify-content: center;
+    background-color: orange;
+    border-radius: 5px;
 }
 
-.buffer-units-input p{
-    padding-top:14px;
-    color:white;
+.bufferSearchButton{
+    width: 80%;
+    height: 40px;
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    border-radius: 5px;
 }
 
-.buffer-units-input input{
-    width:100%; 
-    height: 50%;
-    margin-left:5px;
+.bufferRemoveButton{
+    width: 80%;
+    height: 40px;
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    border-radius: 5px;
 }
