@@ -50,7 +50,7 @@ export default function MapComponent() {
     /* Buffer creation */
     const [isBufferActivated,setBufferActive] = useState(false)
     const [buffer_ob,setBufferOb] = useState()
-
+    const dispatchedBufferDistance  = useSelector(state=>state.BufferDistanceReducer.distance)
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
     const [Markers,setMarkers] = useState([])
@@ -62,6 +62,7 @@ export default function MapComponent() {
     const GeometryActionDispatch = useDispatch()
     const GeometryDispatch = useDispatch()
     const [isVectorActivated,setVectorActive] = useState(false)
+
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
         linear_measure_is_on==false?toggle_linear_measure(true):toggle_linear_measure(false)
@@ -89,6 +90,7 @@ export default function MapComponent() {
     }
     }}
 
+/**************************Buffer**************************************************/
 
     let activateBuffer=()=>{
         // simple action of buffer activation (toggling the state). 
@@ -162,13 +164,9 @@ export default function MapComponent() {
             }
     
             // also because the geometry is not defined in the form, it needs to be dispatched from here
-            console.log('the json points:',json_point)
             GeometryDispatch(prePopulateGeometry(json_point))
 
         }
-
-
-
 
 /*****************************Getting the Aerodrome Geometric data from Backend ************************************/
     useEffect(()=>{
@@ -196,12 +194,12 @@ export default function MapComponent() {
 
     useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
                    setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'green'}} onEachFeature={onEachEntity}/>)
-            },[isBufferActivated])
+            },[isBufferActivated,dispatchedBufferDistance]) // not using dispatchedBufferDistance here caused me a lot of trouble.
     const onEachPavementConstruction=(feature,layer)=>{
         layer.on({
             click:function(e){
                 L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':0.01}) // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}) // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
             }
         })
         
@@ -211,7 +209,7 @@ export default function MapComponent() {
         layer.on({
             click:function(e){ 
             L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':0.05})
+            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})
         }
         })
     }

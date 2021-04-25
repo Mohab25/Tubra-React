@@ -8,16 +8,18 @@ const initialState = {
 
 export default function CreationFormReducer(state=initialState,action){
     switch(action.type){
-        case SHOWHIDECREATIONFORM:
+        case SHOWHIDECREATIONFORM:{
             let dis = state.display=='none'?'flex':'none'
             return{
                 ...state,
                 display:dis
             }
-        case GETGEOMTERY:return{
+        }
+        case GETGEOMTERY:{return{
             ...state, 
             geom:action.payload
         }
+    }
         default:return state
     }
 }
