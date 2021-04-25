@@ -16,7 +16,6 @@ const [visibility,toggleTooltipVisibility] = useState(props.display)
         /* this because some issues arise when for the 3rd and 4th tooltips
             the tooltip pushed it's underneath tools.
         */
-       console.log('conditional::',props.toolIndex)
         if(props.toolIndex==undefined){
             return {display:visibility}
         }

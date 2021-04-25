@@ -4,7 +4,6 @@ import './styles/styles.css'
 export default function Legend(props) {
     const Legend_names= props.legendItems
     if(Legend_names==undefined || Object.keys(Legend_names).length==0  ){return <div></div>} 
-    console.log('the ob:',Legend_names)
     return (
         <div className='Legend'>
             <div className='Legend-container'>
