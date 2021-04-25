@@ -1,4 +1,4 @@
-.BufferParameterPane{
+.BufferOptionsPane{
     width:100px; 
     height: 200px;
     position: absolute;
@@ -8,7 +8,7 @@
     flex-direction: column;
 }
 
-.BufferParameterPaneContainer{
+.BufferOptionsPaneContainer{
     position: relative;
     background-color: black;
     width:100%;

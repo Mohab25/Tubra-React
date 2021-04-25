@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import './styles/styles.css'
-import BufferParametersPane from './BufferParametersPane/BufferParametersPane'
+import BufferOptionssPane from './BufferOptionsPane/BufferOptionsPane'
 import Tooltip from '../../../../Tooltips/Tooltips'
 
 export default function Buffer(props) {
@@ -28,7 +28,7 @@ export default function Buffer(props) {
             </div>
         </div>
 
-        <BufferParametersPane display={bufferPaneDisplay}/>
+        <BufferOptionssPane display={bufferPaneDisplay}/>
         <Tooltip display={toolTipDisplay} name='buffer' toolIndex={4}/>
         </>
     )
