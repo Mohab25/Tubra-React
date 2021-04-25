@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import './styles/styles.css'
 import {Map,TileLayer,GeoJSON,LayersControl,LayerGroup,Polyline,Polygon,Marker} from 'react-leaflet'
 import './leaflet/leaflet.css'
+import L from "leaflet";
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import {divIcon } from 'leaflet'
 import Modal from './Modal/modal'
@@ -199,7 +200,8 @@ export default function MapComponent() {
     const onEachPavementConstruction=(feature,layer)=>{
         layer.on({
             click:function(e){
-                isBufferActivated==false?setPavementModalData(e.target.feature.properties):console.log('') // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+                L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':0.01}) // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
             }
         })
         
@@ -208,6 +210,7 @@ export default function MapComponent() {
     const onEachEntity=(feature,layer)=>{
         layer.on({
             click:function(e){ 
+            L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
             isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':0.05})
         }
         })
