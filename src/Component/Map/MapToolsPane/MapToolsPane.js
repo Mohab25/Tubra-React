@@ -5,6 +5,7 @@ import Measure from '../Tools/measure/measure'
 import Buffer from '../Tools/Vector Geometry/buffer/buffer'
 import Path from '../Tools/Path/path'
 import Search from '../Tools/search/search'
+import VectorCreation from '../Tools/Vector Geometry/VectorCreationTool/VectorCreationTool'
 import TilesControl from '../Tools/Tiles control/tiles'
 
 export default function MapToolsPane(props) {
@@ -47,6 +48,7 @@ export default function MapToolsPane(props) {
                         <Measure toggleLinearMeasurement={props.toggleLinearMeasurement} distance={props.distance}/>
                         <Buffer activateBuffer={props.activateBuffer} createPoint={props.createPoint}/>
                         <Path/>
+                        <VectorCreation activateVector={props.activateVector} createPoint={props.createPoint}/>
                         <TilesControl toggleWindowVisibility={props.toggleWindowVisibility}/>
                     </div>
                 </div>

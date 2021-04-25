@@ -60,7 +60,7 @@ export default function MapComponent() {
     /* Geometry Creation */
     const GeometryActionDispatch = useDispatch()
     const GeometryDispatch = useDispatch()
-
+    const [isVectorActivated,setVectorActive] = useState(false)
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
         linear_measure_is_on==false?toggle_linear_measure(true):toggle_linear_measure(false)
@@ -118,6 +118,11 @@ export default function MapComponent() {
 
 /**********************************Geometry Creation****************************** */
     // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
+
+    let activateVector=()=>{
+        // simple action of buffer activation (toggling the state). 
+        isVectorActivated?setVectorActive(false):setVectorActive(true)
+    }
 
 
     let createPolygon=(e)=>{
@@ -274,7 +279,7 @@ useEffect(()=>{
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer} createPoint={createPoint}/>
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer} activateVector={activateVector}  createPoint={createPoint}/>
                 <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
                 <GeometryCreationModal/>
             </div>

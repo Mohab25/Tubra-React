@@ -49,7 +49,7 @@
 .ToolsContainer{
     flex-basis:78%; 
     display: flex;
-    padding-top:20px; 
+    padding-top:7px; 
     flex-direction: column;
     align-items: center;
 }

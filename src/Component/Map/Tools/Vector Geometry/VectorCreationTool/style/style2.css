@@ -1,0 +1,47 @@
+.VectorPane-container{
+    position:relative; 
+}
+
+.Vector-options-holder{
+    width:35px; 
+    height: 200px;
+    position: absolute;
+    top:-150px; 
+    right: 60px;
+    background-color: black;
+
+}
+
+.Vector-options-container{
+    width: 100%;
+    height: 100%;
+    display:flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.Vector-option{
+    width:30px; 
+    height:30px; 
+    display:flex; 
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    margin-top:10px;
+    border-radius: 3px;
+}
+
+.line-Vector-image{
+    width:25px;
+    height:25px;
+    background: url('../assets/line.png');
+    background-position:center; 
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.square{
+    font-size:25px;
+}

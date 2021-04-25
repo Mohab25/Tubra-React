@@ -34,6 +34,13 @@ const [visibility,toggleTooltipVisibility] = useState(props.display)
                 top:'54%'
             }
         }
+        else if(props.toolIndex==5){
+            return {
+                display:visibility,
+                position:'absolute',
+                top:'77%'
+            }
+        }
     }
 
     useEffect(()=>{toggleTooltipVisibility(props.display)},[props.display])
