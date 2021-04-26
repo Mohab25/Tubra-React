@@ -1,11 +1,17 @@
 import React,{useState} from 'react'
 import './styles/styles.css'
 import AddBuffer from './Options/AddBuffer/AddBuffer'
+import {useDispatch} from 'react-redux'
+import removeBuffer from '../../../../../../Actions/GeometryCreation/RemoveBuffer'
+
 
 export default function BufferOptionsPane(props){
     let [option,setOption]=useState({
         add:{color:'orange',display:'none'},search:{color:'orange',display:'none'},remove:{color:'orange',display:'none'}
     })
+
+    let dispatch = useDispatch()
+
 
     let toggleOption=(bufferOption)=>{
         let options={add:{color:'orange',display:'none'},search:{color:'orange',display:'none'},remove:{color:'orange',display:'none'}}
@@ -14,7 +20,7 @@ export default function BufferOptionsPane(props){
             setOption(options);break;
             case 'search':if(option.search.color=='orange'){options.search.color='orangered';options.search.display='flex'} else{options.search.color='orange';options.search.display='none'}
             setOption(options);break;
-            case 'remove':if(option.add.color=='orange'){options.remove.color='orangered';options.remove.display='flex'} else{options.remove.color='orange';options.remove.display='none'}
+            case 'remove':if(option.remove.color=='orange'){options.remove.color='orangered';options.remove.display='flex';dispatch(removeBuffer('active'))} else{options.remove.color='orange';options.remove.display='none';dispatch(removeBuffer('inactive'))}
             setOption(options);break;
         }
     }

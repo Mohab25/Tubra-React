@@ -49,8 +49,10 @@ export default function MapComponent() {
     
     /* Buffer creation */
     const [isBufferActivated,setBufferActive] = useState(false)
+    const [buffer_data,setBufferData] = useState()
     const [buffer_ob,setBufferOb] = useState()
-    const dispatchedBufferDistance  = useSelector(state=>state.BufferDistanceReducer.distance)
+    const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
+    const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
     const [Markers,setMarkers] = useState([])
@@ -114,8 +116,22 @@ export default function MapComponent() {
     }
 
     const load_buffer=(buffer_geojson)=>{
-        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_geojson} style={{color:'green'}}/>
+        setBufferData(buffer_geojson)        
+    }
+
+    useEffect(()=>{
+        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
         setBufferOb(geojson_ob) 
+    },[buffer_data,bufferRemoveState])
+
+    let removeBuffer=(feature,layer)=>{
+        console.log(layer.options)
+        layer.on({
+            click:function(e){
+                L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
+                if(bufferRemoveState=='active') layer.options.removeLayer(layer)
+            }
+        })
     }
 
 
@@ -195,11 +211,12 @@ export default function MapComponent() {
     useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
                    setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'green'}} onEachFeature={onEachEntity}/>)
             },[isBufferActivated,dispatchedBufferDistance]) // not using dispatchedBufferDistance here caused me a lot of trouble.
+    
     const onEachPavementConstruction=(feature,layer)=>{
         layer.on({
             click:function(e){
                 L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}) // the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
             }
         })
         
