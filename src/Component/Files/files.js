@@ -91,7 +91,7 @@ export default function Files() {
 
 
     switch(view){
-        case 'word':{return(<WordDoc title={word_content.title} content={word_content.content}/>)};break;
+        case 'word':{console.log('the view is set to word');return(<WordDoc title={word_content.title} content={word_content.content}/>)};break;
         case 'excel':{return(<ExcelDoc title={excel_content.title} content={excel_content.content}/>)};break; 
         case 'pdf':{return(<PdfDoc title={pdf_content.title} url={pdf_content.url}/>)};break;  
         default:{
