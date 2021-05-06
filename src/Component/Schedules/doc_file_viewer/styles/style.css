@@ -1,0 +1,16 @@
+.wordDocViewerQuillContainer .ql-editor{
+    width:8.5in;
+    height:11in;  
+}
+
+.wordDocViewerQuillContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.ql-toolbar{
+    position:sticky;
+    top:0px;
+    z-index:1; 
+    background-color:rgb(250, 250, 250)
+}

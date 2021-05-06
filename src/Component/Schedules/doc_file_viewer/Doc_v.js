@@ -1,13 +1,10 @@
 import React,{useCallback} from 'react'
-import './styles/styles2.css'
+import './styles/style.css'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
+export default function Doc_v() {
 
-export default function Word_file_page(props) {
-    let {title,content} = props
-
-    // config quill lib
     const quillRef = useCallback((quillWrapper)=>{
         // this useCallback is used to clean up of the component did unmount
         if(quillWrapper==null) return  // gard clause 
@@ -31,36 +28,14 @@ export default function Word_file_page(props) {
 
         const quillEditor = document.createElement('div')
         quillWrapper.append(quillEditor)
-        let quill = new Quill(quillWrapper,{theme:'snow',modules:{toolbar:toolbarOptions}})
-        quill.insertText(0,content)
+        new Quill(quillWrapper,{theme:'snow',modules:{toolbar:toolbarOptions}})
     })
 
-
-
-    // constructing the actual file.
-    let doc = 
-        <div ref={quillRef}>
-            {//h2 className='document-section-headers'>{title.replace('(This is Heading #H2)','')}</h2>
-            }
-            <p className='document-content'>{content}</p>
-        </div>
-        
-    // constructing the page body.
-        return (
-        <div className='files-viewer'>
-            <div className='files-viewer-container'>
-                <div className='files-viewer-side'></div>
-                <div className='files-viewer-main-area'>
-                    <form>
-                    <input name='search' placeholder='search doc..'/>
-                    </form>
-                    {doc}
-                </div>
+    return (
+        <div className='wordDocViewer'>
+            <div className='wordDocViewerQuillContainer' ref={quillRef}>
+                <div className=''></div>
             </div>
         </div>
-                
-            
-            )
+    )
 }
-
-
