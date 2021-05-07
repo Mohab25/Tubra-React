@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect}  from 'react'
 import './styles/styles.css'
 import Word from './Word/word.js'
 import WordDoc from './Word/word_file_page'
@@ -6,7 +6,6 @@ import Excel from './Excel/excel.js'
 import ExcelDoc from './Excel/excel_page'
 import Pdf from './Pdf/pdf.js'
 import PdfDoc from './Pdf/pdf_page'
-import {useState,useEffect} from 'react'
 
 
 export default function Files() {
@@ -17,6 +16,7 @@ export default function Files() {
     let [word_content,setWordContent] = useState({}) // this will be sent to the word_page component.
     let [excel_content,setExcelContent] = useState({})
     let [pdf_content,setPdfContent] = useState({})
+    
     // the cards here hold titles of the documents.
     let [wordDocs,SetWordDocs] = useState([])
     let [excelDocs,SetExcelDocs] = useState([])
@@ -37,7 +37,7 @@ export default function Files() {
       await  fetch(`http://localhost:8000/Reports?title=${e.target.value}/`).then(res=>res.json()).then(data=>matches=data)
         // setting the cards according to the filter above. 
         for(let i of matches){
-            //console.log(i)
+            //console.log('the click handler is called!:',i)
         }
     }
 
@@ -69,7 +69,7 @@ export default function Files() {
     // here the click on a specific resource is handled, the actual click happens in a child component (words). 
     const handleClick=async (filetype,pk)=>{
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
-        console.log(pk)
+        console.log('click handler is being called!:',pk)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
             await fetch(`http://localhost:8000/Reports/doc_content/${pk}/`).then(res=>res.json()).then(data=>{
             if(filetype=='word'){setWordContent(data)}    

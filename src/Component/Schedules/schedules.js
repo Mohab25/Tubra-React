@@ -5,7 +5,7 @@ export default function schedules() {
     return (
         <div className='Schedule'>
             <div className='ScheduleContainer'>
-                <DocViewer/>
+              
             </div>   
         </div>
     )
