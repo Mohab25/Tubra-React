@@ -1,13 +1,13 @@
-.Excel{
+.Files{
+    margin-top:30px;
     padding-bottom: 40px;
 }
 
-.Excel div h5{
+.Files div h5{
     width:fit-content;
     margin-left:15px;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 6px solid #3cff00; 
 }
 
 .files-row{

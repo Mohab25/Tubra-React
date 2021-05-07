@@ -1,7 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import Word from '../../Files/Word/word'
-import Excel from '../../Files/Excel/excel'
-import PDF from '../../Files/Pdf/pdf'
+import Files from '../../Files/FilesHolder/Files'
 import CAD from '../../CAD/cads'
 import AerodromeComponentDetails from './AerodromeComponentDetails/AerodromeComponentDetails.js'
 
@@ -9,33 +7,10 @@ import './styles.css'
 
 export default function Modal(props) {
     let [tabDisplay,setTabDisplay] = useState('component')
-    let [wordDocs,SetWordDocs] = useState([]) // holding the word docs
-    let [excelDocs,SetExcelDocs] = useState([])
-    let [pdfDocs,SetPdfDocs] = useState([])
-
-    useEffect(()=>{
-       /* here you filtering the files based on the props based to the modal */ 
-        // for testing i'm getting all the data.
-        fetch('http://localhost:8000/Reports/word_docs/').then(res=>res.json()).then(
-            data=>SetWordDocs(data.slice(0,8))
-        )
-    
-        fetch('http://localhost:8000/Reports/excel_docs/').then(res=>res.json()).then(
-            data=>{
-                SetExcelDocs(data)
-            }
-        )
-        fetch('http://localhost:8000/Reports/pdf_docs/').then(res=>res.json()).then(
-            data=>{
-                SetPdfDocs(data)
-            }
-        )
-    
-    },[])
     // the files with cards grabbed from the state.
-    const ModalWordDocs = <Word cards={wordDocs}/>
-    const ModalExcelDocs = <Excel cards={excelDocs}/>
-    const ModalPdfDocs = <PDF cards={pdfDocs}/>
+    const ModalWordDocs = <Files fileType='word'/>
+    const ModalExcelDocs = <Files fileType='excel'/>
+    const ModalPdfDocs = <Files fileType='pdf'/>
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block'/>
     const closeModal=(e)=>{
         if(e.target.classList.contains('backdrop')){props.modalCloser(null)}

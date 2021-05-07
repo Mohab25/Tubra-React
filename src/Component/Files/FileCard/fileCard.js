@@ -25,7 +25,7 @@ export default function FileCard(props) {
     return (
         <div className='file-card'>
             <div className='file-card-container'>
-                <div className='file-card-img' onClick={()=>props.handleClick(props.fileType,props.pk)} style={{backgroundImage:`url(${background_selector()})`}}></div>
+                <div className='file-card-img' onClick={()=>props.changeToDetailedView(props.fileType,props.pk)} style={{backgroundImage:`url(${background_selector()})`}}></div>
                 <div className='file-card-body'>
                     <h6><b>{props.title}</b></h6>
                     <p>Ipsum ullamco do commodo culpa tempor id qui culpa.</p>
