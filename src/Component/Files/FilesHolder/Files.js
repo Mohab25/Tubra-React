@@ -35,9 +35,9 @@ export default function Word(props) {
             <div>
                 <h5 style={{borderBottom:BBorder()}}>{titles[`${props.fileType}`]}</h5>
                 <div className='files-row'>{files.map((item,index)=>{
-                    let word_name = item.Name.substring(0,16)
+                    let file_name = item.Name.substring(0,16)
                     let pk = item.pk
-                    return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={word_name} pk={pk} fileType={props.fileType}/>
+                    return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={file_name} pk={pk} fileType={props.fileType}/>
                 })}
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect}  from 'react'
+import React,{useState}  from 'react'
 import './styles/styles.css'
 import File from './FilesHolder/Files.js'
 import WordDoc from './Word/word_file_page'
@@ -13,7 +13,7 @@ export default function Files() {
     // holders for actual content coming from the backend.
     let [word_content,setWordContent] = useState({}) // this will be sent to the word_page component.
     let [excel_content,setExcelContent] = useState({})
-    let [pdf_content,setPdfContent] = useState({})
+    let pdf_content = {}
     
     // this will handle the dynamic filtering.
     const handleChange=async (e)=>{
@@ -48,8 +48,6 @@ export default function Files() {
             if(filetype=='word'){setWordContent(data)}    
             else if(filetype=='excel'){setExcelContent(data)}    
             else if(filetype=='pdf'){let pdf_path=data['path'];window.location.href = pdf_path;}    
-            
-                
             })
         
           
@@ -62,6 +60,9 @@ export default function Files() {
     
     }
 
+    let files = ['word','excel','pdf'].map(item=>{
+        return(<File fileType={item} changeToDetailedView={changeToDetailedView}/>)
+    })
 
     switch(view){
         case 'word':{console.log('the view is set to word');return(<WordDoc title={word_content.title} content={word_content.content}/>)};break;
@@ -77,9 +78,7 @@ export default function Files() {
                                 <form onSubmit={handleSubmit}>
                                 <input name='search' onChange={handleChange} placeholder='search..'/>
                                 </form>
-                                <File fileType='word' changeToDetailedView={changeToDetailedView}/>{/** here handle click is passed to the child component (word) */} 
-                                <File fileType='excel' changeToDetailedView={changeToDetailedView}/>
-                                <File fileType='pdf' changeToDetailedView={changeToDetailedView}/>
+                                {files}
                             </div>
                         </div>
                     </div>
