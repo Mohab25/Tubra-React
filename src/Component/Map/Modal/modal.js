@@ -12,6 +12,7 @@ export default function Modal(props) {
     const ModalExcelDocs = <Files fileType='excel'/>
     const ModalPdfDocs = <Files fileType='pdf'/>
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block'/>
+    
     const closeModal=(e)=>{
         if(e.target.classList.contains('backdrop')){props.modalCloser(null)}
     }

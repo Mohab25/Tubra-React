@@ -1,11 +1,18 @@
-import React,{useCallback} from 'react'
+import React,{useState,useEffect,useCallback} from 'react'
 import './styles/styles2.css'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
 
 export default function Word_file_page(props) {
-    let {title,content} = props
+    
+    let [content,setContent]=useState({})
+
+    useEffect(()=>{
+        fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
+        setContent(data)}
+
+    )},[])
 
     // config quill lib
     const quillRef = useCallback((quillWrapper)=>{
@@ -32,7 +39,7 @@ export default function Word_file_page(props) {
         const quillEditor = document.createElement('div')
         quillWrapper.append(quillEditor)
         let quill = new Quill(quillWrapper,{theme:'snow',modules:{toolbar:toolbarOptions}})
-        quill.insertText(0,content)
+        if(content.content!=undefined) quill.insertText(0,content.content)
     })
 
 
@@ -42,7 +49,7 @@ export default function Word_file_page(props) {
         <div ref={quillRef}>
             {//h2 className='document-section-headers'>{title.replace('(This is Heading #H2)','')}</h2>
             }
-            <p className='document-content'>{content}</p>
+            <p className='document-content'>{content.content}</p>
         </div>
         
     // constructing the page body.
