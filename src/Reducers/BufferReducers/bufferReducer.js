@@ -1,7 +1,10 @@
 import {ACTIVATEBUFFERTOOL} from '../../Actions/bufferActions/types'
+import {CREATEBUFFERDATATRANSFER} from '../../Actions/bufferActions/types'
+
 
 const initialState={
-    isBufferToolActivated:false
+    isBufferToolActivated:false,
+    bufferGeomAndRadiusOb:{}
 }
 
 export default function bufferToolActivationReducer(state=initialState,action){
@@ -18,6 +21,19 @@ export default function bufferToolActivationReducer(state=initialState,action){
                 }
             }
         }
+
+        case CREATEBUFFERDATATRANSFER:{
+            // in order to create a buffer the buffer tool should be activated, check it 
+            if(state.isBufferToolActivated==true){
+                return{
+                    ...state,bufferGeomAndRadiusOb:action.payload
+                }
+            }
+            else{
+                return state
+            }
+        }
+
         default:{
             return state
         }

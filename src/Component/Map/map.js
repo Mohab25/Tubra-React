@@ -17,6 +17,8 @@ import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal
 
 // testing the buffer Component 
 import BufferComponent from './BufferComponent/BufferComponent'
+import createBufferAction from '../../Actions/bufferActions/createBuffer'
+
 const {Overlay} = LayersControl 
 
 export default function MapComponent() {
@@ -219,7 +221,7 @@ export default function MapComponent() {
         layer.on({
             click:function(e){
                 L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
             }
         })
         
@@ -229,7 +231,7 @@ export default function MapComponent() {
         layer.on({
             click:function(e){ 
             L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBuffer({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})
+            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})
         }
         })
     }
