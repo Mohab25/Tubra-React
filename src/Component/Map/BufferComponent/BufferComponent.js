@@ -2,10 +2,9 @@ import React from 'react'
 
 export default function BufferComponent(props) {
      /* Buffer creation */
-     const isBufferToolActivated = useSelector(state=>state.bufferToolActivationReducer.isBufferToolActivated)
+     const bufferGeomAndRadiusOb = useSelect(state=>state.bufferReducer.bufferGeomAndRadiusOb)
      const [buffer_data,setBufferData] = useState()
      const [buffer_ob,setBufferOb] = useState()
-     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
      const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     
      let activateBuffer=()=>{
@@ -45,11 +44,11 @@ export default function BufferComponent(props) {
 
     useEffect(()=>{
         /*
-            this is called when the props changes, it calls createBuffer, with props.buffer_creation_data
-                props.buffer_creation_data(obj): object holding both the geojson geom and the distance of the buffer   
+            this is called when redux state changes, it calls createBuffer
+            bufferGeomAndRadiusOb(obj): object holding both the geojson geom and the distance of the buffer   
         */
-            createBuffer(props.buffer_creation_data)
-    },[props])
+        createBuffer(bufferGeomAndRadiusOb)
+    },[bufferGeomAndRadiusOb])
 
 
     let removeBuffer=(feature,layer)=>{
@@ -67,7 +66,7 @@ export default function BufferComponent(props) {
 
      return (
         <div>
-            {/*buffer_ob*/}
+            {buffer_ob}
         </div>
     )
 }

@@ -52,9 +52,7 @@ export default function MapComponent() {
     const [linear_coords,setLinearCoords]=useState([])
     
     /* Buffer creation */
-    const [isBufferActivated,setBufferActive] = useState(false)
-    const [buffer_data,setBufferData] = useState()
-    const [buffer_ob,setBufferOb] = useState()
+    const isBufferActivated = useSelector(state=>state.bufferReducer.isBufferToolActivated)
     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
     const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     /* filtered points for custom markers */ 
@@ -97,13 +95,6 @@ export default function MapComponent() {
     }}
 
 /**************************Buffer**************************************************/
-
-    let activateBuffer=()=>{
-        // simple action of buffer activation (toggling the state).
-        // this should be used in a context between buffer component and map component. 
-        isBufferActivated?setBufferActive(false):setBufferActive(true)
-    }
-
     let createBuffer=(json_geom)=>{
         /* this takes a geometry and pass it to the backend (calling the ST_MakeBuffer). */
         /*
@@ -119,15 +110,6 @@ export default function MapComponent() {
         body:JSON.stringify(json_geom)
        }).then(res=>res.json()).then(data=>load_buffer(data))
     }
-
-    const load_buffer=(buffer_geojson)=>{
-        setBufferData(buffer_geojson)        
-    }
-
-    useEffect(()=>{
-        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
-        setBufferOb(geojson_ob) 
-    },[buffer_data,bufferRemoveState])
 
     let removeBuffer=(feature,layer)=>{
         console.log(layer.options)
@@ -296,7 +278,6 @@ useEffect(()=>{
                             {pavementsData}
                         </LayerGroup>
                     </Overlay>
-                    {buffer_ob}
                     <BufferComponent/>  
                 </LayersControl>
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
