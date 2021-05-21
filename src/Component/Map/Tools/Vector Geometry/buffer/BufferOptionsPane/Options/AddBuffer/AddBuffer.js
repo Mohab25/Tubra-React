@@ -24,7 +24,3 @@ export default function AddBuffer(props) {
         </div>
     )
 }
-
-// go redux, .. dispatch an action from here, and use it there.
-// create and action, create a reducer, the action if dispatched on change, and then read 
-// from the map, if the value of the input is zero, use 10, if it's greater than 99,000 limit it. 

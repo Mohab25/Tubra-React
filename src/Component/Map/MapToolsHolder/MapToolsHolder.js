@@ -16,7 +16,7 @@ export default function MapToolsHolder(props) {
 
     return (
         <div>
-            <ToolsPane toggleWindowVisibility={toggleWindowVisibility} toggleLinearMeasurement={props.toggleLinearMeasurement} distance={props.distance} activateBuffer={props.activateBuffer} activateVector={props.activateVector} createPoint={props.createPoint}/>
+            <ToolsPane toggleWindowVisibility={toggleWindowVisibility} toggleLinearMeasurement={props.toggleLinearMeasurement} distance={props.distance} activateVector={props.activateVector} createPoint={props.createPoint}/>
             <ToolsWindow display={WindowVisibility}/>
         </div>
     )

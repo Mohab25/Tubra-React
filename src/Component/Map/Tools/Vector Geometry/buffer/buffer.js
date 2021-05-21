@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import './styles/styles.css'
 import BufferOptionssPane from './BufferOptionsPane/BufferOptionsPane'
 import Tooltip from '../../../../Tooltips/Tooltips'
@@ -11,13 +12,12 @@ export default function Buffer(props) {
     // handle toolTips here
     const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
     // dispatching activation action 
-    const dispatch = useDispatch()
+    const bufferActivationDispatch = useDispatch()
 
     const handleClick=(e)=>{
         bufferPaneDisplay==='none'?toggleBufferPaneDisplay('block'):toggleBufferPaneDisplay('none')
         bufferToolDisplayColor=='orange'?toggleBufferToolDisplayColor('orangered'):toggleBufferToolDisplayColor('orange')
-        props.activateBuffer()
-        dispatch(activateBufferTool)
+        bufferActivationDispatch(activateBufferTool())
     }
 
     return (

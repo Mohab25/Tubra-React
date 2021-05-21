@@ -1,16 +1,15 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
+import {GeoJSON} from 'react-leaflet'
+import L from "leaflet";
 
 export default function BufferComponent(props) {
      /* Buffer creation */
-     const bufferGeomAndRadiusOb = useSelect(state=>state.bufferReducer.bufferGeomAndRadiusOb)
+     const bufferGeomAndRadiusOb = useSelector(state=>state.bufferReducer.bufferGeomAndRadiusOb)
      const [buffer_data,setBufferData] = useState()
      const [buffer_ob,setBufferOb] = useState()
      const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     
-     let activateBuffer=()=>{
-        // simple action of buffer activation (toggling the state). 
-        isBufferActivated?setBufferActive(false):setBufferActive(true)
-    }
 
     let createBuffer=(json_geom)=>{
         /* this takes a geometry and pass it to the backend (calling the ST_MakeBuffer). */
@@ -59,10 +58,6 @@ export default function BufferComponent(props) {
             }
         })
     }
-
-    useEffect(()=>{
-        console.log('is buffer tool activated?:',isBufferActivated)
-    },[isBufferActivated])
 
      return (
         <div>

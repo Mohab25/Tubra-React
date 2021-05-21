@@ -9,6 +9,7 @@ const initialState={
 
 export default function bufferToolActivationReducer(state=initialState,action){
     switch(action.type){
+        
         case ACTIVATEBUFFERTOOL:{
             if(state.isBufferToolActivated==false){
                 return{
@@ -16,12 +17,12 @@ export default function bufferToolActivationReducer(state=initialState,action){
                 }
             }
             else{
+
                 return{
                     ...state,isBufferToolActivated:false
                 }
             }
-        }
-
+        } 
         case CREATEBUFFERDATATRANSFER:{
             // in order to create a buffer the buffer tool should be activated, check it 
             if(state.isBufferToolActivated==true){

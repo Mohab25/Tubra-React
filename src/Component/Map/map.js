@@ -52,8 +52,10 @@ export default function MapComponent() {
     const [linear_coords,setLinearCoords]=useState([])
     
     /* Buffer creation */
-    const isBufferActivated = useSelector(state=>state.bufferReducer.isBufferToolActivated)
+    const [isBufferActivated,setBufferActive]= useState(false)
+    const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
+    const createBufferDispatch = useDispatch()
     const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
@@ -95,22 +97,8 @@ export default function MapComponent() {
     }}
 
 /**************************Buffer**************************************************/
-    let createBuffer=(json_geom)=>{
-        /* this takes a geometry and pass it to the backend (calling the ST_MakeBuffer). */
-        /*
-        1. when the user clicks prevent the modal if the buffer is activated
-        2. get the the geom and pass it.  
-        */
-       fetch('http://localhost:8000/spatial_analysis/make_buffer/',{
-        method:'POST',
-        mode:'cors',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(json_geom)
-       }).then(res=>res.json()).then(data=>load_buffer(data))
-    }
 
+    useEffect(()=>{setBufferActive(bufferActivation)},[bufferActivation])
     let removeBuffer=(feature,layer)=>{
         console.log(layer.options)
         layer.on({
@@ -203,7 +191,7 @@ export default function MapComponent() {
         layer.on({
             click:function(e){
                 L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+                isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
             }
         })
         
@@ -213,7 +201,7 @@ export default function MapComponent() {
         layer.on({
             click:function(e){ 
             L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000})
+            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))
         }
         })
     }
@@ -283,7 +271,7 @@ useEffect(()=>{
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateBuffer={activateBuffer} activateVector={activateVector}  createPoint={createPoint}/>
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateVector={activateVector}  createPoint={createPoint}/>
                 <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
                 <GeometryCreationModal/>
             </div>
