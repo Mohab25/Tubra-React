@@ -56,7 +56,6 @@ export default function MapComponent() {
     const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
     const createBufferDispatch = useDispatch()
-    const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
     const [Markers,setMarkers] = useState([])
@@ -99,16 +98,6 @@ export default function MapComponent() {
 /**************************Buffer**************************************************/
 
     useEffect(()=>{setBufferActive(bufferActivation)},[bufferActivation])
-    let removeBuffer=(feature,layer)=>{
-        console.log(layer.options)
-        layer.on({
-            click:function(e){
-                L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                if(bufferRemoveState=='active') layer.options.removeLayer(layer)
-            }
-        })
-    }
-
 
 /**********************************Geometry Creation****************************** */
     // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
