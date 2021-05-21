@@ -1,7 +1,7 @@
 import React,{ useState,useEffect } from 'react'
 import './styles/style.css'
 
-export default function Word_file_page(props) {
+export default function PDFFilePage(props) {
 
     let [content,setContent]=useState({})
 

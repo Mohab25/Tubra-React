@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import './styles/styles.css'
 import BufferOptionssPane from './BufferOptionsPane/BufferOptionsPane'
 import Tooltip from '../../../../Tooltips/Tooltips'
+import activateBufferTool from "../../../../../Actions/bufferActions/activateBufferTool";
 
 export default function Buffer(props) {
 
@@ -9,11 +10,14 @@ export default function Buffer(props) {
     const [bufferToolDisplayColor,toggleBufferToolDisplayColor] = useState('orange')
     // handle toolTips here
     const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
-    
+    // dispatching activation action 
+    const dispatch = useDispatch()
+
     const handleClick=(e)=>{
         bufferPaneDisplay==='none'?toggleBufferPaneDisplay('block'):toggleBufferPaneDisplay('none')
         bufferToolDisplayColor=='orange'?toggleBufferToolDisplayColor('orangered'):toggleBufferToolDisplayColor('orange')
         props.activateBuffer()
+        dispatch(activateBufferTool)
     }
 
     return (

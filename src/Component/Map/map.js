@@ -15,6 +15,8 @@ import toggleGeometryCreationFormVisibility from '../../Actions/GeometryCreation
 import prePopulateGeometry from '../../Actions/GeometryCreation/GeometryCreation'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 
+// testing the buffer Component 
+import BufferComponent from './BufferComponent/BufferComponent'
 const {Overlay} = LayersControl 
 
 export default function MapComponent() {
@@ -95,7 +97,8 @@ export default function MapComponent() {
 /**************************Buffer**************************************************/
 
     let activateBuffer=()=>{
-        // simple action of buffer activation (toggling the state). 
+        // simple action of buffer activation (toggling the state).
+        // this should be used in a context between buffer component and map component. 
         isBufferActivated?setBufferActive(false):setBufferActive(true)
     }
 
@@ -292,7 +295,7 @@ useEffect(()=>{
                         </LayerGroup>
                     </Overlay>
                     {buffer_ob}
-                    
+                    <BufferComponent/>  
                 </LayersControl>
                     {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
                     {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}

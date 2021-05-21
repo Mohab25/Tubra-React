@@ -4,9 +4,9 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
 
-export default function Word_file_page(props) {
+export default function WordFilePage(props) {
     
-    let [content,setContent]=useState({})
+    let [content,setContent]=useState('')
 
     useEffect(()=>{
         fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
