@@ -8,8 +8,7 @@ export default function BufferComponent(props) {
      const bufferGeomAndRadiusOb = useSelector(state=>state.bufferReducer.bufferGeomAndRadiusOb)
      const [buffer_data,setBufferData] = useState()
      const [buffer_ob,setBufferOb] = useState()
-     const bufferRemoveState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
-
+     const bufferRemoveReducerState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
 
     let createBuffer=(json_geom)=>{
         /* this takes a geometry and pass it to the backend (calling the ST_MakeBuffer). */
@@ -36,10 +35,15 @@ export default function BufferComponent(props) {
     }
 
     useEffect(()=>{
-        console.log(buffer_ob)
         let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
-        setBufferOb(geojson_ob) 
+        setBufferOb(geojson_ob)
     },[buffer_data])
+
+    useEffect(()=>{
+        // this is the same of the above json, being set again but with an updated onEachFeature
+        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
+        if(bufferRemoveReducerState=='active'){setBufferOb(geojson_ob)}
+    },[bufferRemoveReducerState])
 
 
     useEffect(()=>{
@@ -50,15 +54,11 @@ export default function BufferComponent(props) {
         createBuffer(bufferGeomAndRadiusOb)
     },[bufferGeomAndRadiusOb])
 
-    const binga=()=>{
-        setBufferOb(null)
-    }
-
     let removeBuffer=(feature,layer)=>{
         layer.on({
             click:function(e){
                 L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-                if(bufferRemoveState=='active'){binga()}
+                if(bufferRemoveReducerState=='active'){setBufferOb(null)}
             }
         })
     }
