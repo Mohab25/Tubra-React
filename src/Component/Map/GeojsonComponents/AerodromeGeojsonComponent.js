@@ -1,13 +1,12 @@
 import React,{useState,useEffect,useRef} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import {renderToStaticMarkup} from 'react-dom/server'
-import {GeoJSON,Marker,LayersControl} from 'react-leaflet'
-import L from "leaflet";
-import {divIcon } from 'leaflet'
-import createBufferAction from '../../../Actions/bufferActions/createBuffer'
-import Legend from '../Legend/Legend'
 
-const {Overlay} = LayersControl 
+import {GeoJSON} from 'react-leaflet'
+import L from "leaflet";
+
+import createBufferAction from '../../../Actions/bufferActions/createBuffer'
+import CustomPointFeatures from './CustomPointsGeoJSON'
+
 
 export default function GeojsonComponent() {
 
@@ -16,7 +15,7 @@ export default function GeojsonComponent() {
 
     /* filtered points for custom markers */ 
     const [PointsMarkers,setPointsMarkers] = useState([])
-    const [Markers,setMarkers] = useState([])
+    
 
     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
     const isBufferActivated = useSelector(state=>state.bufferReducer.isBufferToolActivated)
@@ -25,8 +24,7 @@ export default function GeojsonComponent() {
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
 
-    /*Legend */
-    const [legend,setLegendNames]=useState([])
+
 
 
     useEffect(()=>{
@@ -55,54 +53,11 @@ export default function GeojsonComponent() {
         }
         })
     }
-
-
-/***********************Custom Marker Filtering *******************************/
-
-useEffect(()=>{
-    if(PointsMarkers.length==0){return}
-    let points_icons = PointsMarkers.map((item,index)=>{
-        return(
-            renderToStaticMarkup(        
-                <div className='Maker-icon'>
-                <div className='Marker-icon-container'>
-                    <p>{item.properties.Feature_Name.slice(0,1)}</p>
-                </div>
-                </div>)
-        )
-    })
-    let icons = points_icons.map((item,index)=>{
-        return divIcon({
-                html: item,
-          });
-    })
-    
-    let markers = icons.map((item,index)=>{
-            let pos = PointsMarkers[index].geometry.coordinates
-            return <Marker icon={item} position={[pos[1],pos[0]]} key={Math.random()}/>
-    })
-    setMarkers(markers)
-
-    //also you can account for the legend names here, as the legend names should be unique
-    let legend_names = PointsMarkers.map(item=>item.properties.Feature_Name)
-    let unique_names = legend_names.filter((value,index,self)=>{
-        return self.indexOf(value) === index;
-    })
-    let Legend_names_object = {}
-    unique_names.map(item=>{
-        Legend_names_object[item.slice(0,1)]=item
-    })
-    setLegendNames(Legend_names_object)
-
-
-},[PointsMarkers])
-
     
     return (
     <>
-        {Markers}
         {AerodromeEntities}
-        {/*<Legend legendItems={Object.keys(legend).length==0?"":legend}/>*/}
+        <CustomPointFeatures PointsMarkers={PointsMarkers} />
     </>
     )
 }
