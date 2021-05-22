@@ -8,16 +8,13 @@ export default function PavementConstructionGeojson() {
 
     // geojson about pavements constructions
     const [pavementsData, setPavementsData] = useState([])
-    const [pavementJSONData,reservePavementData]=useState([])
-
-
-
+    const [pavementJSONData,reservePavementData]=useState([]) // raw data without GeoJSON object
+    // Buffer
     const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
     const isBufferActivated = useSelector(state=>state.bufferReducer.isBufferToolActivated)
     const createBufferDispatch = useDispatch()
 
     // what is shown on the modal 
-    const [entityModalData,setEntityModalData] = useState(null)
     const [pavementModalData,setPavementModalData] = useState(null)
 
     useEffect(()=>{

@@ -9,6 +9,7 @@ import L from "leaflet";
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import {divIcon } from 'leaflet'
 import PavementConstructionGeojson from './GeojsonComponents/PavementConstructionGeojson'
+import AerodromeEntityGeoJSON from './GeojsonComponents/AerodromeGeojsonComponent'
 import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
 import Legend from './Legend/Legend'
@@ -18,7 +19,6 @@ import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal
 
 // testing the buffer Component 
 import BufferComponent from './BufferComponent/BufferComponent'
-import createBufferAction from '../../Actions/bufferActions/createBuffer'
 
 const {Overlay} = LayersControl 
 
@@ -35,14 +35,6 @@ export default function MapComponent() {
     const [pointTest,setPointTest] = useState({})
      // Distance from the database 
     const [Calculated_distance,setCalculatedDistance] = useState(0)
-
-    // geojson of Aerodrome Entities
-    const [AerodromeEntities,setAerodromeEntitiesData] = useState([])
-    const [AerodromeJSONData,reserveAerodromeData] = useState([])
-
-    // geojson about pavements constructions
-    const [pavementsData, setPavementsData] = useState([])
-    const [pavementJSONData,reservePavementData]=useState([])
 
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
@@ -149,53 +141,6 @@ export default function MapComponent() {
 
         }
 
-/*****************************Getting the Aerodrome Geometric data from Backend ************************************/
-    // useEffect(()=>{
-    //     import_aerodrome_features()
-    //     import_pavement_constructions()
-    // },[])
-    
-    // const import_aerodrome_features=()=>{
-    //     fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
-    //     let points_only=[]
-    //     let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
-    //         if(item.geometry.type!='Point'){return item}
-    //         else {points_only.push(item)}
-    //     })
-    //     setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'green'}} onEachFeature={onEachEntity}/>)
-    //     reserveAerodromeData(filtered_data_without_points);
-    //     setPointsMarkers(points_only)
-    // })
-        
-    // }
-    
-    // const import_pavement_constructions=()=>{
-    // fetch('http://localhost:8000/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
-    // }
-
-    // useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
-    //                setAerodromeEntitiesData(<GeoJSON key={Math.random()} data={AerodromeJSONData} style={{color:'green'}} onEachFeature={onEachEntity}/>)
-    //         },[isBufferActivated,dispatchedBufferDistance]) // not using dispatchedBufferDistance here caused me a lot of trouble.
-    
-    // const onEachPavementConstruction=(feature,layer)=>{
-    //     layer.on({
-    //         click:function(e){
-    //             L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-    //             isBufferActivated==false?setPavementModalData(e.target.feature.properties):createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
-    //         }
-    //     })
-        
-    // }
-
-    // const onEachEntity=(feature,layer)=>{
-    //     layer.on({
-    //         click:function(e){ 
-    //         L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-    //         isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))
-    //     }
-    //     })
-    // }
-
 /***********************Custom Marker Filtering *******************************/
 
 useEffect(()=>{
@@ -248,6 +193,11 @@ useEffect(()=>{
                             <LayerGroup ref={pavement_construction_ref}>
                                 <PavementConstructionGeojson/>                    
                             </LayerGroup>
+                            </Overlay>
+                            <Overlay name='Aerodrome Entities'>
+                                <LayerGroup ref={Aerodrome_entities_ref}>
+                                    <AerodromeEntityGeoJSON/>
+                                </LayerGroup>
                             </Overlay>
                         <BufferComponent/>  
                     </LayersControl>

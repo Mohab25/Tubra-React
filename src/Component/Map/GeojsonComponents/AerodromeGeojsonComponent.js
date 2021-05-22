@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {GeoJSON,LayerGroup,Marker,LayersControl} from 'react-leaflet'
+import {GeoJSON,Marker,LayersControl} from 'react-leaflet'
 import L from "leaflet";
 import {divIcon } from 'leaflet'
 import createBufferAction from '../../../Actions/bufferActions/createBuffer'
@@ -11,9 +11,6 @@ const {Overlay} = LayersControl
 
 export default function GeojsonComponent() {
 
-    let Aerodrome_entities_ref = useRef()
-    let pavement_construction_ref = useRef()
-    
     const [AerodromeEntities,setAerodromeEntitiesData] = useState([])
     const [AerodromeJSONData,reserveAerodromeData] = useState([])
 
@@ -27,29 +24,28 @@ export default function GeojsonComponent() {
 
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
-    const [pavementModalData,setPavementModalData] = useState(null)
 
     /*Legend */
     const [legend,setLegendNames]=useState([])
 
 
     useEffect(()=>{
-        import_aerodrome_features()
+        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
+            let points_only=[]
+            let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
+                if(item.geometry.type!='Point'){return item}
+                else {points_only.push(item)}
+            })
+            setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'green'}} onEachFeature={onEachEntity}/>)
+            reserveAerodromeData(filtered_data_without_points); // raw data without GeoJSON object
+            setPointsMarkers(points_only)
+        })
     },[])
     
-    const import_aerodrome_features=()=>{
-        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
-        let points_only=[]
-        let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
-            if(item.geometry.type!='Point'){return item}
-            else {points_only.push(item)}
-        })
-        setAerodromeEntitiesData(<GeoJSON data={filtered_data_without_points} key={3} style={{color:'green'}} onEachFeature={onEachEntity}/>)
-        reserveAerodromeData(filtered_data_without_points);
-        setPointsMarkers(points_only)
-    })
-        
-    }
+    useEffect(()=>{
+        setAerodromeEntitiesData(<GeoJSON data={AerodromeJSONData} key={Math.random()} style={{color:'green'}} onEachFeature={onEachEntity}/>)
+    },[isBufferActivated,dispatchedBufferDistance])
+
 
     const onEachEntity=(feature,layer)=>{
         layer.on({
@@ -104,19 +100,9 @@ useEffect(()=>{
     
     return (
     <>
-        <Overlay name='Aerodrome Entities'>
-            <LayerGroup ref={Aerodrome_entities_ref}>
-                {Markers}
-                {AerodromeEntities}
-            </LayerGroup>
-        </Overlay>
-
-        <Overlay name='pavement construction'>
-            <LayerGroup ref={pavement_construction_ref}>
-                
-            </LayerGroup>
-        </Overlay>
-        <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
+        {Markers}
+        {AerodromeEntities}
+        {/*<Legend legendItems={Object.keys(legend).length==0?"":legend}/>*/}
     </>
     )
 }
