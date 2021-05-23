@@ -220,7 +220,7 @@ event object (e): this object holds all information about it's caller (search in
 
 #### setMatches
 
-the is where the actual filtering happens, it takes a search value and examine it, if the value is not en empty string, it loop through data returned from the server and a RegExp "regex expression" is constructed, values that fetched from the server and matches this regex are returned and inserted to a list.
+where the actual filtering happens, it takes a search value and examine it, if the value is not en empty string, it loop through data returned from the server and a RegExp "regex expression" is constructed, values that fetched from the server and matches this regex are returned and inserted to a list.
 
 #### setMatches parameters
 

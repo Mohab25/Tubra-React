@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
+import enableDisableCreatePolygon from '../../../../../Actions/GeometryCreation/Polygon/enableCreatePolygon'
 import './style/style2.css'
 
 export default function SearchResultsHolder(props) {
@@ -10,6 +12,10 @@ export default function SearchResultsHolder(props) {
     const [polygonVectorOptionColor,setPolygonVectorOptionColor] = useState('orange')
     const [itemVectorOptionColor,setItemVectorOptionColor] = useState('orange')
     const [pointerStyle,setPointerStyle] = useState('cursor')
+    // dispatchers 
+    const EnablePolygonCreationDispatcher = useDispatch()
+
+
     const handlePointVectorClick=()=>{
         pointVectorOptionColor=='orange'?setPointVectorOptionColor('orangered'):setPointVectorOptionColor('orange')
         pointerStyle=='crosshair'?setPointerStyle('default'):setPointerStyle('crosshair')
@@ -20,7 +26,14 @@ export default function SearchResultsHolder(props) {
         lineVectorOptionColor=='orange'?setLineVectorOptionColor('orangered'):setLineVectorOptionColor('orange')
     }
     const handlePolygonVectorClick=()=>{
-        polygonVectorOptionColor=='orange'?setPolygonVectorOptionColor('orangered'):setPolygonVectorOptionColor('orange')
+        if(polygonVectorOptionColor=='orange'){
+            setPolygonVectorOptionColor('orangered')
+            EnablePolygonCreationDispatcher(enableDisableCreatePolygon())
+        }
+        else{
+            setPolygonVectorOptionColor('orange')
+            EnablePolygonCreationDispatcher(enableDisableCreatePolygon())
+        }
     }
 
     const handleItemVectorClick=()=>{

@@ -7,13 +7,15 @@ import './leaflet/leaflet.css'
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import PavementConstructionGeojson from './GeojsonComponents/PavementConstructionGeojson'
 import AerodromeEntityGeoJSON from './GeojsonComponents/AerodromeGeojsonComponent'
+import PolygonGeom from './GeometryCreationComponents/PolygonGeom'
 import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
 import toggleGeometryCreationFormVisibility from '../../Actions/GeometryCreation/ShowHideCreationForm'
 import prePopulateGeometry from '../../Actions/GeometryCreation/GeometryCreation'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 
-// testing the buffer Component 
+
+ 
 import BufferComponent from './BufferComponent/BufferComponent'
 
 const {Overlay} = LayersControl 
@@ -43,6 +45,7 @@ export default function MapComponent() {
     const GeometryActionDispatch = useDispatch()
     const GeometryDispatch = useDispatch()
     const [isVectorActivated,setVectorActive] = useState(false)
+    const [mapReference,setMapReference] = useState()
 
 /***************************Linear Measurements and buffer ****************************** */
     const toggleLinearMeasurement=()=>{
@@ -77,6 +80,13 @@ export default function MapComponent() {
 
 /**********************************Geometry Creation****************************** */
     // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
+
+    useEffect(()=>{
+        if(mapRef){   
+            console.log('the map ref',mapRef.current)
+            setMapReference(mapRef.current.leafletElement)   
+        }
+    },[mapRef])
 
     let activateVector=()=>{
         // simple action of buffer activation (toggling the state). 
@@ -125,6 +135,8 @@ export default function MapComponent() {
     //     }
 
 /****************************** Rendering  *********************************/
+
+
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
@@ -147,6 +159,7 @@ export default function MapComponent() {
                 <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateVector={activateVector} />
                 
                 <GeometryCreationModal/>
+                <PolygonGeom map={mapReference}/>
             </div>
         </div>
     )

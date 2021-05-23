@@ -4,11 +4,13 @@ import notification_reducer from "./NotificationReducer/Notification_reducer";
 import CreationFormReducer from './GeometryCreationReducer/CreationFormReducer'
 import BufferAddRemoveReducer from './GeometryCreationReducer/BufferAddRemoveReducer'
 import bufferReducer from "./BufferReducers/bufferReducer";
+import EnableGeometryCreationReducer from './GeometryCreationReducer/EnableGeometryCreationReducer'
 
 export default combineReducers({
     Current_nav_reducer,
     notification_reducer,
     CreationFormReducer,
     BufferAddRemoveReducer,
-    bufferReducer
+    bufferReducer,
+    EnableGeometryCreationReducer
 })
