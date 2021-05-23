@@ -3,6 +3,8 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {divIcon } from 'leaflet'
 import {Marker} from 'react-leaflet'
 import Legend from '../Legend/Legend'
+import Modal from '../Modal/modal'
+
 
 export default function CustomPointsGeoJSON({PointsMarkers}) {
 
@@ -54,6 +56,7 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
         <>
         {Markers}
         <Legend legendItems={Object.keys(legend).length==0?"":legend}/>
+        {/*Markers!=null && <Modal data={Markers} modalCloser={setMarkers}/>*/}
         </>
     )
 }

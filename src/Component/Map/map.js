@@ -31,11 +31,6 @@ export default function MapComponent() {
     const [pointTest,setPointTest] = useState({})
      // Distance from the database 
     const [Calculated_distance,setCalculatedDistance] = useState(0)
-
-    // what is shown on the modal 
-    const [entityModalData,setEntityModalData] = useState(null)
-    const [pavementModalData,setPavementModalData] = useState(null)
-
     /* Linear Measurements */
     const [linear_measure_is_on,toggle_linear_measure] = useState(false)
     const [linear_coords,setLinearCoords]=useState([])
@@ -148,8 +143,6 @@ export default function MapComponent() {
                             </Overlay>
                         <BufferComponent/>  
                     </LayersControl>
-                    {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
-                    {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
                 </Map>
                 <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateVector={activateVector} />
                 

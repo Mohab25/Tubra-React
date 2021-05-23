@@ -3,6 +3,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import {GeoJSON} from 'react-leaflet'
 import L from 'leaflet'
 import createBufferAction from '../../../Actions/bufferActions/createBuffer'
+import Modal from '../Modal/modal'
 
 export default function PavementConstructionGeojson() {
 
@@ -37,6 +38,7 @@ export default function PavementConstructionGeojson() {
     return (
         <div>
             {pavementsData}
+            {pavementModalData!=null && <Modal data={pavementModalData} modalCloser={setPavementModalData}/>}
         </div>
     )
 }

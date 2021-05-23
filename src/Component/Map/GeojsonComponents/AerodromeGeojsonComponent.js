@@ -7,6 +7,7 @@ import L from "leaflet";
 import createBufferAction from '../../../Actions/bufferActions/createBuffer'
 import CustomPointFeatures from './CustomPointsGeoJSON'
 
+import Modal from '../Modal/modal'
 
 export default function GeojsonComponent() {
 
@@ -58,6 +59,7 @@ export default function GeojsonComponent() {
     <>
         {AerodromeEntities}
         <CustomPointFeatures PointsMarkers={PointsMarkers} />
+        {entityModalData!=null && <Modal data={entityModalData} modalCloser={setEntityModalData}/>}
     </>
     )
 }
