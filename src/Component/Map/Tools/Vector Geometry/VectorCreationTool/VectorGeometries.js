@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import enableDisableCreatePolygon from '../../../../../Actions/GeometryCreation/Polygon/enableCreatePolygon'
+import enableDisableCreateGeometry from '../../../../../Actions/GeometryCreation/enableCreateGeometry'
 import './style/style2.css'
 
 export default function SearchResultsHolder(props) {
@@ -13,7 +13,7 @@ export default function SearchResultsHolder(props) {
     const [itemVectorOptionColor,setItemVectorOptionColor] = useState('orange')
     const [pointerStyle,setPointerStyle] = useState('cursor')
     // dispatchers 
-    const EnablePolygonCreationDispatcher = useDispatch()
+    const EnableGeometryCreationDispatcher = useDispatch()
 
 
     const handlePointVectorClick=()=>{
@@ -23,16 +23,22 @@ export default function SearchResultsHolder(props) {
     document.body.style.cursor=pointerStyle
 
     const handleLineVectorClick=()=>{
-        lineVectorOptionColor=='orange'?setLineVectorOptionColor('orangered'):setLineVectorOptionColor('orange')
-    }
-    const handlePolygonVectorClick=()=>{
-        if(polygonVectorOptionColor=='orange'){
+        if(lineVectorOptionColor=='orange'){
             setPolygonVectorOptionColor('orangered')
-            EnablePolygonCreationDispatcher(enableDisableCreatePolygon())
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
         }
         else{
             setPolygonVectorOptionColor('orange')
-            EnablePolygonCreationDispatcher(enableDisableCreatePolygon())
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
+        }    }
+    const handlePolygonVectorClick=()=>{
+        if(polygonVectorOptionColor=='orange'){
+            setPolygonVectorOptionColor('orangered')
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon'))
+        }
+        else{
+            setPolygonVectorOptionColor('orange')
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon'))
         }
     }
 
