@@ -83,7 +83,6 @@ export default function MapComponent() {
 
     useEffect(()=>{
         if(mapRef){   
-            console.log('the map ref',mapRef.current)
             setMapReference(mapRef.current.leafletElement)   
         }
     },[mapRef])
