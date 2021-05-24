@@ -17,9 +17,9 @@ export default function VectorCreationTool(props) {
 
     return (
         <>
-            <div className='VectorCreation' style={{backgroundColor:VectorToolDisplayColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
+            <div className='VectorCreation' style={{backgroundColor:VectorToolDisplayColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}  onClick={handleClick}>
                 <div className='VectorCreation-container'>
-                    <div className='VectorCreation-box' onClick={handleClick}>
+                    <div className='VectorCreation-box'>
                         <div>
                         <i className="fas fa-draw-polygon"></i>
                         </div>

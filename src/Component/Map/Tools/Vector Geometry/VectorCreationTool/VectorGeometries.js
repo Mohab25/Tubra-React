@@ -10,7 +10,6 @@ export default function SearchResultsHolder(props) {
     const [pointVectorOptionColor,setPointVectorOptionColor] = useState('orange')
     const [lineVectorOptionColor,setLineVectorOptionColor] = useState('orange')
     const [polygonVectorOptionColor,setPolygonVectorOptionColor] = useState('orange')
-    const [itemVectorOptionColor,setItemVectorOptionColor] = useState('orange')
     const [pointerStyle,setPointerStyle] = useState('cursor')
     // dispatchers 
     const EnableGeometryCreationDispatcher = useDispatch()
@@ -23,14 +22,17 @@ export default function SearchResultsHolder(props) {
     document.body.style.cursor=pointerStyle
 
     const handleLineVectorClick=()=>{
+        
         if(lineVectorOptionColor=='orange'){
-            setPolygonVectorOptionColor('orangered')
+            setLineVectorOptionColor('orangered')
             EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
         }
         else{
-            setPolygonVectorOptionColor('orange')
+            setLineVectorOptionColor('orange')
             EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
-        }    }
+        }   
+     }
+        
     const handlePolygonVectorClick=()=>{
         if(polygonVectorOptionColor=='orange'){
             setPolygonVectorOptionColor('orangered')
@@ -42,9 +44,6 @@ export default function SearchResultsHolder(props) {
         }
     }
 
-    const handleItemVectorClick=()=>{
-        itemVectorOptionColor=='orange'?setItemVectorOptionColor('orangered'):setItemVectorOptionColor('orange')
-    }
     return (
         <div className='VectorPane'>
             <div className='VectorPane-container'>
