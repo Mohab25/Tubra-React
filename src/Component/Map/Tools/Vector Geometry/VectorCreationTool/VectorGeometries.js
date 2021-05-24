@@ -10,44 +10,53 @@ export default function SearchResultsHolder(props) {
     const [pointVectorOptionColor,setPointVectorOptionColor] = useState('orange')
     const [lineVectorOptionColor,setLineVectorOptionColor] = useState('orange')
     const [polygonVectorOptionColor,setPolygonVectorOptionColor] = useState('orange')
-    const [pointerStyle,setPointerStyle] = useState('cursor')
+
     // dispatchers 
     const EnableGeometryCreationDispatcher = useDispatch()
 
     // point creation
     const handlePointVectorClick=()=>{
         if(pointVectorOptionColor=='orange'){
+            // disable (change the color of other tools), and hit the dispatch one time to balance thing up (this is mainly because to the reducer is implemented )
+            setPolygonVectorOptionColor('orange');setLineVectorOptionColor('orange')
+
             setPointVectorOptionColor('orangered')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point','enabled'))
         }
         else{
             setPointVectorOptionColor('orange')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point','disabled'))
         }
         
     }
-    document.body.style.cursor=pointerStyle
+
     // line creation
     const handleLineVectorClick=()=>{
 
         if(lineVectorOptionColor=='orange'){
+            // disable (change the color of other tools), and hit the dispatch one time to balance thing up (this is mainly because to the reducer is implemented )
+            setPointVectorOptionColor('orange');setPolygonVectorOptionColor('orange')
+
             setLineVectorOptionColor('orangered')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line','enabled'))
         }
         else{
             setLineVectorOptionColor('orange')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line','disabled'))
         }   
      }
     // polygon creation    
     const handlePolygonVectorClick=()=>{
         if(polygonVectorOptionColor=='orange'){
+            // disable (change the color of other tools), and hit the dispatch one time to balance thing up (this is mainly because to the reducer is implemented )
+            setPointVectorOptionColor('orange');setLineVectorOptionColor('orange')
+          
             setPolygonVectorOptionColor('orangered')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon','enabled'))
         }
         else{
             setPolygonVectorOptionColor('orange')
-            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon','disabled'))
         }
     }
 

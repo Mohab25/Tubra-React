@@ -10,14 +10,14 @@ export default function EnableGeometryCreationReducer(state=initialState,action)
 
     switch(action.type){
         case ENABLECREATEGOEMETRY:{
-            let GeometryCreationToggler = state.GeometryCreation=='disabled'?"enabled":"disabled"
-            if(action.payload=='polygon'){
+            let GeometryCreationToggler = action.payload.createStatus
+            if(action.payload.geomType=='polygon'){
                 return {...state,GeometryCreation:GeometryCreationToggler,geomType:'polygon'}
             }
-            else if(action.payload=='line'){
+            else if(action.payload.geomType=='line'){
                 return {...state,GeometryCreation:GeometryCreationToggler,geomType:'line'}
             }
-            else if(action.payload=='point'){
+            else if(action.payload.geomType=='point'){
                 return {...state,GeometryCreation:GeometryCreationToggler,geomType:'point'}
             }
 
