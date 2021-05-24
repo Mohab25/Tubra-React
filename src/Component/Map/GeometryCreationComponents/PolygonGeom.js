@@ -25,7 +25,7 @@ export default function PolygonGeom({map}) {
             if the state is evaluated to "disabled" end the draw mode. 
         */
         if(isGeometryEnabled=='enabled'){
-            
+
         if(geomType=='polygon'){
             // disable whatever been set previously 
             map.pm.disableDraw()
@@ -33,6 +33,7 @@ export default function PolygonGeom({map}) {
             map.pm.enableDraw('Polygon', {
             snappable: true,
             snapDistance: 20,
+            continueDrawing:true
             }); 
         }
 
@@ -44,6 +45,7 @@ export default function PolygonGeom({map}) {
             map.pm.enableDraw('Line', {
             snappable: true,
             snapDistance: 20,
+            continueDrawing:true
             });     
         }
         
@@ -54,6 +56,7 @@ export default function PolygonGeom({map}) {
             map.pm.enableDraw('CircleMarker', {
             snappable: true,
             snapDistance: 20,
+            finishOn:'dblclick'
             });     
         }
     }
