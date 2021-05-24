@@ -60,6 +60,7 @@ export default function PolygonGeom({map}) {
             the map prop (map instance) listen to pm:create event, it get fired when 
             the shape complete drawing and dispatch a modal creation action.
         */
+       // the creation form should be fired after the user dblclick on the item
         geometryCreationModalDispatch(toggleGeometryCreationFormVisibility())
     })}
 

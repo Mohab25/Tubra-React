@@ -8,14 +8,8 @@ import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import PavementConstructionGeojson from './GeojsonComponents/PavementConstructionGeojson'
 import AerodromeEntityGeoJSON from './GeojsonComponents/AerodromeGeojsonComponent'
 import PolygonGeom from './GeometryCreationComponents/PolygonGeom'
-import Modal from './Modal/modal'
 import './MakerIcon/styles/styles.css'
-import toggleGeometryCreationFormVisibility from '../../Actions/GeometryCreation/ShowHideCreationForm'
-import prePopulateGeometry from '../../Actions/GeometryCreation/GeometryCreation'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
-
-
- 
 import BufferComponent from './BufferComponent/BufferComponent'
 
 const {Overlay} = LayersControl 
@@ -29,8 +23,6 @@ export default function MapComponent() {
     let mapRef = useRef();
     let Aerodrome_entities_ref = useRef()
     let pavement_construction_ref = useRef()
-    const [lineTest,setLineTest] =  useState({})          
-    const [pointTest,setPointTest] = useState({})
      // Distance from the database 
     const [Calculated_distance,setCalculatedDistance] = useState(0)
     /* Linear Measurements */
@@ -42,8 +34,6 @@ export default function MapComponent() {
     const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
 
     /* Geometry Creation */
-    const GeometryActionDispatch = useDispatch()
-    const GeometryDispatch = useDispatch()
     const [isVectorActivated,setVectorActive] = useState(false)
     const [mapReference,setMapReference] = useState()
 
@@ -88,50 +78,9 @@ export default function MapComponent() {
     },[mapRef])
 
     let activateVector=()=>{
-        // simple action of buffer activation (toggling the state). 
+        // simple action vector creation activation. 
         isVectorActivated?setVectorActive(false):setVectorActive(true)
     }
-
-
-    let createPolygon=(e)=>{
-        /* takes a group of coords and pass it to the backend, then receive a geometry 
-         and pass it as a geojson object to the map, the problematic part is keep 
-         tracking of the geometry being created.
-         */ 
-         // create a Geojson from the data json 
-         // add it to the points 
-
-    }
-
-    let createLine=()=>{
-
-    }
-
-    // let createPoint=(e)=>{
-    //     /* what is need to create a point geometry is to get the coords, and send them
-    //         to the backend, where the geometry will be created.  
-    //     */
-        
-    //     /*
-    //         who to redraw GeoJSON:
-
-    //     */
-    //         // calling redux to open the Modal. 
-    //         GeometryActionDispatch(toggleGeometryCreationFormVisibility())
-    //         // you need to get the data from creation form... it goes as useSelector and sense the change on redux store, update the state and use the updated state to complete the geometry creation.  
-    //         let json_point=''
-    //         if(PointsMarkers.length!==0){
-    //         //spread the PointsMarkers array and add a jon point to it.  
-    //         let points = [...PointsMarkers]
-    //         json_point = { "type": "Feature", "properties": {'Feature_Name':'Random Point'}, "geometry": { "type": "Point", "coordinates":[e.latlng.lng,e.latlng.lat]}}           
-    //         points.push(json_point)
-    //         setPointsMarkers(points)
-    //         }
-    
-    //         // also because the geometry is not defined in the form, it needs to be dispatched from here
-    //         GeometryDispatch(prePopulateGeometry(json_point))
-
-    //     }
 
 /****************************** Rendering  *********************************/
 
