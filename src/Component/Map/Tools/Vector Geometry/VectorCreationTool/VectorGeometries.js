@@ -14,15 +14,22 @@ export default function SearchResultsHolder(props) {
     // dispatchers 
     const EnableGeometryCreationDispatcher = useDispatch()
 
-
+    // point creation
     const handlePointVectorClick=()=>{
-        pointVectorOptionColor=='orange'?setPointVectorOptionColor('orangered'):setPointVectorOptionColor('orange')
-        pointerStyle=='crosshair'?setPointerStyle('default'):setPointerStyle('crosshair')
+        if(pointVectorOptionColor=='orange'){
+            setPointVectorOptionColor('orangered')
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point'))
+        }
+        else{
+            setPointVectorOptionColor('orange')
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point'))
+        }
+        
     }
     document.body.style.cursor=pointerStyle
-
+    // line creation
     const handleLineVectorClick=()=>{
-        
+
         if(lineVectorOptionColor=='orange'){
             setLineVectorOptionColor('orangered')
             EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
@@ -32,7 +39,7 @@ export default function SearchResultsHolder(props) {
             EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line'))
         }   
      }
-        
+    // polygon creation    
     const handlePolygonVectorClick=()=>{
         if(polygonVectorOptionColor=='orange'){
             setPolygonVectorOptionColor('orangered')

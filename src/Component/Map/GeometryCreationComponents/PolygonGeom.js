@@ -26,13 +26,20 @@ export default function PolygonGeom({map}) {
             snapDistance: 20,
             });     
         }
+        
+        else if(geomType=='point'){
+            map.pm.enableDraw('CircleMarker', {
+            snappable: true,
+            snapDistance: 20,
+            });     
         }
+    }
         else{
             if(map!=undefined){map.pm.disableDraw()}
         }    
     }
     ,[isGeometryEnabled])
-    
+
     return (
         <div>
             

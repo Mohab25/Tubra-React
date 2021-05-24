@@ -17,6 +17,9 @@ export default function EnableGeometryCreationReducer(state=initialState,action)
             else if(action.payload=='line'){
                 return {...state,GeometryCreation:GeometryCreationToggler,geomType:'line'}
             }
+            else if(action.payload=='point'){
+                return {...state,GeometryCreation:GeometryCreationToggler,geomType:'point'}
+            }
 
         }
         
