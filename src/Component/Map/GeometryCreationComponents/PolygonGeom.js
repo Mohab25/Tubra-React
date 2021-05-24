@@ -24,16 +24,23 @@ export default function PolygonGeom({map}) {
             and enable the draw mode.
             if the state is evaluated to "disabled" end the draw mode. 
         */
-        if(isGeometryEnabled=='enabled'){   
-        if(geomType=='polygon'){    
+        if(isGeometryEnabled=='enabled'){
+            
+        if(geomType=='polygon'){
+            // disable whatever been set previously 
+            map.pm.disableDraw()
+            // open draw mode     
             map.pm.enableDraw('Polygon', {
             snappable: true,
             snapDistance: 20,
             }); 
-            }
+        }
 
             
         else if(geomType=='line'){
+            // disable whatever been set previously 
+            map.pm.disableDraw()
+            // open draw mode     
             map.pm.enableDraw('Line', {
             snappable: true,
             snapDistance: 20,
@@ -41,6 +48,9 @@ export default function PolygonGeom({map}) {
         }
         
         else if(geomType=='point'){
+            // disable whatever been set previously 
+            map.pm.disableDraw()
+            // open draw mode     
             map.pm.enableDraw('CircleMarker', {
             snappable: true,
             snapDistance: 20,
@@ -51,7 +61,7 @@ export default function PolygonGeom({map}) {
             if(map!=undefined){map.pm.disableDraw()}
         }    
     }
-    ,[isGeometryEnabled])
+    ,[isGeometryEnabled,geomType])
 
     // firing the modal after the shape drawing is completed
     if(map!=undefined){map.on('pm:create',(shape,layer)=>{
