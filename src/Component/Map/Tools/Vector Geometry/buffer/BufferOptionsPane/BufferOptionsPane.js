@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import './styles/styles.css'
 import AddBuffer from './Options/AddBuffer/AddBuffer'
 import {useDispatch} from 'react-redux'
-import removeBuffer from '../../../../../../Actions/GeometryCreation/RemoveBuffer'
+import removeBuffer from '../../../../../../Actions/bufferActions/RemoveBuffer'
 
 
 export default function BufferOptionsPane(props){

@@ -1,5 +1,5 @@
-import {BUFFERDISTANCE} from '../../Actions/GeometryCreation/types'
-import {REMOVEBUFFER} from '../../Actions/GeometryCreation/types'
+import {BUFFERDISTANCE} from '../../Actions/bufferActions/types'
+import {REMOVEBUFFER} from '../../Actions/bufferActions/types'
 
 const initialState={
     distance:10,

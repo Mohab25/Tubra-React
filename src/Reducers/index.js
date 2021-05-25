@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import Current_nav_reducer from './NavReducers/Current_nav_reducer'
 import notification_reducer from "./NotificationReducer/Notification_reducer";
 import CreationFormReducer from './GeometryCreationReducer/CreationFormReducer'
-import BufferAddRemoveReducer from './GeometryCreationReducer/BufferAddRemoveReducer'
+import BufferAddRemoveReducer from './BufferReducers/BufferAddRemoveReducer'
 import bufferReducer from "./BufferReducers/bufferReducer";
 import EnableGeometryCreationReducer from './GeometryCreationReducer/EnableGeometryCreationReducer'
 

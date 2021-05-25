@@ -1,7 +1,7 @@
 import React,{useEffect,useRef} from 'react'
 import './styles.css'
 import {useDispatch} from 'react-redux'
-import changeBufferDistance from '../../../../../../../../Actions/GeometryCreation/BufferDistance'
+import changeBufferDistance from '../../../../../../../../Actions/bufferActions/BufferDistance'
 
 export default function AddBuffer(props) {
     let inputRef = useRef(null)
