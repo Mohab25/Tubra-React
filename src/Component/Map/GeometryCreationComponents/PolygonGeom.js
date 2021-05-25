@@ -45,7 +45,8 @@ export default function PolygonGeom({map}) {
             map.pm.enableDraw('Line', {
             snappable: true,
             snapDistance: 20,
-            continueDrawing:true
+            continueDrawing:true,
+            finishOn:'dblclick',
             });     
         }
         
@@ -55,8 +56,8 @@ export default function PolygonGeom({map}) {
             // open draw mode     
             map.pm.enableDraw('CircleMarker', {
             snappable: true,
-            snapDistance: 20,
-            finishOn:'dblclick'
+            snapDistance: 206
+            
             });     
         }
     }
