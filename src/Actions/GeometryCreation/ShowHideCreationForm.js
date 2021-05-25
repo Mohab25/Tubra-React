@@ -1,9 +1,9 @@
 import {SHOWHIDECREATIONFORM} from './types'
 
-const toggleGeometryCreationFormVisibility=()=>dispatch=>{
-    dispatch({
+const toggleGeometryCreationFormVisibility=()=>{
+    return{
         type:SHOWHIDECREATIONFORM
-    })
+    }
 }
 
 export default toggleGeometryCreationFormVisibility;
