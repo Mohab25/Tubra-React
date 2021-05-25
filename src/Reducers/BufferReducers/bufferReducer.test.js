@@ -1,6 +1,6 @@
 import reducer from './bufferReducer'
-import bufferActivationAction from '../../Actions/bufferActions/activateBufferTool'
-import createBuffer from "../../Actions/bufferActions/createBuffer";
+import {CREATEBUFFERDATATRANSFER} from '../../Actions/bufferActions/types'
+import {ACTIVATEBUFFERTOOL} from '../../Actions/bufferActions/types'
 
 const initialState={
     isBufferToolActivated:false,
@@ -12,7 +12,7 @@ describe('testing the buffer activation reducer',()=>{
         expect(reducer(initialState,'')).toEqual(initialState)
     })
     it('test the buffer activation reducer state after receiving action ',()=>{
-        expect(reducer(initialState,bufferActivationAction())).toEqual({isBufferToolActivated:true,bufferGeomAndRadiusOb:{}})
+        expect(reducer(initialState,{type:ACTIVATEBUFFERTOOL})).toEqual({isBufferToolActivated:true,bufferGeomAndRadiusOb:{}})
     })
     it('test the buffer creation geometry object',()=>{
         let geomRadiusOb = {
@@ -21,13 +21,13 @@ describe('testing the buffer activation reducer',()=>{
         }
         // because this reducer has a check on it for the bufferActivation, if the buffer activation 
         // is false, it will return the initial state without making a change to it 
-        expect(reducer(initialState,createBuffer(geomRadiusOb))).toEqual({isBufferToolActivated:false,bufferGeomAndRadiusOb:{}})
+        expect(reducer(initialState,{type:CREATEBUFFERDATATRANSFER,payload:geomRadiusOb})).toEqual({isBufferToolActivated:false,bufferGeomAndRadiusOb:{}})
     
         let state_with_isBufferToolActivated_set_to_true={
             isBufferToolActivated:true,
             bufferGeomAndRadiusOb:{}
         }
-        expect(reducer(state_with_isBufferToolActivated_set_to_true,createBuffer(geomRadiusOb))).toEqual({isBufferToolActivated:true,bufferGeomAndRadiusOb:geomRadiusOb})
+        expect(reducer(state_with_isBufferToolActivated_set_to_true,{type:CREATEBUFFERDATATRANSFER,payload:geomRadiusOb})).toEqual({isBufferToolActivated:true,bufferGeomAndRadiusOb:geomRadiusOb})
 
     })
 })

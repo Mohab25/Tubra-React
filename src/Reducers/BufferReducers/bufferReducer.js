@@ -24,7 +24,7 @@ export default function bufferToolActivationReducer(state=initialState,action){
             }
         } 
         case CREATEBUFFERDATATRANSFER:{
-            // in order to create a buffer the buffer tool should be activated, check it 
+            // in order to create a buffer the buffer tool should be activated, thi if is about that
             if(state.isBufferToolActivated==true){
                 return{
                     ...state,bufferGeomAndRadiusOb:action.payload
