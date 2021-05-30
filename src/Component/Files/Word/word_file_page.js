@@ -9,10 +9,9 @@ export default function WordFilePage(props) {
     let [content,setContent]=useState('')
 
     useEffect(()=>{
+        if(props.pk!=undefined){
         fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
-        setContent(data)}
-
-    )},[])
+        setContent(data)})}},[])
 
     // config quill lib
     const quillRef = useCallback((quillWrapper)=>{
@@ -49,13 +48,13 @@ export default function WordFilePage(props) {
         <div ref={quillRef}>
             {//h2 className='document-section-headers'>{title.replace('(This is Heading #H2)','')}</h2>
             }
-            <p className='document-content'>{content.content}</p>
+            <p className='document-content' data-testid='content'>{content.content}</p>
         </div>
         
     // constructing the page body.
         return (
         <div className='files-viewer'>
-            <div className='files-viewer-container'>
+            <div className='files-viewer-container' >
                 <div className='files-viewer-side'></div>
                 <div className='files-viewer-main-area'>
                     <form>

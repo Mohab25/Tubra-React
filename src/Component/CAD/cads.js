@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react'
 import './styles/styles2.css'
 import Cad_card from './cad_card.js'
-import CAD from './cad.js'
+import CAD from './cadViewer'
 import {useState,useEffect} from 'react'
 
 
@@ -17,12 +17,9 @@ export default function CADS(props) {
     useEffect(()=>{
         fetch('http://localhost:8000/CAD/drawings/').then(res=>res.json()).then(
             data=>{
-                console.log(data)
                 SetCADDocs(data)
             }
-            )
-            
-
+            )  
     },[])
 
 

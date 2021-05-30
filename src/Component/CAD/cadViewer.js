@@ -3,13 +3,10 @@ import {useEffect,useRef} from 'react'
 import { Map } from "react-leaflet";
 import { CRS } from "leaflet";
 import L from 'leaflet'
-import img from '../../Data/Tiles/g.jpeg'
 import './styles/styles.css'
 
 export default function Cad(props) {
 let _url = props.url
-console.log('the first url:',_url)
-
 const mapRef = useRef(null);
 
     useEffect(() => {

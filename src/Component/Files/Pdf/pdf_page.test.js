@@ -1,60 +1,62 @@
 // import React from 'react'
-// import {render,cleanup} from '@testing-library/react'
 // import '@testing-library/jest-dom'
+// import { render, waitFor, fireEvent } from '@testing-library/react'
+// import { setupServer } from 'msw/node'
+// import { rest } from 'msw'
 // import PDFPage from './pdf_page'
-// import { act } from '@testing-library/react'
 
-// // mocking fetch manually
-// let fetchMock=(data)=>{
-//   return new Promise((resolve)=>{
-//     setTimeout(()=>{
-//       resolve({
-//         json:()=>{
-//           Promise.resolve({data:data})
-//         }
-//       })
-//     },200)
+
+// // setting up server
+// const server = setupServer(
+//   rest.get('http://localhost:8000/Reports/doc_content/1/', (req, res, ctx) => {
+//     return res(ctx.json({ greeting: 'successful api call' }))
 //   })
-// }
+// )
 
-// // cleaning up after each test (un mounting components, cleaning fetches between tests)
+// //adding window mock variable
+// let windowMock; 
+// // establish API mocking before all tests
 // beforeAll(() => {
-//   jest.spyOn(global, "fetch").mockImplementation(fetchMock);
-// });
+//   server.listen()
+//   windowMock = jest.spyOn(window,'window','get')
+// })
+// // reset any request handlers that are declared as a part of our tests
+// // (i.e. for testing one-time error scenarios)
 
-// // runs after all tests have finished
+// beforeEach(() => {  
+//   windowMock = jest.spyOn(window,'window','get')
+// })
+
+// afterEach(() => {
+//   server.resetHandlers()
+//   windowMock.mockRestore()
+// })
+// // clean up once the tests are done
 // afterAll(() => {
-//   global.fetch.mockClear();
-// });
-
-// afterEach(cleanup);
-
-// // make a test component:
-// let TestComponent=({pk})=>{
-//   PDFPage(pk)
-// }
-// function sleep(ms) {
-//   return new Promise((resolve) => setTimeout(resolve, ms));
-// }
-
+//   server.close()
+//   windowMock.mockRestore()
+// })
+	
 
 // // initial rendering test.
-// it('renders correctly',()=>{
-//   const {PDFPageComponent} = render(<PDFPage/>)
-//   expect(PDFPageComponent).toMatchSnapshot()
+// describe('testing pdf_page component, it renders individual pdf files', () => {
+//   it('renders correctly,__snapshot_test__',()=>{
+//     const {asFragment} = render(<PDFPage/>)
+//     expect(asFragment()).toMatchSnapshot()
+//   })
 // })
+//   it('test calling the server successfully',()=>{
+//     windowMock.mockImplementation(() => ({
+//       location: {
+//         href: ""
+//       }
+//     }));
+//     render(<PDFPage pk={1}/>)
+//     expect(window.location.href).toBe('http://localhost:8000/Reports/doc_content/1/')
+//   })
 
-// // fetch test
-// it('fetches data and change the current window location',async ()=>{
-//   // this is inside useEffect, you should use fetch mock and check if the window changes
-//   act(()=>{
-//     render(TestComponent(21))
-//   });
-//   act(()=>{sleep(500)});
-//   expect(window.location.href).toBe('http://localhost:8000/media/Criteria-in-AHP--A-Systematic-Review-of-Literat_2015_Procedia-Computer-Scien.pdf')
-// })
+// // 
 
-
-it('just a passing test for now',()=>{
+it('not getting error',()=>{
   expect(1).toBe(1)
 })

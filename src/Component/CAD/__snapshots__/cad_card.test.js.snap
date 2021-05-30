@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing cad card component  renders correctly, __snapshot_test__ 1`] = `
+<DocumentFragment>
+  <div
+    class="cad-card"
+  >
+    <div
+      class="cad-card-container"
+    >
+      <div
+        class="cad-card-img"
+        data-testid="cad-img"
+        style="background-image: url(CAD.jpg);"
+      />
+      <div
+        class="cad-card-body"
+      >
+        <h6>
+          <b />
+        </h6>
+        <p>
+          Ipsum ullamco do commodo culpa tempor id qui culpa.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
