@@ -93,7 +93,7 @@ export default function MapComponent() {
                         <TileLayer url={tile}/>
                             <Overlay name='pavement construction'>
                             <LayerGroup ref={pavement_construction_ref}>
-                                <PavementConstructionGeojson/>                    
+                                <PavementConstructionGeojson  map={mapReference}/>                    
                             </LayerGroup>
                             </Overlay>
                             <Overlay name='Aerodrome Entities'>

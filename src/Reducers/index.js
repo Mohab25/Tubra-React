@@ -5,6 +5,7 @@ import CreationFormReducer from './GeometryCreationReducer/CreationFormReducer'
 import BufferAddRemoveReducer from './BufferReducers/BufferAddRemoveReducer'
 import bufferReducer from "./BufferReducers/bufferReducer";
 import EnableGeometryCreationReducer from './GeometryCreationReducer/EnableGeometryCreationReducer'
+import identifyToolActivationReducer from "./IdentifyReducers/IdentifyActivationReducer";
 
 export default combineReducers({
     Current_nav_reducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     CreationFormReducer,
     BufferAddRemoveReducer,
     bufferReducer,
-    EnableGeometryCreationReducer
+    EnableGeometryCreationReducer,
+    identifyToolActivationReducer
 })

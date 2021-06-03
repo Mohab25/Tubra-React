@@ -22,10 +22,11 @@ export default function GeojsonComponent() {
     const isBufferActivated = useSelector(state=>state.bufferReducer.isBufferToolActivated)
     const createBufferDispatch = useDispatch()
 
+    // identify tool activation status 
+    let isIdentifyToolActive = useSelector(state=>state.identifyToolActivationReducer.isIdentifyToolActive)
+
     // what is shown on the modal 
     const [entityModalData,setEntityModalData] = useState(null)
-
-
 
 
     useEffect(()=>{
@@ -43,14 +44,21 @@ export default function GeojsonComponent() {
     
     useEffect(()=>{
         setAerodromeEntitiesData(<GeoJSON data={AerodromeJSONData} key={Math.random()} style={{color:'green'}} onEachFeature={onEachEntity}/>)
-    },[isBufferActivated,dispatchedBufferDistance])
+    },[isBufferActivated,isIdentifyToolActive,dispatchedBufferDistance])
 
 
     const onEachEntity=(feature,layer)=>{
         layer.on({
             click:function(e){ 
             L.DomEvent.stopPropagation(e); // this to prevent the click on the map below the layer
-            isBufferActivated==false?setEntityModalData(e.target.feature.properties):createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))
+            if(isBufferActivated==false){
+                if(isIdentifyToolActive==true){
+                    setEntityModalData(e.target.feature.properties)
+                }
+            }
+            else{
+                createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
+            }
         }
         })
     }

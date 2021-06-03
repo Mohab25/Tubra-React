@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
+import {useDispatch } from "react-redux";
 import './styles/styles.css'
 import ToolTip from '../../../Tooltips/Tooltips'
+import activateIdentifyTool from "../../../../Actions/identifyActions/activateIdentifytool";
 
 export default function Identify(props) {
     let [backgroundColor,setBackgroundColor] = useState('orange')
@@ -8,13 +10,18 @@ export default function Identify(props) {
     // control toolTip 
     const [display,changeDisplay]=useState('none')
 
+    // dispatch for the activation 
+    const activationDispatch = useDispatch()
+
     /******** handle toolTips */ 
     const handleClick=()=>{
         if(backgroundColor=='orange'){
             setBackgroundColor('orangered')
+            activationDispatch(activateIdentifyTool())
         }
         else{
             setBackgroundColor('orange')
+            activationDispatch(activateIdentifyTool())
         }
         
     }

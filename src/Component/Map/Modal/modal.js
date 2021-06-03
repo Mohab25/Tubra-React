@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import Files from '../../Files/FilesHolder/Files'
 import CAD from '../../CAD/cads'
 import AerodromeComponentDetails from './AerodromeComponentDetails/AerodromeComponentDetails.js'
-
+import L from 'leaflet'
 import './styles.css'
 
 export default function Modal(props) {
@@ -14,16 +14,27 @@ export default function Modal(props) {
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block'/>
     
     const closeModal=(e)=>{
-        if(e.target.classList.contains('backdrop')){props.modalCloser(null)}
+        if(e.target.classList.contains('backdrop')){
+            props.modalCloser(null)
+            props.map.dragging.enable();    
+            props.map.scrollWheelZoom.enable();
+        }
     }
 
     let toggleTabDisplay=(tab)=>{
         setTabDisplay(tab)
     }
 
+    let handleScroll=(e)=>{
+        e.stopPropagation()
+        props.map.dragging.disable();    
+        props.map.scrollWheelZoom.disable();
+        console.log('propagated')
+    }
+
     return (
-        <div className='backdrop' onClick={closeModal}>
-            <div className='modal-inner-holer'>
+        <div className='backdrop' onClick={closeModal} onMouseEnter={handleScroll} >
+            <div className='modal-inner-holer' onWheelCapture={handleScroll}>
                 <div className='tabs'>
                     <div className='tab' onClick={()=>toggleTabDisplay('component')}>Component</div>
                     <div className='tab' onClick={()=>toggleTabDisplay('annex')}>Annex</div>
@@ -37,7 +48,7 @@ export default function Modal(props) {
                     {ModalExcelDocs}
                     {ModalPdfDocs}
                 </div>
-            </div>
+                </div>
         </div>
     )
 }
