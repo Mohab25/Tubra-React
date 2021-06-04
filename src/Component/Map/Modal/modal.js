@@ -4,6 +4,8 @@ import CAD from '../../CAD/cads'
 import AerodromeComponentDetails from './AerodromeComponentDetails/AerodromeComponentDetails.js'
 import L from 'leaflet'
 import './styles.css'
+import {handleHorizontalScroll} from './helper functions/scroll'
+
 
 export default function Modal(props) {
     let [tabDisplay,setTabDisplay] = useState('component')
@@ -25,16 +27,23 @@ export default function Modal(props) {
         setTabDisplay(tab)
     }
 
-    let handleScroll=(e)=>{
+    let preventMapActions=(e)=>{
         e.stopPropagation()
         props.map.dragging.disable();    
         props.map.scrollWheelZoom.disable();
         console.log('propagated')
     }
 
+    
+    useEffect(()=>{
+        handleHorizontalScroll()
+    },[])
+    
+    
+    
     return (
-        <div className='backdrop' onClick={closeModal} onMouseEnter={handleScroll} >
-            <div className='modal-inner-holer' onWheelCapture={handleScroll}>
+        <div className='backdrop' onClick={closeModal} onMouseEnter={preventMapActions} >
+            <div className='modal-inner-holer' onWheelCapture={preventMapActions}>
                 <div className='tabs'>
                     <div className='tab' onClick={()=>toggleTabDisplay('component')}>Component</div>
                     <div className='tab' onClick={()=>toggleTabDisplay('annex')}>Annex</div>
@@ -48,7 +57,18 @@ export default function Modal(props) {
                     {ModalExcelDocs}
                     {ModalPdfDocs}
                 </div>
+                <div className='modal-enlarge-screen-icon'>
+                    <i className='fa fa-expand fa-lg'></i>
                 </div>
+
+                <div className='modal-right-arrow'>
+                    <i className='fas fa-arrow-alt-circle-right fa-2x'></i>
+                </div>
+                <div className='modal-left-arrow'>
+                    <i className='fas fa-arrow-alt-circle-left fa-2x'></i>
+                </div>
+
+            </div>
         </div>
     )
 }
