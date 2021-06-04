@@ -24,18 +24,40 @@ export function handleHorizontalScroll(){
     // getting the arrows
     let leftArrow = document.getElementsByClassName('modal-left-arrow')[0]
     let rightArrow = document.getElementsByClassName('modal-right-arrow')[0]
+    let rightArrowInterval
+    let leftArrowInterval
 
-    // handling right arrow click
+    // handling arrow click
+    
     rightArrow.addEventListener('click',()=>{
         ModalInnerHolder.scrollLeft+=scrollingInterval
-        //scrolled+=scrollingInterval
+    })
 
+    rightArrow.addEventListener('mousedown',()=>{
+        rightArrowInterval = setInterval(()=>{
+            ModalInnerHolder.scrollLeft+=scrollingInterval
+        },300)
+        
+        //scrolled+=scrollingInterval
+    })
+
+    rightArrow.addEventListener('mouseup',()=>{
+        clearInterval(rightArrowInterval)
     })
 
     leftArrow.addEventListener('click',()=>{
         ModalInnerHolder.scrollLeft-=scrollingInterval
-        //scrolled+=scrollingInterval
+    })
 
+    leftArrow.addEventListener('mousedown',()=>{
+        leftArrowInterval = setInterval(()=>{
+        ModalInnerHolder.scrollLeft-=scrollingInterval
+        //scrolled+=scrollingInterval
+        },300)
+    })
+
+    leftArrow.addEventListener('mouseup',()=>{
+        clearInterval(leftArrowInterval)
     })
 }
 
