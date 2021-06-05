@@ -21,7 +21,7 @@ export default function SearchingComponent(props) {
     },[display])
 
     const handleChange=(e)=> {
-        e.target.value!==''?setSearchResultsHolderDisplay('block'):setSearchResultsHolderDisplay('none')        
+        e.target.value!==''?setSearchResultsHolderDisplay('flex'):setSearchResultsHolderDisplay('none')        
         setMatches(e.target.value)
     }
     
@@ -29,9 +29,10 @@ export default function SearchingComponent(props) {
         if(searchValue!==''){
         // filter according to regex
         let list_of_matches = Data.filter(item=>{
-            const reg = new RegExp(`^${searchValue}`);
+            const reg = new RegExp(`^${searchValue}`,'i');
             return item.music_title.match(reg)
         })
+        console.log(list_of_matches)
         setMatchedValues(list_of_matches)
     }
         else setMatchedValues([])

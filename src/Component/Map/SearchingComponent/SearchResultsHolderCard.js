@@ -8,7 +8,7 @@ export default function SearchResultsHolder(props) {
         const matchedItems = props.matches.map((item,index)=>{
             return(
                 <div key={index} className='search-card'>
-                    <div className='search-card-icon'></div>
+                    <div className='search-card-icon'>{item.music_title[0]}{item.music_title[1]}</div>
                     <p className='search-card-p'>{item.music_title}</p>
                 </div>
             )

@@ -10,8 +10,9 @@
     background-color: yellow;
     color:#333; 
     text-align: center;
-    font-size: 10px;
+    font-size: 17px;
     padding:4px;
+    line-height: 30px;
 }
 
 .search-card-p{
