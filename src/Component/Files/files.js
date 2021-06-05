@@ -19,8 +19,8 @@ export default function Files() {
     
     }
 
-    let files = ['word','excel','pdf'].map(item=>{
-        return(<File fileType={item} changeToDetailedView={changeToDetailedView}/>)
+    let files = ['word','excel','pdf'].map((item,index)=>{
+        return(<File key={index} fileType={item} changeToDetailedView={changeToDetailedView}/>)
     })
 
     switch(view.file_view){

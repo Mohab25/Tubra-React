@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useCallback} from 'react'
-import './styles/styles2.css'
+import './styles/styles.css'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
@@ -10,8 +10,10 @@ export default function WordFilePage(props) {
 
     useEffect(()=>{
         if(props.pk!=undefined){
-        fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
-        setContent(data)})}},[])
+            fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
+            console.log(data);setContent(data)})
+        }
+    },[])
 
     // config quill lib
     const quillRef = useCallback((quillWrapper)=>{

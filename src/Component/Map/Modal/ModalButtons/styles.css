@@ -1,0 +1,37 @@
+/*icons*/
+
+.modal-right-arrow{
+    width:50px; 
+    height: 50px;
+    position: fixed;
+    top:60%;
+    transform: translateY(-50%);
+    color:rgba(0,0,0,0.75); 
+    cursor: pointer;
+}
+
+.modal-right-arrow i{
+    cursor: pointer;
+}
+
+.modal-left-arrow{
+    width:50px; 
+    height: 50px;
+    position: fixed;
+    top:60%;
+    transform: translateY(-50%);
+    color:rgba(0,0,0,0.75);     
+}
+
+.modal-left-arrow i{
+    cursor: pointer;
+}
+
+.modal-enlarge-screen-icon{
+    width:50px; 
+    height: 50px;
+    position: fixed;
+    transform: translateY(-50%);
+    color:rgba(0,0,0,0.75); 
+    cursor: pointer;
+}

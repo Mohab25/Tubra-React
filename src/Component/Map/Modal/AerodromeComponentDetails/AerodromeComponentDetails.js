@@ -11,9 +11,9 @@ export default function AerodromeComponentDetails() {
                     <div className='AerodromeComponentDetails-img' style={{background:`url(${source})`}}></div>
                 </div>
                 <div className='AerodromeComponentDetails-textual'>
-                    {textual_data.textual.map(item=>{
+                    {textual_data.textual.map((item,index)=>{
                         return(
-                            <div className='AerodromeComponentDetails-textual-section'>
+                            <div className='AerodromeComponentDetails-textual-section' key={index}>
                                 <h2>{item.section.section_header}</h2>
                                 {item.section['section content'].map(subsection=>{
                                     return(<>
