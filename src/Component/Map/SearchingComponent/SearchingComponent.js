@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import {useSelector} from 'react-redux'
 import './styles/styles.css'
 import SearchResultsHolder from './SearchResultsHolder'
 import data from './music_json.json'
@@ -8,11 +9,16 @@ export default function SearchingComponent(props) {
     const [searchResultsHolderDisplay,setSearchResultsHolderDisplay] = useState('none')
     const [Data,setData] = useState()
     const [MatchedValues,setMatchedValues]=useState([])
+    const display = useSelector(state=>state.SearchComponentVisibilityReducer.isComponentVisible)
+
 
     useEffect(()=>{
         setData(data)
     },[])
     
+    useEffect(()=>{
+
+    },[display])
 
     const handleChange=(e)=> {
         e.target.value!==''?setSearchResultsHolderDisplay('block'):setSearchResultsHolderDisplay('none')        
@@ -33,9 +39,9 @@ export default function SearchingComponent(props) {
 
     return (
 
-        <div className='Search-Component'>
+        <div className='Search-Component' style={{display:display}}>
         <div className='Search-Component-container'>
-            <div className='Search-input-container' style={{display:props.SearchBarDisplay}}>
+            <div className='Search-input-container'>
                 <input className='searchInput' placeholder='search..' onChange={handleChange}/>
                 <button>Enter</button>
             </div>  

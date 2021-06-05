@@ -4,7 +4,7 @@ import CAD from '../../CAD/cads'
 import AerodromeComponentDetails from './AerodromeComponentDetails/AerodromeComponentDetails.js'
 import './styles.css'
 import {handleHorizontalScroll} from './helper functions/scroll'
-
+import {handleDimensions} from './helper functions/expandMinimize'
 
 export default function Modal(props) {
     let [tabDisplay,setTabDisplay] = useState('component')
@@ -40,23 +40,6 @@ export default function Modal(props) {
         console.log('propagated')
     }
 
-    // expand and minimize inner holder 
-    let handleDimensions=()=>{
-        if(isExpanded=='minimized'){
-            innerHolderRef.current.style.width = '100%'
-            innerHolderRef.current.style.height = '100%'
-            innerHolderRef.current.style.margin='0px'
-            setExpansion('expanded')
-        }
-        else{
-            innerHolderRef.current.style.width = `${initialExpandValue.width}px`
-            innerHolderRef.current.style.height = `${initialExpandValue.height}px`
-            innerHolderRef.current.style.margin='60px auto'
-            setExpansion('minimized')
-        }
-    }
-
-
     useEffect(()=>{
         if(innerHolderRef!=undefined){
             let innerHolderWidth = innerHolderRef.current.clientWidth
@@ -82,7 +65,8 @@ export default function Modal(props) {
                     {ModalPdfDocs}
                 </div>
                 <div className='modal-enlarge-screen-icon'>
-                    <i className='fa fa-expand fa-lg' onClick={handleDimensions}></i>
+                    <i className='fa fa-expand fa-lg' onClick={()=>handleDimensions(isExpanded,innerHolderRef,setExpansion,initialExpandValue           
+                        )}></i>
                 </div>
 
                 <div className='modal-right-arrow'>

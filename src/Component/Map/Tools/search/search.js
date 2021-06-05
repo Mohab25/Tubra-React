@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
+import {useDispatch} from 'react-redux'
 import './styles/styles.css'
-import SearchingComponent from './SearchingComponent/SearchingComponent'
 import Tooltip from '../../../Tooltips/Tooltips'
+import toggleSearchComponentVisibility from '../../../../Actions/searchActions/toggleSearchVisibilityAction'
+
 export default function Search() {
     
     const [SearchBarDisplay,toggleSearchBar] = useState('none')
@@ -10,9 +12,20 @@ export default function Search() {
     // handle toolTips here
     const [toolTipDisplay,toggleTooltipDisplay] = useState('none')
 
+    // toggle the search component visibility
+    let dispatch = useDispatch()
+
     const handleClick=(e)=>{
-        SearchBoxColor =='orange'? toggleSearchBoxColor('orangered'):toggleSearchBoxColor('orange')
-        SearchBarDisplay=='none'?toggleSearchBar('block'):toggleSearchBar('none')
+        if(SearchBoxColor =='orange'){
+            toggleSearchBoxColor('orangered')
+            dispatch(toggleSearchComponentVisibility('flex'))
+        }
+        else{
+            toggleSearchBoxColor('orange')
+            dispatch(toggleSearchComponentVisibility('none'))
+        }
+        
+        //SearchBarDisplay=='none'?toggleSearchBar('block'):toggleSearchBar('none')
     }
     
     return (
@@ -25,7 +38,6 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-            <SearchingComponent SearchBarDisplay={SearchBarDisplay} />
             <Tooltip display={toolTipDisplay} name='search'/>
 
         </div>

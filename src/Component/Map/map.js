@@ -11,6 +11,8 @@ import PolygonGeom from './GeometryCreationComponents/PolygonGeom'
 import './MakerIcon/styles/styles.css'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 import BufferComponent from './BufferComponent/BufferComponent'
+import SearchingComponent from "./SearchingComponent/SearchingComponent";
+
 
 const {Overlay} = LayersControl 
 
@@ -106,8 +108,10 @@ export default function MapComponent() {
                 </Map>
                 <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement} distance={Calculated_distance} activateVector={activateVector} />
                 
+                <SearchingComponent/>
                 <GeometryCreationModal/>
                 <PolygonGeom map={mapReference}/>
+
             </div>
         </div>
     )
