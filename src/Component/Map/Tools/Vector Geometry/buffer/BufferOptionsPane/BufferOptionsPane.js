@@ -18,7 +18,12 @@ export default function BufferOptionsPane(props){
         switch(bufferOption){
             case 'add': if(option.add.color=='orange'){options.add.color='orangered';options.add.display='flex'} else{options.add.color='orange';options.add.display='none'}
             setOption(options);break;
-            case 'search':if(option.search.color=='orange'){options.search.color='orangered';options.search.display='flex'} else{options.search.color='orange';options.search.display='none'}
+            case 'search':if(option.search.color=='orange'){
+                options.search.color='orangered';options.search.display='flex';options.add.display='flex'
+            } 
+            else{
+                options.search.color='orange';options.search.display='none';options.add.display='none'
+            }
             setOption(options);break;
             case 'remove':if(option.remove.color=='orange'){options.remove.color='orangered';options.remove.display='flex';dispatch(removeBuffer('active'))} else{options.remove.color='orange';options.remove.display='none';dispatch(removeBuffer('inactive'))}
             setOption(options);break;

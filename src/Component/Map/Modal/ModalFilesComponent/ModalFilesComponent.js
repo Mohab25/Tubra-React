@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Files from '../../../Files/FilesHolder/Files'
 import CAD from '../../../CAD/cads'
 import WordDetailedView from "../../../Files/Word/word_file_page";
@@ -26,10 +26,9 @@ export default function ModalFilesComponent(props) {
     const ModalExcelDocs = <Files fileType='excel' changeToDetailedView={changeToDetailedView}/>
     const ModalPdfDocs = <Files fileType='pdf' changeToDetailedView={changeToDetailedView}/>
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block'/>
-    
 
     switch(view.file_view){
-        case 'word':{return(<WordDetailedView pk={view.pk}/>)}
+        case 'word':{return(<WordDetailedView pk={view.pk} currentTab={props.tabDisplay}/>)}
         case 'excel':{return(<ExcelDetailedView pk={view.pk}/>)}
         case 'pdf':{return(<PdfDetailedView pk={view.pk}/>)}; 
         default:{

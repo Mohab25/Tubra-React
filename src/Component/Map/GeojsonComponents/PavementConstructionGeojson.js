@@ -38,6 +38,7 @@ export default function PavementConstructionGeojson(props) {
                     }
                 }
                 else{
+                    console.log(e.target.feature.geometry)
                     createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
                 }
                 

@@ -13,12 +13,21 @@ export default function Word(props) {
     }
 
     useEffect(()=>{
+        if(props.preloaded!=true){
         switch(props.fileType){
             case "word":{fetch('http://localhost:8000/Reports/word_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
             case "excel":{fetch('http://localhost:8000/Reports/excel_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
             case "pdf":{fetch('http://localhost:8000/Reports/pdf_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-
         }
+    }
+    else{
+        if(props.preloadedData.length==0){setFiles([])}
+        
+        else{
+            setFiles(props.preloadedData)
+        }
+    }
+
     },[])
 
     const BBorder=()=>{

@@ -8,8 +8,11 @@ export default function SearchingComponent(props) {
     
     const [searchResultsHolderDisplay,setSearchResultsHolderDisplay] = useState('none')
     const [Data,setData] = useState()
+    const [display,setDisplay] = useState('none') 
     const [MatchedValues,setMatchedValues]=useState([])
-    const display = useSelector(state=>state.SearchComponentVisibilityReducer.isComponentVisible)
+    const SearchComponentVisibilityDisplay = useSelector(state=>state.SearchComponentVisibilityReducer.isComponentVisible)
+    const BufferSearchDisplay = useSelector(state=>state.searchBufferReducer.searchHolderDisplay)
+    const searchBufferItems = useSelector(state=>state.searchBufferReducer.searchBufferItems)
 
 
     useEffect(()=>{
@@ -17,8 +20,17 @@ export default function SearchingComponent(props) {
     },[])
     
     useEffect(()=>{
+        setDisplay(SearchComponentVisibilityDisplay)
+    },[SearchComponentVisibilityDisplay])
 
-    },[display])
+    useEffect(()=>{
+        setDisplay(BufferSearchDisplay)
+        setSearchResultsHolderDisplay(BufferSearchDisplay)
+    },[BufferSearchDisplay])
+
+    useEffect(()=>{
+        setMatchedValues(searchBufferItems)
+    },[searchBufferItems])
 
     const handleChange=(e)=> {
         e.target.value!==''?setSearchResultsHolderDisplay('flex'):setSearchResultsHolderDisplay('none')        
@@ -47,7 +59,7 @@ export default function SearchingComponent(props) {
                 <button>Enter</button>
             </div>  
          </div>
-         {MatchedValues.length>0?<SearchResultsHolder display={searchResultsHolderDisplay} matches={MatchedValues}/>:<></>}
+         {MatchedValues.length>0?<SearchResultsHolder display={searchResultsHolderDisplay} matches={MatchedValues} BufferSearchDisplay={BufferSearchDisplay}/>:<></>}
         </div>
         
     )

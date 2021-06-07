@@ -7,6 +7,8 @@ import bufferReducer from "./BufferReducers/bufferReducer"
 import EnableGeometryCreationReducer from './GeometryCreationReducer/EnableGeometryCreationReducer'
 import identifyToolActivationReducer from "./IdentifyReducers/IdentifyActivationReducer"
 import SearchComponentVisibilityReducer from './searchReducers/SearchComponentVisibilityReducer'
+import searchBufferReducer from "./searchReducers/SearchBufferReducer";
+
 
 export default combineReducers({
     Current_nav_reducer,
@@ -17,5 +19,5 @@ export default combineReducers({
     EnableGeometryCreationReducer,
     identifyToolActivationReducer,
     SearchComponentVisibilityReducer,
-
+    searchBufferReducer
 })

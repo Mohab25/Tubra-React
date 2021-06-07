@@ -1,4 +1,4 @@
-.Cards-Holder{
+.Search-Cards-Holder{
     width:500px; 
     height: 365px;
     background-color: black;
@@ -7,8 +7,8 @@
     right: 500px;
 }
 
-.Cards-Holder-container{
-    width: 100%;
+.Search-Cards-Holder-container{
+    width: 500px;
     overflow-y: auto;
 }
 

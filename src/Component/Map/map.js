@@ -11,6 +11,7 @@ import PolygonGeom from './GeometryCreationComponents/PolygonGeom'
 import './MakerIcon/styles/styles.css'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
 import BufferComponent from './BufferComponent/BufferComponent'
+import searchBufferAction from "../../Actions/bufferActions/searchBuffer";
 import SearchingComponent from "./SearchingComponent/SearchingComponent";
 
 
@@ -34,6 +35,8 @@ export default function MapComponent() {
     /* Buffer creation */
     const [isBufferActivated,setBufferActive]= useState(false)
     const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
+    const searchBufferDispatch = useDispatch()
+    const dispatchedBufferDistance  = useSelector(state=>state.BufferAddRemoveReducer.distance)
 
     /* Geometry Creation */
     const [isVectorActivated,setVectorActive] = useState(false)
@@ -70,6 +73,20 @@ export default function MapComponent() {
 
     useEffect(()=>{setBufferActive(bufferActivation)},[bufferActivation])
 
+    let createBuffer=(e)=>{
+        let geo_g = {"type": "Point","coordinates": [e.latlng.lng, e.latlng.lat]}
+        // you have to create the buffer first and search it's radius
+        //createDispatch(createAction({'geom':geo_g,'radius':dispatchedBufferDistance/100000}))
+        fetch('http://localhost:8000/spatial_analysis/buffer_search/',{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(geo_g)
+           }).then(res=>res.json()).then(data=>searchBufferDispatch(searchBufferAction(data)))
+    }
+
 /**********************************Geometry Creation****************************** */
     // Do the user allowed to make geometries? if so is he/she allowed to persist is to the database even only under his authentication?
 
@@ -90,7 +107,7 @@ export default function MapComponent() {
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
-                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?"":makeLinearMeasurement}>
+                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?createBuffer:makeLinearMeasurement}>
                     <LayersControl position='topleft' className='layers-control'>
                         <TileLayer url={tile}/>
                             <Overlay name='pavement construction'>

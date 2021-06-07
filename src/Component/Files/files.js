@@ -1,13 +1,20 @@
-import React,{useState}  from 'react'
+import React,{useEffect, useState}  from 'react'
 import './styles/styles.css'
 import File from './FilesHolder/Files.js'
 import WordDoc from './Word/word_file_page'
 import ExcelDoc from './Excel/excel_page'
 import PdfDoc from './Pdf/pdf_page'
+import SearchBar from "./searchBar/searchBar";
 
 export default function Files() {
     // setting up the view (Main view which holds all file types, and specific views for specific files(actual reading views))
     let [view,setView] = useState('Main')
+    // the files
+    let [files,setFiles] = useState([])
+    // initial files
+    let [initialFiles,setInitialFiles] = useState([]) 
+    // filter from SearchBar
+    let [filtered,filter] = useState([])
 
     // here the click on a specific resource is handled, the actual click happens in a child component (words). 
     const changeToDetailedView=async (filetype,pk)=>{
@@ -19,26 +26,79 @@ export default function Files() {
     
     }
 
-    let files = ['word','excel','pdf'].map((item,index)=>{
-        return(<File key={index} fileType={item} changeToDetailedView={changeToDetailedView}/>)
-    })
+    useEffect(async ()=>{
+        let returned_files
+        let func = ()=>{
+            return Promise.all(
+                ['word','excel','pdf'].map((item,index)=>{
+                return(
+                <File key={index} fileType={item} changeToDetailedView={changeToDetailedView}/>
+                )
+            })).then(vals=>returned_files=vals) 
+        }
+
+        await func()
+
+        setFiles(returned_files)
+        setInitialFiles(returned_files)
+    },[])
+
+
+    useEffect(()=>{
+        
+        if(initialFiles.length!=0)
+        {
+            if(filtered.length!=0){
+            let word_files = [];let excel_files = []; let pdf_files = [];
+            filtered.map((item,index)=>{
+                if(item.Document_type.Doc_type=='Word'){word_files.push(item)}
+            })
+            filtered.map((item,index)=>{
+                if(item.Document_type.Doc_type=='Excel'){excel_files.push(item)}
+            })
+            filtered.map((item,index)=>{
+                if(item.Document_type.Doc_type=='Pdf'){pdf_files.push(item)}
+            })
+            
+            let returned_word_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='word'/> 
+            let returned_excel_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
+            let returned_pdf_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
+            let returned_files_all = [returned_word_files, returned_excel_files, returned_pdf_files]
+            console.log('is this on!:',returned_files_all)
+            setFiles(returned_files_all)
+
+            }
+                
+        
+        else{
+            console.log('i!:',initialFiles)
+            setFiles(initialFiles)
+        }
+    }
+
+    },[filtered])
+
 
     switch(view.file_view){
         case 'word':{return(<WordDoc pk={view.pk}/>)}
         case 'excel':{return(<ExcelDoc pk={view.pk}/>)}
         case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
         default:{
-            return (
-            <>
-            <div className='files'>
-                <div className='files-container'>
-                    <div className='files-side'></div>
-                    <div className='files-main-area'>
-                        {files}
-                    </div>
-                </div>
+    
+    console.log(files)
+    return (
+    <>
+    <div className='files'>
+        <SearchBar filter={filter}/>
+        <div className='files-container'>
+            <div className='files-side'></div>
+            <div className='files-main-area'>
+                {files.map((item,index)=>{return item})}
             </div>
-            </>
-            )}
-        }
+        </div>
+    </div>
+    </>
+        )}
+        
+    }
     }
