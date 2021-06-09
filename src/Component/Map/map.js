@@ -13,7 +13,7 @@ import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal
 import BufferComponent from './BufferComponent/BufferComponent'
 import searchBufferAction from "../../Actions/bufferActions/searchBuffer";
 import SearchingComponent from "./SearchingComponent/SearchingComponent";
-
+import MapRefAction from "./../../Actions/MeasureActions/MapRefAction";
 
 const {Overlay} = LayersControl 
 
@@ -31,7 +31,9 @@ export default function MapComponent() {
     /* Linear Measurements */
     const [linear_measure_is_on,toggle_linear_measure] = useState(false)
     const [linear_coords,setLinearCoords]=useState([])
-    
+    const linearMeasureDispatch = useDispatch()
+
+
     /* Buffer creation */
     const [isBufferActivated,setBufferActive]= useState(false)
     const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
@@ -92,7 +94,9 @@ export default function MapComponent() {
 
     useEffect(()=>{
         if(mapRef){   
-            setMapReference(mapRef.current.leafletElement)   
+            setMapReference(mapRef.current.leafletElement);
+            // dispatch for linear measure
+            linearMeasureDispatch(MapRefAction(mapRef.current.leafletElement))
         }
     },[mapRef])
 

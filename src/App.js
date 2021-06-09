@@ -12,6 +12,7 @@ import Schedule from './Component/Schedules/schedules'
 import Map from './Component/Map/map'
 import CADS from './Component/CAD/cads'
 import Files from './Component/Files/files'
+import File from './Component/Files/Word/word_file_page'
 
 class App extends Component {
   render(){

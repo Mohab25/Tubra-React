@@ -8,7 +8,8 @@ import EnableGeometryCreationReducer from './GeometryCreationReducer/EnableGeome
 import identifyToolActivationReducer from "./IdentifyReducers/IdentifyActivationReducer"
 import SearchComponentVisibilityReducer from './searchReducers/SearchComponentVisibilityReducer'
 import searchBufferReducer from "./searchReducers/SearchBufferReducer";
-
+import gettingMapRefReducer from "./MeasureReducer/gettingMapRefReducer";
+import AdjustNavReducer from "./FilesReducers/AdjustNavReducer";
 
 export default combineReducers({
     Current_nav_reducer,
@@ -19,5 +20,8 @@ export default combineReducers({
     EnableGeometryCreationReducer,
     identifyToolActivationReducer,
     SearchComponentVisibilityReducer,
-    searchBufferReducer
+    searchBufferReducer,
+    gettingMapRefReducer,
+    AdjustNavReducer,
+    
 })

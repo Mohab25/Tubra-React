@@ -1,10 +1,13 @@
 import React,{useEffect, useState}  from 'react'
+import { useSelector } from "react-redux";
 import './styles/styles.css'
 import File from './FilesHolder/Files.js'
 import WordDoc from './Word/word_file_page'
 import ExcelDoc from './Excel/excel_page'
 import PdfDoc from './Pdf/pdf_page'
 import SearchBar from "./searchBar/searchBar";
+
+
 
 export default function Files() {
     // setting up the view (Main view which holds all file types, and specific views for specific files(actual reading views))
@@ -64,41 +67,39 @@ export default function Files() {
             let returned_excel_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
             let returned_pdf_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
             let returned_files_all = [returned_word_files, returned_excel_files, returned_pdf_files]
-            console.log('is this on!:',returned_files_all)
+
             setFiles(returned_files_all)
 
             }
                 
         
         else{
-            console.log('i!:',initialFiles)
             setFiles(initialFiles)
         }
     }
 
     },[filtered])
 
-
     switch(view.file_view){
-        case 'word':{return(<WordDoc pk={view.pk}/>)}
-        case 'excel':{return(<ExcelDoc pk={view.pk}/>)}
+        case 'word':{return(<WordDoc pk={view.pk} changeView={setView}/>)}
+        case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
         case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
         default:{
     
-    console.log(files)
-    return (
-    <>
-    <div className='files'>
-        <SearchBar filter={filter}/>
-        <div className='files-container'>
-            <div className='files-side'></div>
-            <div className='files-main-area'>
-                {files.map((item,index)=>{return item})}
-            </div>
-        </div>
-    </div>
-    </>
-        )}
+            return (
+                <>
+                <div className='files'>
+                    <SearchBar filter={filter}/>
+                    <div className='files-container'>
+                        <div className='files-side'></div>
+                        <div className='files-main-area'>
+                            {files.map((item,index)=>{return item})}
+                        </div>
+                    </div>
+                </div>
+                </>
+                    )
+    }
         
     }
     }

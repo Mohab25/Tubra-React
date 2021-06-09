@@ -1,5 +1,9 @@
 import React,{useState,useEffect,useCallback} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import './styles/styles.css'
+import adjustNavLink from "../../../Actions/FilesActions/adjustNavLinks";
+import switchToFilesView from "../../../Actions/FilesActions/switchToFileView";
+
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
@@ -7,6 +11,9 @@ import 'quill/dist/quill.snow.css'
 export default function WordFilePage(props) {
     
     let [content,setContent]=useState('')
+    let FileViewDispatch = useDispatch()
+    // the back button clicked on one of the filesView 
+    let viewSwitcher = useSelector(state=>state.AdjustNavReducer.switchToFilesView)
 
     // config quill lib
     let quillRef = useCallback((quillWrapper)=>{
@@ -39,8 +46,9 @@ export default function WordFilePage(props) {
     useEffect(()=>{
         if(props.pk!=undefined){
             fetch(`http://localhost:8000/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
-            console.log(data);setContent(data)})
+            setContent(data)})
         }
+        FileViewDispatch(adjustNavLink())
     },[])
 
     useEffect(()=>{
@@ -62,6 +70,13 @@ export default function WordFilePage(props) {
         }
     
         },[props.currentTab])
+
+        useEffect(()=>{
+            if(viewSwitcher==true) {
+                FileViewDispatch(switchToFilesView())
+                props.changeView('Main')
+            }
+        },[viewSwitcher])
 
     // constructing the actual file.
     let doc = 
