@@ -60,12 +60,12 @@ export default function Files() {
                 if(item.Document_type.Doc_type=='Excel'){excel_files.push(item)}
             })
             filtered.map((item,index)=>{
-                if(item.Document_type.Doc_type=='Pdf'){pdf_files.push(item)}
+                if(item.Document_type.Doc_type=='PDF'){pdf_files.push(item)}
             })
             
             let returned_word_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='word'/> 
-            let returned_excel_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
-            let returned_pdf_files = <File preloaded={true} preloadedData={word_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
+            let returned_excel_files = <File preloaded={true} preloadedData={excel_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
+            let returned_pdf_files = <File preloaded={true} preloadedData={pdf_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
             let returned_files_all = [returned_word_files, returned_excel_files, returned_pdf_files]
 
             setFiles(returned_files_all)

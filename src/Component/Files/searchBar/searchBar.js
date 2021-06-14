@@ -22,8 +22,7 @@ const handleChange=async (e)=>{
 
 useEffect(()=>{
         // setting the cards according to the filter above. 
-        console.log('changed:',matches)
-        if(matches.length!=0){props.filter(matches);setFirstRender(false)}
+        if(matches.length!=0){console.log('changed:',matches);props.filter(matches);setFirstRender(false)}
         else{
             if(firstRender==false) props.filter([]);
         }
