@@ -2,13 +2,26 @@ import React,{ useState ,useEffect } from "react";
 import './styles.css'
 
 export default function SearchBar(props){
-    let [matches,setMatches] = useState([]) 
+    let [matches,setMatches] = useState([])
+    let [tempMatches,setTempMatches] = useState([])
     let [firstRender,setFirstRender] = useState(true) 
 
 // this will handle the dynamic filtering.
 const handleChange=async (e)=>{
+    let v = e.target.value
+
+    if(v.length<=1){await fetch(`http://localhost:8000/Reports?title=${v}/`).then(res=>res.json()).then(data=>{setMatches(data);setTempMatches(data)})}            
+    
+    else{
+        let arr=[]
+        tempMatches.filter(item=>{
+            if(item.Name.toLowerCase().startsWith(v)){arr.push(item)}
+        })
+        setMatches(arr)
+    }
+
     //fetch. filter the response with regex, set state with the title of the filtered elem. 
-        let regx = new RegExp(`${e.target.value}`,'gi')
+        //let regx = new RegExp(`${e.target.value}`,'gi')
         /*
         data.filter(item=>{ 
             if(item.Title.match(regx)){
@@ -16,8 +29,6 @@ const handleChange=async (e)=>{
             }
         })
         */
-        
-    await fetch(`http://localhost:8000/Reports?title=${e.target.value}/`).then(res=>res.json()).then(data=>{setMatches(data)})            
 }
 
 useEffect(()=>{

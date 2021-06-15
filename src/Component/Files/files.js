@@ -52,7 +52,7 @@ export default function Files() {
         if(initialFiles.length!=0)
         {
             if(filtered.length!=0){
-            let word_files = [];let excel_files = []; let pdf_files = [];
+            let word_files = [], excel_files = [], pdf_files = [];
             filtered.map((item,index)=>{
                 if(item.Document_type.Doc_type=='Word'){word_files.push(item)}
             })
@@ -67,7 +67,7 @@ export default function Files() {
             let returned_excel_files = <File preloaded={true} preloadedData={excel_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
             let returned_pdf_files = <File preloaded={true} preloadedData={pdf_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
             let returned_files_all = [returned_word_files, returned_excel_files, returned_pdf_files]
-
+        
             setFiles(returned_files_all)
 
             }
@@ -85,7 +85,7 @@ export default function Files() {
         case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
         case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
         default:{
-    
+
             return (
                 <>
                 <div className='files'>

@@ -28,7 +28,7 @@ export default function Word(props) {
         }
     }
 
-    },[])
+    },[props.preloadedData])
 
     const BBorder=()=>{
         switch(props.fileType){
