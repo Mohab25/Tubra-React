@@ -10,6 +10,8 @@ import SearchComponentVisibilityReducer from './searchReducers/SearchComponentVi
 import searchBufferReducer from "./searchReducers/SearchBufferReducer";
 import gettingMapRefReducer from "./MeasureReducer/gettingMapRefReducer";
 import AdjustNavReducer from "./FilesReducers/AdjustNavReducer";
+import SearchbarReducer from './FilesReducers/searchbarReducer'
+
 
 export default combineReducers({
     Current_nav_reducer,
@@ -23,5 +25,5 @@ export default combineReducers({
     searchBufferReducer,
     gettingMapRefReducer,
     AdjustNavReducer,
-    
+    SearchbarReducer,
 })
