@@ -24,6 +24,7 @@ export default function PolygonGeom({map}) {
             and enable the draw mode.
             if the state is evaluated to "disabled" end the draw mode. 
         */
+        console.log('geoman ',isGeometryEnabled)
         if(isGeometryEnabled=='enabled'){
 
         if(geomType=='polygon'){
@@ -62,7 +63,10 @@ export default function PolygonGeom({map}) {
         }
     }
         else{
-            if(map!=undefined){map.pm.disableDraw()}
+            if(map!=undefined){
+                map.pm.disableDraw()
+                
+            }
         }    
     }
     ,[isGeometryEnabled,geomType])
