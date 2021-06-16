@@ -34,7 +34,8 @@ export default function PolygonGeom({map}) {
             map.pm.enableDraw('Polygon', {
             snappable: true,
             snapDistance: 20,
-            continueDrawing:true
+            continueDrawing:true,
+            finishOn:'snap'
             }); 
         }
 
@@ -80,7 +81,9 @@ export default function PolygonGeom({map}) {
         */
        // the creation form should be fired after the user dblclick on the item
         geometryCreationModalDispatch(toggleGeometryCreationFormVisibility())
-    })}
+    })
+
+}
 
 
     return (
