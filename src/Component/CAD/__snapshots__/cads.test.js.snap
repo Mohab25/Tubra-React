@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing rendering behaviors renders correctly, __snapshot_test__ 1`] = `
+<DocumentFragment>
+  <div
+    class="CAD"
+  >
+    <div
+      class="CAD-container"
+      data-testid="CAD-container"
+      style="display: grid;"
+    >
+      <div
+        class="CAD-side"
+        data-testid="CAD-side"
+      />
+      <div
+        class="CAD-main-area"
+      >
+        <form
+          data-testid="CAD-form"
+        >
+          <input
+            name="search"
+            placeholder="search.."
+          />
+        </form>
+        <div
+          class="CAD-Cards-Holder"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

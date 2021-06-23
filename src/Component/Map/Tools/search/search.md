@@ -2,18 +2,18 @@
 
 ## General Overview
 
-The Search Component is a compound component used to conduct searches about different parts of the Aerodrome and surroundings, it help the user with searching tasks by providing autocomplete functionality for different types of information stored in the database. the following figures illustrates how the search is conducted with this component.
+Search Component is used to conduct searches about different parts of the Aerodrome and surroundings, it help the user with searching tasks by providing autocomplete functionality for different types of information stored in the database. the following figures illustrates how the search is conducted with this component.
 !['Search-1']()
 !['Search-1']()
 !['Search-1']()
 
 ### Usage and Functionalities
 
-This component is dedicated for making search, autocomplete is used to help with such operation, moreover this component alters other components states (as changing the location of map as the user clicks on his search result).
+conduct search about different parts of the aerodrome, autocomplete is used to facilitate the operation, moreover this component alters other components' states (as changing the location of map as the user clicks on his search result).
 
 ## Component structure
 
-As being hinted in the overview, this component is a compound of three components, the search component which holds both the searching input and the search icon , the \<SearchingComponent/> which handles the user interaction and the \<SearchingResultsHolder/> which is a card like object that saves teh result of search, the following jsx illustrates the structure of these component.
+ Search component is a composed of three components, the search component which holds both the searching input and the search icon , the \<SearchingComponent/> which handles the user interaction and the \<SearchingResultsHolder/> which is a card like object that saves teh result of search, the following jsx illustrates the structure of these component.
 
 1. the \<Search/> component
 
@@ -65,7 +65,6 @@ export default function SearchingComponent() {
 1. \<SearchingResultsHolder/>
 
 ~~~jsx
-    console.log(props.matches)
 const [matchedItems,setMatchedItems] = useState([])
 
 useEffect(()=>{

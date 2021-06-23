@@ -6,13 +6,15 @@ import {useState,useEffect} from 'react'
 
 
 export default function CADS(props) {
-    // setting up the view (Main view which holds all file types, and specific views for specific CAD(actual reading views))
+    // setting up the view (Main view which holds all file types, and specific views for specific CAD(actual reading views)
     let [view,setView] = useState('CADS')
     
-    // holders for actual content coming from the backend.
-    let [cad_content,setCADContent] = useState({}) // this will be sent to the word_page component.
     // the cards here hold titles of the documents.
     let [CADDocs,SetCADDocs] = useState([])
+
+    // holders for actual content coming from the backend.
+    let [cad_content,setCADContent] = useState({}) // this will be sent to the cadViewer component.
+
     // this will load CAD from the backend for the main view.
     useEffect(()=>{
         fetch('http://localhost:8000/CAD/drawings/').then(res=>res.json()).then(
@@ -39,30 +41,32 @@ export default function CADS(props) {
           
         // setting up the views (main view or one of the detail views)
         switch(view){
-            case 'CADS':{setView('CAD')};break;  
+            case 'CADS':{setView('CADView')};break;  
         }
     
     }
 
 
     switch(view){
-        case 'CAD':{console.log(cad_content);return(<CAD title={cad_content.Title} url={cad_content.url}/>)};
+        case 'CADView':{
+            return(<CAD title={cad_content.Title} url={cad_content.url}/>)
+        };
         
         default:{
           let cads = CADDocs.map((item,index)=>{
             return(
               <Fragment key={index}>
-              <Cad_card handleClick={handleClick} title={item.Title} url={item.url} pk={item.id}/>
+              <Cad_card handleClick={handleClick} title={item.Title} url={item.url} pk={item.id} />
               </Fragment>
             )
-          })
+            })
             return (
                 <>
                     <div className='CAD'>
-                        <div className='CAD-container' style={{display:props.CADContainerDisplay}}>
-                            <div className='CAD-side' style={{display:props.sidebarDisplay}}></div>
+                        <div className='CAD-container' style={{display:props.CADContainerDisplay}} data-testid='CAD-container'>
+                            <div className='CAD-side' style={{display:props.sidebarDisplay}} data-testid='CAD-side'></div>
                             <div className='CAD-main-area'>
-                                <form onSubmit={handleSubmit} style={{display:props.formDisplay}}>
+                                <form onSubmit={handleSubmit} style={{display:props.formDisplay}} data-testid='CAD-form'>
                                 <input name='search' placeholder='search..'/>
                                 </form>
                                 <div className='CAD-Cards-Holder'>

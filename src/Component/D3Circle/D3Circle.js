@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import './styles/styles.css'
 export default function D3Circle(props) {
-console.log(props)
-let [w,setW] = useState(props.width==undefined?'500':props.width); let [h,setH] = useState(props.height==undefined?'500':props.height); 
+
+let [w,setW] = useState(props.width==undefined?'500':props.width);
+let [h,setH] = useState(props.height==undefined?'500':props.height); 
 
 
 useEffect(()=>{

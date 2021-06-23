@@ -44,5 +44,4 @@ D3HBar.defaultProps= {
     axisHorizontalMargin:7,
     barHeight:25,
     barVerticalMargin:25,
-    barVerticalMargin:25
 }

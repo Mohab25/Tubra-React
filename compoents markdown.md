@@ -4,20 +4,20 @@
 
 ### Usage and Functionalities
 
-## Component structure
+## component structure
 
-## Component Type
+## component Type
 
-## Component State
+## component State
 
-## Component Properties
+## component Properties
 
-## Component Lifecycle
+## component Lifecycle
 
-## Functions
+## component Functions
 
-## Component Implementation
+## component Implementation
 
-## Actions Implementation
+## component Actions Implementation
 
-## Reducers Implementation
+## component Reducers Implementation

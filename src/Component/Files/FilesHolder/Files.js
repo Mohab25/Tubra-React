@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import './styles/style.css'
 import FileCard from "../FileCard/fileCard.js";
 
-export default function Word(props) {
+export default function File(props) {
 
     let [files,setFiles] = useState([])
     

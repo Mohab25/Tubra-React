@@ -6,7 +6,7 @@
 
 ## General Overview
 
-Project *\<Nav/>* Component is responsible of Horizontal Navigation between different Elements in the Project Dashboard, links hold in the nav are represented by icons, current links are: Humburger menu toggler, Current Dash Page, Notification, Message and User Control.
+Project *\</Nav>* Component is responsible of Horizontal Navigation between different Elements in the Project Dashboard, links hold in the nav are represented by icons, current links are: Humburger menu toggler, Current Dash Page, Notification, Message and User Control.
 
 ### Component Type
 

@@ -5,7 +5,7 @@ import { CRS } from "leaflet";
 import L from 'leaflet'
 import './styles/styles.css'
 
-export default function Cad(props) {
+export default function CadViewer(props) {
 let _url = props.url
 const mapRef = useRef(null);
 

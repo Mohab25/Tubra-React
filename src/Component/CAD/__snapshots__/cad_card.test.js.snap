@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing cad card component  renders correctly, __snapshot_test__ 1`] = `
+exports[`testing rendering behaviors renders correctly, __snapshot_test__ 1`] = `
 <DocumentFragment>
   <div
     class="cad-card"
@@ -16,7 +16,9 @@ exports[`testing cad card component  renders correctly, __snapshot_test__ 1`] = 
       <div
         class="cad-card-body"
       >
-        <h6>
+        <h6
+          data-testid="title"
+        >
           <b />
         </h6>
         <p>
