@@ -1,66 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tubra React
 
-## Available Scripts
+Frontend of Tubra. Tubra is a web-based application that serves as File system, Web-GIS and Executive Dashboard for management of Engineering and Operational practises of Aerodromes.
 
-In the project directory, you can run:
+holds the backend for Tubra system, Tubra is a web-based GIS incorporated with an Executive Dashboard and file storage to manage Engineering Projects and Operational Activities in Aerodromes.
+The system holds some capabilities as:
 
-### `npm start`
+Map Rendering and simple Spatial Analysis Capabilities:  
+The application provides a common set of spatial analysis tools  (Utilizing PostGIS and geos library); spatial relations as  (Touching, Crossing, Overlapping ...etc.), and spatial operations as (Linear measurements, Buffers, ..etc. ) can be applied by either using javascript mapping libraries in the front end or via connection to PostGIS and receiving analysis results. The following are some operations that can be made:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1.1 Map Display of Spatial Data:
+Spatial Data (both GIS Data and geometric CAD Drawings) are georeferenced and viewed over the map, such a display can give a direct visual understanding of where aerodrome entities are placed, the following figure illustrate the map display:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Map Display of Aerodrome Entities](public/img/1.map_display.png)
 
-### `npm test`
+1.2 Aerodrome Entities Attribute Data Display:
+Non-spatial Information (often written texts, docs, sheets and pdf files) about an Aerodrome entity are displayed via a modal, the user interact with the entity by clicking on the entity, in order for attribute data to be display, identify tool should be activated, the following figures illustrate the process of how attribute data is displayed:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Identify tool of the Map Component](public/img/2.0indentify_tool.png)
+![attribute data Display](public/img/2.1indentify_modal.png)
+![attribute Data linked Files Display](public/img/2.2indentify_modal_files.png)
+![second image - attribute Data linked Files Display](public/img/2.3indentify_modal_flies_2.png)
 
-### `npm run build`
+1.3 Search Capabilities with Autocompletion:
+Aerodrome Entities can be searched via a search bar with autocompletion, as the user clicks on an entity the map zooms directly to that entity, the following figure illustrates Search bar component:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Search Component](public/img/3.Search_bar.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1.4 Linear Measurements:
+Distances between Aerodrome entities can be calculated through a linear measurement component (a ruler gives the distances in meters), the resulting distance is illustrated in a simple input display and the line connecting two points is rendered over the map, the following figure illustrates the linear measurement capability:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ ![Linear Measurement Component](public/img/4.linear_measurement.png)
 
-### `npm run eject`
+1.5 Buffer Analysis:
+Three are three operations can be done with the buffer, a buffer can be added round an entity using a specific distance, this helps to visually identify what other entities intersect with the buffer distance, the buffer can also be removed from the map, and a buffer search is also provided where the entities inside the specified buffer distance are identified in the search component, the following figures illustrates adding a buffer to the map according to 200m distance from and entity:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Buffer Component](public/img/5.Buffer_addition.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1.6 Vector Creation:
+Points, Lines and Polygons can be created via the vector creation tool, the following figure illustrate the creation of a polygons:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Vector Creation](public/img/6.vector_creation.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1.7 Tiles Basemap Switch:
+The tile which serves as basemap (coming with leafletjs) can be changed, the following figure illustrates the tile changes
 
-## Learn More
+Figure 16
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+CAD (Computer aided Design) Viewer:
+The system links the map to a CAD Viewer, it also provides a standalone component for viewing CAD files, CAD Drawing are stored in the database and served via an api, the following figures illustrates the CAD files and viewer:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![CAD Component with different CAD files.](public/img/7.CAD_files.png)
 
-### Code Splitting
+![CAD Component - CAD viewer]()
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Also the Same CAD viewer can be viewed from the Map component as a linked attribute file as the user clicks on an entity.
 
-### Analyzing the Bundle Size
+Files (docs, sheets and pdf) Viewer:-
+The system is capable of storing and viewing Ms docx,xlsx and pdf files, a standalone files component can be reached from the vertical navigation or as the user interacts with attribute data on the map with an aerodrome entity,  figures 2-4 illustrated files holder and files viewers (for the pdf format the default browser pdf reader is used).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
+Executive Dashboard Component:-
+The Dashboard is meant to give a quick overview about a certain engineering project, charts, tables and diagrams to are use for information hold, the following figure illustrates the Dashboard:  
+![Dashboard Component](public/img/8.Dashboard.png)

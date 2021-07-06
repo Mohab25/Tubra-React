@@ -24,7 +24,7 @@ class App extends Component {
         <VerticalNav/>
         <NotePane/>
             <Switch>
-              {/*<Route exact path='/' component={Dashboard}/>*/}
+              {<Route exact path='/' component={Dashboard}/>}
               <Route exact path='/schedule' component={Schedule}/>
               <Route exact path='/charts' component={Chart}/>
               <Route exact path='/map' component={Map}/>

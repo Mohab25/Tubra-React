@@ -11,6 +11,16 @@ import CADCard from './cad_card'
  
 */
 
+beforeAll(()=>{
+    global.fetch = jest.fn(()=>Promise.resolve({
+        json:()=>{return Promise.resolve({Title:"CAD1",CAD_file:"http://cad.com"})}
+    }))
+})
+
+afterAll(()=>{
+    fetch.mockClear()
+})
+
 describe('testing rendering behaviors', () => {
     it('renders correctly, __snapshot_test__',()=>{
         const {asFragment} = render(<CADCard/>)
@@ -27,15 +37,16 @@ describe('testing rendering behaviors', () => {
 
 describe('interactivity behaviors = functions', () => {
     
-    it('calls handle click prop when fireEvent is called',()=>{
+    it('calls handles click prop when fireEvent is called',async ()=>{
         /* this is not a good way of testing as it tests the implementation
             rather the CADViewer component should render
         */
-        const clickFunc = jest.fn()
-        render(<CADCard handleClick={()=>clickFunc(1)}/>)
+        const clickFunc = await fetch(`http://localhost:8000/CAD/cad/${1}/`)
+        const val = await clickFunc.json().then(data=>data)
+        render(<CADCard handleClick={()=>clickFunc}/>)
         fireEvent.click(screen.getByTestId('cad-img'))
-        expect(clickFunc).toHaveBeenCalled()
-        expect(clickFunc).toHaveBeenCalledWith(1)
+        expect(val).toEqual({Title:"CAD1",CAD_file:"http://cad.com"})
+
     })
 })
 
