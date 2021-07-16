@@ -26,5 +26,5 @@ export default combineReducers({
     gettingMapRefReducer,
     AdjustNavReducer,
     SearchbarReducer,
-    MapControlReducer,
+    MapControlReducer
 })
