@@ -8,7 +8,7 @@ import VerticalNav from './Component/VerticalNaV'
 import NotePane from './Component/NavCompound/Pane'
 import  Dashboard from "./Component/Dashboard";
 import Chart from './Component/Charts/charts'
-import Schedule from './Component/Schedules/schedules'
+import Mapbox3D from './Component/Mapbox3D/Mapbox3D'
 import Map from './Component/Map/map'
 import CADS from './Component/CAD/cads'
 import Files from './Component/Files/files'
@@ -25,7 +25,7 @@ class App extends Component {
         <NotePane/>
             <Switch>
               {<Route exact path='/' component={Dashboard}/>}
-              <Route exact path='/schedule' component={Schedule}/>
+              <Route exact path='/3D' component={Mapbox3D}/>
               <Route exact path='/charts' component={Chart}/>
               <Route exact path='/map' component={Map}/>
               <Route exact path='/cad' component={CADS}/>

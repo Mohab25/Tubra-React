@@ -11,7 +11,7 @@ import searchBufferReducer from "./searchReducers/SearchBufferReducer";
 import gettingMapRefReducer from "./MeasureReducer/gettingMapRefReducer";
 import AdjustNavReducer from "./FilesReducers/AdjustNavReducer";
 import SearchbarReducer from './FilesReducers/searchbarReducer'
-
+import MapControlReducer from './3DReducer/MapControlReducer'
 
 export default combineReducers({
     Current_nav_reducer,
@@ -26,4 +26,5 @@ export default combineReducers({
     gettingMapRefReducer,
     AdjustNavReducer,
     SearchbarReducer,
+    MapControlReducer
 })
