@@ -47,8 +47,8 @@ export default function Modal(props) {
                     <div className='tab' onClick={()=>toggleTabDisplay('annex')}>Annex</div>
                     <div className='tab' onClick={()=>toggleTabDisplay('files')}>Files</div>
                 </div>
-                <div data-testid='backdrop'  style={{display:tabDisplay=='component'?'flex':'none'}}><AerodromeComponentDetails/></div>
-                <ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name}/>
+                <div data-testid='component-tab' style={{display:tabDisplay=='component'?'flex':'none'}}><AerodromeComponentDetails/></div>
+                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name}/></div>
                 <ModalButtons innerHolderRef={innerHolderRef} />
             </div>
         </div>

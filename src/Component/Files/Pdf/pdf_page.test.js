@@ -5,11 +5,6 @@ import { setupServer } from 'msw/node'
 import { rest } from 'msw'
 import PDFPage from './pdf_page'
 
-
-// // what you need to do is to mock the fetch request so when the component mounts check that the fetch is called. 
-// // more complicated things is to handle the errors that arises, that's why things like msw is used.
-// // last thing is to perform end-to-end test using cypress. the window mock can be avoided this way. 
-
 // setting up server i8
 const server = setupServer(
   rest.get('http://localhost:8000/Reports/doc_content/1/', (req, res, ctx) => {
@@ -17,11 +12,10 @@ const server = setupServer(
   })
 )
 
-
-// establish API mocking before all tests
 beforeAll(() => {
   server.listen()
-  window.location.assign = jest.fn();
+  // jest cannot access the actual DOM, so we need to mock the window object. 
+  window.open = jest.fn()
 })
 // reset any request handlers that are declared as a part of our tests
 // (i.e. for testing one-time error scenarios)
@@ -35,10 +29,11 @@ afterEach(() => {
 // clean up once the tests are done
 afterAll(() => {
   server.close()
+  window.open = global.window.open;
 })
 	
 
-// initial rendering test.
+//initial rendering test.
 describe('testing pdf_page component, it renders individual pdf files', () => {
   it('renders correctly,__snapshot_test__',()=>{
     const {asFragment} = render(<PDFPage/>)
@@ -49,14 +44,11 @@ describe('testing pdf_page component, it renders individual pdf files', () => {
 describe('handle url switch to pdf file',()=>{
   it('fetch the pdf resource',async ()=>{
     render(<PDFPage pk={1}/>)
-    await waitFor(()=>expect(window.location.href).toBe('https://localhost:8000/path/to/pdf_file.pdf')) 
-    // couldn't find it yet, but the effect of rendering should be tested here.
+    await waitFor(() => {expect(window.open).toHaveBeenCalledWith('https://tubra.com/path/to/pdf_file.pdf','_blank')})
+    
+    // this will only work if _self is the default target not _blank.
+    //await waitFor(()=>expect(window.location.href).toBe('https://tubra.com/path/to/pdf_file.pdf')) 
+
   })
 
 })
-
-
-// test('pdf read',()=>{
-    // you can use a library like pdfjs to read the pdf file, currently mozilla pdf library api documentation is not completed.
-    // also there is a paid pdf library that can be used.
-    // })
