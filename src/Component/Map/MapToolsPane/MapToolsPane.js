@@ -12,9 +12,6 @@ export default function MapToolsPane(props) {
     
     let [PaneVisibility,togglePaneVisibility] = useState('off')
     
-    
-
-
     let PaneOn=()=>{
         togglePaneVisibility('on')
     }
@@ -23,7 +20,6 @@ export default function MapToolsPane(props) {
         togglePaneVisibility('off')
 
     }
-
 
     if(PaneVisibility=='off'){
         return(

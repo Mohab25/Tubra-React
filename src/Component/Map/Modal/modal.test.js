@@ -1,12 +1,15 @@
-import React,{useEffect, useState, useRef} from 'react'
+import React from 'react'
 import Modal from './modal'
-import {render, screen, fireEvent, getByText, waitFor} from '@testing-library/react'
+import * as s from './helper functions/scroll'
+import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 
 describe('testing functionalities',()=>{
-    let data={Category:"Pavement", Pavement_Name:'Apron'}, modalCloser = jest.fn(), disable_func = jest.fn(), map={dragging:{disable:()=>disable_func()}, scrollWheelZoom:{disable:()=>disable_func()}} 
+    //const addMock = jest.spyOn(s, "handleHorizontalScroll");
+    let data={Category:"Pavement", Pavement_Name:'Apron'}, modalCloser = jest.fn(), disable_func = jest.fn(), map={dragging:{disable:()=>disable_func()}, scrollWheelZoom:{disable:()=>disable_func()}}
     render(<Modal data={data} modalCloser={modalCloser} map={map}/>)
 
     it('display the modal when rendered', async () => {
+        //await waitFor(()=>expect(addMock).toHaveBeenCalled())
         await waitFor(()=> expect(screen.getByTestId('backdrop')).toBeInTheDocument())
     })
 
