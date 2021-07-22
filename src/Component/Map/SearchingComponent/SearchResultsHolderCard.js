@@ -10,7 +10,7 @@ export default function SearchResultsHolder(props) {
             return(
                 <div key={index} className='search-card'>
                     <div className='search-card-icon'>{item.music_title[0]}{item.music_title[1]}</div>
-                    <p className='search-card-p'>{item.music_title}</p>
+                    <p data-testid='card-paragraph-off' className='search-card-p'>{item.music_title}</p>
                 </div>
             )
         })
@@ -36,7 +36,7 @@ export default function SearchResultsHolder(props) {
                 return(
                     <div key={index} className='search-card'>
                         <div className='search-card-icon'>{first_initial}{second_initial }</div>
-                        <p className='search-card-p'>{full_name}</p>
+                        <p data-testid='card-paragraph-on' className='search-card-p'>{full_name}</p>
                     </div>
                 )
             })

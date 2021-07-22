@@ -89,7 +89,7 @@ export default function Measure(props) {
     }
 
     useEffect(()=>{
-        if(LinearMeasurePaneDisplay=='none'){
+        if(LinearMeasurePaneDisplay=='none'&& map!=undefined){
             map.off();
             remove_polylines()
             
@@ -98,7 +98,7 @@ export default function Measure(props) {
 
     return (
         <>
-        <div className='measure' onClick={()=>{toggleMeasureToolColor();toggleLinearMeasurePaneDisplay();props.toggleLinearMeasurement()}} style={{backgroundColor:MeasureToolColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
+        <div data-testid='measure' className='measure' onClick={()=>{toggleMeasureToolColor();toggleLinearMeasurePaneDisplay();props.toggleLinearMeasurement()}} style={{backgroundColor:MeasureToolColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
             <div className='measure-container'>
                 <div className='measure-box'>
                     <div>
@@ -107,7 +107,7 @@ export default function Measure(props) {
                 </div>
             </div>
         </div>
-        <LinearMeasurePane display={LinearMeasurePaneDisplay} distance={distance}/>
+        <LinearMeasurePane data-testid='linearMeasurePane' display={LinearMeasurePaneDisplay} distance={distance}/>
         <Tooltip display={toolTipDisplay} name='measure' toolIndex={3}/>
         </>
     )

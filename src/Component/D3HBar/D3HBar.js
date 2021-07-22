@@ -4,10 +4,10 @@ import './styles/styles.css'
 export default function D3HBar(props) {
     useEffect(()=>{
     /* this is because the width and height from parent changes, the previous svg has to be deleted first otherwise there will be two */
-    if(window.d3.select('.D3HBar').select('svg')){
+    if(window.d3 !=undefined){   // gard 
+        if(window.d3.select('.D3HBar').select('svg')){
         window.d3.select('.D3HBar').select('svg').remove()
-    }
-
+        }
         let data =[{label:'Cat1',value:19},{label:'Cat2',value:13},{label:'Cat3',value:25},{label:'Cat4',value:19},{label:'Cat5',value:30}] 
         // setting up the scale
         let max=window.d3.max(data,function(d){return d.value});let scale = window.d3.scaleLinear().domain([0,max]).range([0,props.width-props.marginHorizontal*2-props.axisHorizontalMargin])        
@@ -25,6 +25,10 @@ export default function D3HBar(props) {
         let x_axis_scale = window.d3.scaleLinear().domain([0,max]).range([0,props.width-props.marginHorizontal*2-labelWidth])
         let x_axis = window.d3.axisBottom().scale(x_axis_scale).tickSize(-props.height+props.marginVertical)
         svg.insert('g',':first-child').attr('class','x_axis').attr('transform',`translate(${props.marginHorizontal+labelWidth+props.axisHorizontalMargin},${props.height-props.marginVertical})`).call(x_axis)
+
+
+}
+
     },[props])
 
     return (

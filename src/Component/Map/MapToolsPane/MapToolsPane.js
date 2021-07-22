@@ -23,7 +23,7 @@ export default function MapToolsPane(props) {
 
     if(PaneVisibility=='off'){
         return(
-            <div className='Gear-icon-container' onClick={PaneOn}>
+            <div data-testid='Gear' className='Gear-icon-container' onClick={PaneOn}>
                 <i className='fa fa-cog'></i>
             </div>
             
@@ -32,7 +32,7 @@ export default function MapToolsPane(props) {
 
     else{    
         return (
-            <div className='MapToolsPane'>
+            <div data-testid='MapToolsPane' className='MapToolsPane'>
                 <div className='MapToolsPaneContainer'>
                     <div className='MapToolsTitleContainer'>
                         <h6>Tools</h6>

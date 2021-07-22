@@ -27,7 +27,7 @@ export default function Identify(props) {
     }
                                                                                                           
     return (
-        <div className='identify' onClick={handleClick} style={{backgroundColor:backgroundColor}} onMouseEnter={()=>{changeDisplay('flex')}} onMouseLeave={()=>changeDisplay('none')}>
+        <div data-testid='identify' className='identify' onClick={handleClick} style={{backgroundColor:backgroundColor}} onMouseEnter={()=>{changeDisplay('flex')}} onMouseLeave={()=>changeDisplay('none')}>
             <div className='identify-container'>
                 <div className='identify-box'>
                     <div><i className='fa fa-info'></i></div>
