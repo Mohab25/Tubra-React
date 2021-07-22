@@ -13,14 +13,14 @@ export default function AerodromeComponentDetails() {
                 <div className='AerodromeComponentDetails-textual'>
                     {textual_data.textual.map((item,index)=>{
                         return(
-                            <div className='AerodromeComponentDetails-textual-section' key={index}>
+                            <div key={index} className='AerodromeComponentDetails-textual-section'>
                                 <h2>{item.section.section_header}</h2>
-                                {item.section['section content'].map(subsection=>{
-                                    return(<>
+                                {item.section['section content'].map((subsection,index)=>{
+                                    return(<div key={index}>
                                         <h3>{subsection.subsection_title}</h3>
                                         <p>{subsection.subsection_content}.
                                         </p>
-                                    </>
+                                    </div>
                                     )})}
                             </div>
                         )

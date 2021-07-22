@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing pdf_page component, it renders individual pdf files renders correctly,__snapshot_test__ 1`] = `
+<DocumentFragment>
+  <div />
+</DocumentFragment>
+`;

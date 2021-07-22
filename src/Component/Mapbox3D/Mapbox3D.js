@@ -25,9 +25,10 @@ mapboxgl.accessToken =
     return (
         <div className='Mapbox3D'>
             <div className='Mapbox3D-container'>
-                <div id="map" ref={mapContainerRef}>
+                <div id="mapbox" ref={mapContainerRef}>
                 </div>
             </div>   
         </div>
     )
 }
+

@@ -4,7 +4,7 @@ import './styles/styles.css'
 import SearchResultsHolder from './SearchResultsHolder'
 import data from './music_json.json'
 
-export default function SearchingComponent(props) {
+export default function SearchingComponent() {
     
     const [searchResultsHolderDisplay,setSearchResultsHolderDisplay] = useState('none')
     const [Data,setData] = useState()
@@ -13,7 +13,6 @@ export default function SearchingComponent(props) {
     const SearchComponentVisibilityDisplay = useSelector(state=>state.SearchComponentVisibilityReducer.isComponentVisible)
     const BufferSearchDisplay = useSelector(state=>state.searchBufferReducer.searchHolderDisplay)
     const searchBufferItems = useSelector(state=>state.searchBufferReducer.searchBufferItems)
-
 
     useEffect(()=>{
         setData(data)
@@ -52,10 +51,10 @@ export default function SearchingComponent(props) {
 
     return (
 
-        <div className='Search-Component' style={{display:display}}>
+        <div data-testid='Search' className='Search-Component' style={{display:display}}>
         <div className='Search-Component-container'>
             <div className='Search-input-container'>
-                <input className='searchInput' placeholder='search..' onChange={handleChange}/>
+                <input data-testid='searchInput' className='searchInput' placeholder='search..' onChange={handleChange}/>
                 <button>Enter</button>
             </div>  
          </div>

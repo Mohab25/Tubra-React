@@ -33,7 +33,7 @@ export default function ModalFilesComponent(props) {
         case 'pdf':{return(<PdfDetailedView pk={view.pk}/>)}; 
         default:{
             return (
-                <div style={{display:props.tabDisplay=='files'?'flex':'none'}}>
+                <div data-testid='docsModal-container' style={{display:props.tabDisplay=='files'?'flex':'none'}}>
                     <h3 className='modal-entity-title'>{props.Category}{props.Pavement_Name}</h3>
                     {CADModalFile}
                     {ModalWordDocs}
