@@ -10,8 +10,9 @@ let _url = props.url
 const mapRef = useRef(null);
 
     useEffect(() => {
+      console.log(_url)
       const map = mapRef.current.leafletElement;
-      const bounds = [[0,800], [1000,0]];
+      const bounds = [[0,500], [500,0]];
       const boundary = L.latLngBounds(bounds) 
       const image = L.imageOverlay(
        _url,

@@ -16,7 +16,7 @@ export default function CADS(props) {
     let [cad_content,setCADContent] = useState({}) // this will be sent to the cadViewer component.
 
     // this will load CAD from the backend for the main view.
-    useEffect(()=>{
+    useEffect(()=>{ //
         fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawings/').then(res=>res.json()).then(
             data=>{
                 SetCADDocs(data)
@@ -58,7 +58,7 @@ export default function CADS(props) {
                 let file_name = name+ext
                 the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/'+file_name
             }
-            else {the_url = cad_content.CAD_file.url}  
+            else {the_url = cad_content.CAD_file}  
             return(<CAD title={cad_content.Title} url={the_url}/>)
         };
         
