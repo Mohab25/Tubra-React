@@ -22,7 +22,7 @@ export default function MapComponent() {
 /****************************State Variables  *************************************/
     const [mapCenter,setMapCenter] = useState([19.43520370922581,37.23775744610511])
     let [zoom,setZoomLevel] = useState(14)
-    let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png')
+    let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=33e092a0-ac31-4b3c-bd16-de58e5f2d733')
     let mapRef = useRef();
     let Aerodrome_entities_ref = useRef()
     let pavement_construction_ref = useRef()
