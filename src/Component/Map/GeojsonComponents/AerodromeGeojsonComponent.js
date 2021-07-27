@@ -30,7 +30,7 @@ export default function GeojsonComponent() {
 
 
     useEffect(()=>{
-        fetch('http://localhost:8000/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
+        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
             let points_only=[]
             let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
                 if(item.geometry.type!='Point'){return item}

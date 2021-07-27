@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {GeoJSON} from 'react-leaflet'
 import L from "leaflet";
 
-export default function BufferComponent(props) {
+export default function BufferComponent() {
      /* Buffer creation */
      const bufferGeomAndRadiusOb = useSelector(state=>state.bufferReducer.bufferGeomAndRadiusOb)
      const [buffer_data,setBufferData] = useState()
@@ -20,7 +20,7 @@ export default function BufferComponent(props) {
             json_geom (Obj): an object holding both the geojson geom, and the distance of the buffer(coming from dispatchedBufferDistance)
              sent to the back to create a buffer around the geometry.
         */
-       fetch('http://localhost:8000/spatial_analysis/make_buffer/',{
+       fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/spatial_analysis/make_buffer/',{
         method:'POST',
         mode:'cors',
         headers:{

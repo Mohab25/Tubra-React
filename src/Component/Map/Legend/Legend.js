@@ -3,7 +3,7 @@ import './styles/styles.css'
 
 export default function Legend(props) {
     const Legend_names= props.legendItems
-    if(Legend_names==undefined || Object.keys(Legend_names).length==0  ){return <div></div>} 
+    if(Legend_names==undefined || Object.keys(Legend_names).length==0  ){return <div data-testid='empty-return'></div>} 
     return (
         <div className='Legend'>
             <div className='Legend-container'>
@@ -12,7 +12,7 @@ export default function Legend(props) {
                     return(
                         <div className='Legend-items-holder' key={index}>
                             <div>{item}</div>
-                            <p>{Legend_names[item]}</p>
+                            <p data-testid={index}>{Legend_names[item]}</p>
                         </div>
                     )
                 })}

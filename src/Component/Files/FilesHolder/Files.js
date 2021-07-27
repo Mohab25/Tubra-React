@@ -15,9 +15,9 @@ export default function File(props) {
     useEffect(()=>{
         if(props.preloaded!=true){
         switch(props.fileType){
-            case "word":{fetch('http://localhost:8000/Reports/word_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-            case "excel":{fetch('http://localhost:8000/Reports/excel_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-            case "pdf":{fetch('http://localhost:8000/Reports/pdf_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
+            case "word":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/word_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
+            case "excel":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/excel_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
+            case "pdf":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/pdf_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
         }
     }
     else{

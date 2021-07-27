@@ -80,7 +80,7 @@ export default function MapComponent() {
         let geo_g = {"type": "Point","coordinates": [e.latlng.lng, e.latlng.lat]}
         // you have to create the buffer first and search it's radius
         //createDispatch(createAction({'geom':geo_g,'radius':dispatchedBufferDistance/100000}))
-        fetch('http://localhost:8000/spatial_analysis/buffer_search/',{
+        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/spatial_analysis/buffer_search/',{
             method:'POST',
             mode:'cors',
             headers:{

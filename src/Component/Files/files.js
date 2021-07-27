@@ -18,7 +18,7 @@ export default function Files() {
     let [initialFiles,setInitialFiles] = useState([]) 
     // filter from SearchBar
     let [filtered,filter] = useState([])
-
+    let [promises,setAllPromises] = useState([])
     // here the click on a specific resource is handled, the actual click happens in a child component (words). 
     const changeToDetailedView=async (filetype,pk)=>{
         switch(filetype){
@@ -29,26 +29,26 @@ export default function Files() {
     
     }
 
-    useEffect(async ()=>{
-        let returned_files
-        let func = ()=>{
-            return Promise.all(
+    let AsyncFunc= async ()=>{
+        let first_res =  await Promise.all(
                 ['word','excel','pdf'].map((item,index)=>{
                 return(
                 <File key={index} fileType={item} changeToDetailedView={changeToDetailedView}/>
                 )
-            })).then(vals=>returned_files=vals) 
-        }
-
-        await func()
-
-        setFiles(returned_files)
-        setInitialFiles(returned_files)
-    },[])
-
+            })).then(vals=>vals).then(data=>setAllPromises(data))
+    }
 
     useEffect(()=>{
-        
+        AsyncFunc()
+    },[])
+
+    useEffect(()=>{
+        setFiles(promises)
+        setInitialFiles(promises)
+    },[promises])
+
+    useEffect(()=>{
+        if(initialFiles!=undefined){
         if(initialFiles.length!=0)
         {
             if(filtered.length!=0){
@@ -77,6 +77,7 @@ export default function Files() {
             setFiles(initialFiles)
         }
     }
+    }
 
     },[filtered])
 
@@ -85,7 +86,8 @@ export default function Files() {
         case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
         case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
         default:{
-
+            
+            if(files!=undefined){
             return (
                 <>
                 <div className='files'>
@@ -100,6 +102,10 @@ export default function Files() {
                 </>
                     )
     }
+    else{
+        return <div></div>
+    }
+}
         
     }
     }
