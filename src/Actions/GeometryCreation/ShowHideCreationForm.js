@@ -1,8 +1,9 @@
 import {SHOWHIDECREATIONFORM} from './types'
 
-const toggleGeometryCreationFormVisibility=()=>{
+const toggleGeometryCreationFormVisibility=(formState)=>{
     return{
-        type:SHOWHIDECREATIONFORM
+        type:SHOWHIDECREATIONFORM,
+        payload:formState
     }
 }
 

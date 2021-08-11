@@ -128,7 +128,7 @@ export default function MapComponent() {
                         <BufferComponent/>  
                     </LayersControl>
                 </Map>
-                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement}  activateVector={activateVector} />
+                <MapToolsHolder toggleLinearMeasurement={toggleLinearMeasurement}  activateVector={activateVector} isVectorActivated={isVectorActivated}/>
                 
                 <SearchingComponent/>
                 <GeometryCreationModal/>
