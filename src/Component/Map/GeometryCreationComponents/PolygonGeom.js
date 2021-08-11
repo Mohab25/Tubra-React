@@ -79,7 +79,11 @@ export default function PolygonGeom({map}) {
             the shape complete drawing and dispatch a modal creation action.
         */
        // the creation form should be fired after the user dblclick on the item
+        shape.layer.on('dblclick',()=>{
         geometryCreationModalDispatch(toggleGeometryCreationFormVisibility('flex'))
+       }) 
+       // if the form to be opened after the creation automatically, just:
+       // geometryCreationModalDispatch(toggleGeometryCreationFormVisibility('flex'))
     })
 
 }
