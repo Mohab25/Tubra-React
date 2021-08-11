@@ -59,7 +59,7 @@ export default function CADS(props) {
                 the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/'+file_name
             }
             else {the_url = cad_content.CAD_file}  
-            return(<CAD title={cad_content.Title} url={the_url}/>)
+            return(<CAD title={cad_content.Title} url={the_url} changeView={setView}/>)
         };
         
         default:{

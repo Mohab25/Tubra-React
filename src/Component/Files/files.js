@@ -4,7 +4,6 @@ import './styles/styles.css'
 import File from './FilesHolder/Files.js'
 import WordDoc from './Word/word_file_page'
 import ExcelDoc from './Excel/excel_page'
-import PdfDoc from './Pdf/pdf_page'
 import SearchBar from "./searchBar/searchBar";
 
 
@@ -84,7 +83,9 @@ export default function Files() {
     switch(view.file_view){
         case 'word':{return(<WordDoc pk={view.pk} changeView={setView}/>)}
         case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
-        case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
+        case 'pdf':{
+            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${view.pk}/`).then(res=>res.json()).then(data=>{window.open(data.path.replace('localhost:8000','tubra.com'),'_blank')}).then(setView('Main')).catch(err=>console.log(err))
+        }; 
         default:{
             
             if(files!=undefined){

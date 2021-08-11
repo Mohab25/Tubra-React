@@ -10,7 +10,7 @@ export default function GeometryCreationForm(props) {
     //getting the pre populated geometry 
     const geom = useSelector(state=>state.CreationFormReducer.geom)
     let url = 'http://localhost:8000/AerodromeFeatures/fields_for_vector_creation/Aerodrome_Entity/'
-    
+
     useEffect(()=>{
         fetch(url).then(res=>res.json()).then(data=>{setTitles(data)})
     },[])
