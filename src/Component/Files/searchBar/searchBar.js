@@ -19,7 +19,7 @@ export default function SearchBar(props){
 const handleChange=async (e)=>{
     let v = e.target.value
     
-    if(v.length<=1){await fetch(`http://localhost:8000/Reports?title=${v}/`).then(res=>res.json()).then(data=>{setMatches(data);setTempMatches(data)})}            
+    if(v.length<=1){await fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports?title=${v}/`).then(res=>res.json()).then(data=>{setMatches(data);setTempMatches(data)})}            
     
     else{
         console.log('ag:',v)

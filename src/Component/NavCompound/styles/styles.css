@@ -33,6 +33,8 @@
     width:200px;  /* i need to know why this is obligatory width */
     display: flex;
     flex-direction: row;
+    position:relative;
+    right:35px;
 }
 
 

@@ -4,7 +4,6 @@ import './styles/styles.css'
 import File from './FilesHolder/Files.js'
 import WordDoc from './Word/word_file_page'
 import ExcelDoc from './Excel/excel_page'
-import PdfDoc from './Pdf/pdf_page'
 import SearchBar from "./searchBar/searchBar";
 
 
@@ -18,7 +17,7 @@ export default function Files() {
     let [initialFiles,setInitialFiles] = useState([]) 
     // filter from SearchBar
     let [filtered,filter] = useState([])
-
+    let [promises,setAllPromises] = useState([])
     // here the click on a specific resource is handled, the actual click happens in a child component (words). 
     const changeToDetailedView=async (filetype,pk)=>{
         switch(filetype){
@@ -29,26 +28,26 @@ export default function Files() {
     
     }
 
-    useEffect(async ()=>{
-        let returned_files
-        let func = ()=>{
-            return Promise.all(
+    let AsyncFunc= async ()=>{
+        let first_res =  await Promise.all(
                 ['word','excel','pdf'].map((item,index)=>{
                 return(
                 <File key={index} fileType={item} changeToDetailedView={changeToDetailedView}/>
                 )
-            })).then(vals=>returned_files=vals) 
-        }
-
-        await func()
-
-        setFiles(returned_files)
-        setInitialFiles(returned_files)
-    },[])
-
+            })).then(vals=>vals).then(data=>setAllPromises(data))
+    }
 
     useEffect(()=>{
-        
+        AsyncFunc()
+    },[])
+
+    useEffect(()=>{
+        setFiles(promises)
+        setInitialFiles(promises)
+    },[promises])
+
+    useEffect(()=>{
+        if(initialFiles!=undefined){
         if(initialFiles.length!=0)
         {
             if(filtered.length!=0){
@@ -77,15 +76,19 @@ export default function Files() {
             setFiles(initialFiles)
         }
     }
+    }
 
     },[filtered])
 
     switch(view.file_view){
         case 'word':{return(<WordDoc pk={view.pk} changeView={setView}/>)}
         case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
-        case 'pdf':{return(<PdfDoc pk={view.pk}/>)}; 
+        case 'pdf':{
+            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${view.pk}/`).then(res=>res.json()).then(data=>{window.open(data.path.replace('localhost:8000','tubra.com'),'_blank')}).then(setView('Main')).catch(err=>console.log(err))
+        }; 
         default:{
-
+            
+            if(files!=undefined){
             return (
                 <>
                 <div className='files'>
@@ -100,6 +103,10 @@ export default function Files() {
                 </>
                     )
     }
+    else{
+        return <div></div>
+    }
+}
         
     }
     }

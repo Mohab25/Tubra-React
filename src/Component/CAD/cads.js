@@ -16,8 +16,8 @@ export default function CADS(props) {
     let [cad_content,setCADContent] = useState({}) // this will be sent to the cadViewer component.
 
     // this will load CAD from the backend for the main view.
-    useEffect(()=>{
-        fetch('http://localhost:8000/CAD/drawings/').then(res=>res.json()).then(
+    useEffect(()=>{ //
+        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawings/').then(res=>res.json()).then(
             data=>{
                 SetCADDocs(data)
             }
@@ -34,7 +34,7 @@ export default function CADS(props) {
     const handleClick=async (pk)=>{
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
-            await fetch(`http://localhost:8000/CAD/cad/${pk}/`).then(res=>res.json()).then(data=>{
+            await fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
             setCADContent(data)
             })
         
@@ -49,7 +49,17 @@ export default function CADS(props) {
 
     switch(view){
         case 'CADView':{
-            return(<CAD title={cad_content.Title} url={cad_content.url}/>)
+            // something wrong with django serving media images -- needs check
+            console.log(cad_content)
+            let the_url = ''
+            if(cad_content.CAD_file.includes('localhost')){
+                let name = cad_content.Title.replace('Aerodrome ','')
+                let ext = cad_content.CAD_file.includes('.jpg')?".jpg":".png"
+                let file_name = name+ext
+                the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/'+file_name
+            }
+            else {the_url = cad_content.CAD_file}  
+            return(<CAD title={cad_content.Title} url={the_url} changeView={setView}/>)
         };
         
         default:{

@@ -10,6 +10,7 @@ import SearchComponentVisibilityReducer from './searchReducers/SearchComponentVi
 import searchBufferReducer from "./searchReducers/SearchBufferReducer";
 import gettingMapRefReducer from "./MeasureReducer/gettingMapRefReducer";
 import AdjustNavReducer from "./FilesReducers/AdjustNavReducer";
+import AdjustCADNavReducer from "./CADReducers/AdjustCADNavReducer";
 import SearchbarReducer from './FilesReducers/searchbarReducer'
 import MapControlReducer from './3DReducer/MapControlReducer'
 
@@ -25,6 +26,7 @@ export default combineReducers({
     searchBufferReducer,
     gettingMapRefReducer,
     AdjustNavReducer,
+    AdjustCADNavReducer,
     SearchbarReducer,
     MapControlReducer
 })
