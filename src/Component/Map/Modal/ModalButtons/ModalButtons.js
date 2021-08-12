@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {handleDimensions} from '../helper functions/expandMinimize'
 import './styles.css'
 
-export default function ModalButtons({innerHolderRef}) {
+export default function ModalButtons({innerHolderRef,view}) {
 
     const [initialExpandValue,setInitialExpandValue] = useState()
     const [isExpanded,setExpansion] = useState('minimized') 
@@ -22,10 +22,10 @@ export default function ModalButtons({innerHolderRef}) {
             <div className='modal-enlarge-screen-icon' style={{top:ButtonsPosition.enlargeTop,right:ButtonsPosition.enlargeRight}}>
                 <i className='fa fa-expand fa-lg' onClick={()=>{handleDimensions(isExpanded,innerHolderRef,setExpansion,initialExpandValue,setEnlargeButtonsPosition)}}></i>
                 </div>
-                <div className='modal-right-arrow' style={{right:ButtonsPosition.rightArrowRight}}>
+                <div className='modal-right-arrow' style={{display:view.file_view!='Main'?'none':'block',right:ButtonsPosition.rightArrowRight}}>
                     <i className='fas fa-arrow-alt-circle-right fa-2x'></i>
                 </div>
-                <div className='modal-left-arrow' style={{left:ButtonsPosition.leftArrowLeft}}>
+                <div className='modal-left-arrow' style={{display:view.file_view!='Main'?'none':'block',left:ButtonsPosition.leftArrowLeft}}>
                     <i className='fas fa-arrow-alt-circle-left fa-2x'></i>
                 </div>
         </div>

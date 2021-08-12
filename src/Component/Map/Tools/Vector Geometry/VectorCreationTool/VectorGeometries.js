@@ -60,6 +60,21 @@ export default function SearchResultsHolder(props) {
         }
     }
 
+    useEffect(()=>{
+        // handle when the user disable the vector creation main tool without clicking individual tools
+        if(props.isVectorActivated==false){
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('point','disabled'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('line','disabled'))
+            EnableGeometryCreationDispatcher(enableDisableCreateGeometry('polygon','disabled'))
+            setPointVectorOptionColor('orange')
+            setLineVectorOptionColor('orange')
+            setPolygonVectorOptionColor('orange')
+        
+        }
+    
+    },[props.isVectorActivated])
+
+
     return (
         <div className='VectorPane'>
             <div className='VectorPane-container'>

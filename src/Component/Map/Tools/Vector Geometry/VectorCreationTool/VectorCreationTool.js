@@ -26,7 +26,7 @@ export default function VectorCreationTool(props) {
                     </div>
                 </div>
             </div>
-            <VectorGeometries display={VectorPaneDisplay} createPoint={props.createPoint}/>
+            <VectorGeometries display={VectorPaneDisplay} createPoint={props.createPoint} isVectorActivated={props.isVectorActivated}/>
             <Tooltip display={toolTipDisplay} name='VectorCreation' toolIndex={5}/>
         </>
     )

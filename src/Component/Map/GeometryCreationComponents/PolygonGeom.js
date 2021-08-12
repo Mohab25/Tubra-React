@@ -24,7 +24,6 @@ export default function PolygonGeom({map}) {
             and enable the draw mode.
             if the state is evaluated to "disabled" end the draw mode. 
         */
-        console.log('geoman ',isGeometryEnabled)
         if(isGeometryEnabled=='enabled'){
 
         if(geomType=='polygon'){
@@ -58,7 +57,7 @@ export default function PolygonGeom({map}) {
             // open draw mode     
             map.pm.enableDraw('CircleMarker', {
             snappable: true,
-            snapDistance: 206
+            snapDistance: 20
             
             });     
         }
@@ -80,7 +79,11 @@ export default function PolygonGeom({map}) {
             the shape complete drawing and dispatch a modal creation action.
         */
        // the creation form should be fired after the user dblclick on the item
-        geometryCreationModalDispatch(toggleGeometryCreationFormVisibility())
+        shape.layer.on('dblclick',()=>{
+        geometryCreationModalDispatch(toggleGeometryCreationFormVisibility('flex'))
+       }) 
+       // if the form to be opened after the creation automatically, just:
+       // geometryCreationModalDispatch(toggleGeometryCreationFormVisibility('flex'))
     })
 
 }
