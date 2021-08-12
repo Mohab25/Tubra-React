@@ -10,7 +10,6 @@ export default function CreationFormReducer(state=initialState,action){
     switch(action.type){
         case SHOWHIDECREATIONFORM:{
             let dis = action.payload=='flex'?'flex':'none'
-            console.log(dis)
             return{
                 ...state,
                 display:dis

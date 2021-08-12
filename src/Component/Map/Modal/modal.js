@@ -1,5 +1,6 @@
 import React,{useEffect, useState, useRef} from 'react'
 import AerodromeComponentDetails from './AerodromeComponentDetails/AerodromeComponentDetails.js'
+import AnnexExcerpts from './Annexes Excerpts/AnnexesExcerpts'
 import ModalButtons from "./ModalButtons/ModalButtons";
 import ModalFilesComponent from "./ModalFilesComponent/ModalFilesComponent";
 import './styles.css'
@@ -13,6 +14,13 @@ export default function Modal(props) {
     let backdropRef = useRef()
     let innerHolderRef = useRef()
 
+    // shared state between child files modal and other buttons
+    let [view,setView] = useState({file_view:'Main'})
+
+    // changing files tab according to weather the user on detailed of general files view
+    let [filesTab,setFilesTab]=useState({text:'Files',bgColor:'none',color:'black'})
+    
+    
     const closeModal=(e)=>{
         if(e.target.classList.contains('backdrop')){
             props.modalCloser(null)
@@ -24,6 +32,15 @@ export default function Modal(props) {
     }
 
     let toggleTabDisplay=(tab)=>{
+        if(tab=='files'){
+            if(view.file_view!=='Main'){
+                setView({file_view:'Main'})
+                setFilesTab({text:'Files',bgColor:'white',color:'black'})
+            }
+            else{
+                setTabDisplay(tab) 
+            }
+        }
         setTabDisplay(tab)
     }
 
@@ -46,11 +63,12 @@ export default function Modal(props) {
                 <div className='tabs'>
                     <div className='tab' onClick={()=>toggleTabDisplay('component')}>Component</div>
                     <div className='tab' onClick={()=>toggleTabDisplay('annex')}>Annex</div>
-                    <div className='tab' onClick={()=>toggleTabDisplay('files')}>Files</div>
+                    <div className='tab' style={{backgroundColor:filesTab.bgColor,color:filesTab.color}} onClick={()=>toggleTabDisplay('files')}>{filesTab.text}</div>
                 </div>
                 <div data-testid='component-tab' style={{display:tabDisplay=='component'?'flex':'none'}}><AerodromeComponentDetails  textual_data={textual_data}/></div>
-                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name}/></div>
-                <ModalButtons innerHolderRef={innerHolderRef} />
+                <div data-testid='annex-tab' style={{display:tabDisplay=='annex'?'flex':'none'}}><AnnexExcerpts  textual_data={textual_data}/></div>
+                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name} setView={setView} view={view} setFilesTab={setFilesTab}/></div>
+                <ModalButtons innerHolderRef={innerHolderRef} currentDisplay={tabDisplay} view={view}/>
             </div>
         </div>
     )
