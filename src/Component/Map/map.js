@@ -7,6 +7,9 @@ import './leaflet/leaflet.css'
 import MapToolsHolder from './MapToolsHolder/MapToolsHolder'
 import PavementConstructionGeojson from './GeojsonComponents/PavementConstructionGeojson'
 import AerodromeEntityGeoJSON from './GeojsonComponents/AerodromeGeojsonComponent'
+import ObeidDistrictsGeoJSON from './GeojsonComponents/ObeidCityDistricts'
+import ObeidUrnanAreaGeoJSON from './GeojsonComponents/ObeidUrbanArea'
+import ObeidStreetsGeoJSON from './GeojsonComponents/ObeidStreets'
 import PolygonGeom from './GeometryCreationComponents/PolygonGeom'
 import './MakerIcon/styles/styles.css'
 import GeometryCreationModal from './Tools/Vector Geometry/GeometryCreationModal/GeometryCreationModal'
@@ -20,12 +23,15 @@ const {Overlay} = LayersControl
 export default function MapComponent() {
 
 /****************************State Variables  *************************************/
-    const [mapCenter,setMapCenter] = useState([19.43520370922581,37.23775744610511])
+    const [mapCenter,setMapCenter] = useState([13.1539078,30.2299139])
     let [zoom,setZoomLevel] = useState(14)
     let [tile,setTile] = useState('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=33e092a0-ac31-4b3c-bd16-de58e5f2d733')
     let mapRef = useRef();
     let Aerodrome_entities_ref = useRef()
     let pavement_construction_ref = useRef()
+    let city_districts_ref = useRef()
+    let city_urban_area_ref = useRef()
+    let city_streets_ref = useRef()
      // Distance from the database 
     const [Calculated_distance,setCalculatedDistance] = useState(0)
     /* Linear Measurements */
@@ -115,6 +121,12 @@ export default function MapComponent() {
                 <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?createBuffer:null}>
                     <LayersControl position='topleft' className='layers-control'>
                         <TileLayer url={tile}/>
+                        <Overlay name='City Districts'>
+                                <LayerGroup ref={city_districts_ref}>
+                                    <ObeidDistrictsGeoJSON/>
+                                </LayerGroup>
+                            </Overlay>
+                            
                             <Overlay name='pavement construction'>
                             <LayerGroup ref={pavement_construction_ref}>
                                 <PavementConstructionGeojson  map={mapReference}/>                    
@@ -125,6 +137,17 @@ export default function MapComponent() {
                                     <AerodromeEntityGeoJSON/>
                                 </LayerGroup>
                             </Overlay>
+                            <Overlay name='City Urban Area'>
+                                <LayerGroup ref={city_urban_area_ref}>
+                                <ObeidUrnanAreaGeoJSON/>
+                                </LayerGroup>
+                            </Overlay>
+                            <Overlay name='City Streets'>
+                                <LayerGroup ref={city_streets_ref}>
+                                    <ObeidStreetsGeoJSON/>
+                                </LayerGroup>
+                            </Overlay>
+
                         <BufferComponent/>  
                     </LayersControl>
                 </Map>

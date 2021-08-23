@@ -16,6 +16,7 @@ export default function Modal(props) {
 
     // shared state between child files modal and other buttons
     let [view,setView] = useState({file_view:'Main'})
+    let [cadView,setCADView] = useState('')
 
     // changing files tab according to weather the user on detailed of general files view
     let [filesTab,setFilesTab]=useState({text:'Files',bgColor:'none',color:'black'})
@@ -49,9 +50,8 @@ export default function Modal(props) {
         e.stopPropagation()
         props.map.dragging.disable();    
         props.map.scrollWheelZoom.disable();
-        
     }
-    }
+        }
 
     useEffect(()=>{
         handleHorizontalScroll()
@@ -67,7 +67,7 @@ export default function Modal(props) {
                 </div>
                 <div data-testid='component-tab' style={{display:tabDisplay=='component'?'flex':'none'}}><AerodromeComponentDetails  textual_data={textual_data}/></div>
                 <div data-testid='annex-tab' style={{display:tabDisplay=='annex'?'flex':'none'}}><AnnexExcerpts  textual_data={textual_data}/></div>
-                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name} setView={setView} view={view} setFilesTab={setFilesTab}/></div>
+                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name} setView={setView} setCADView={setCADView} view={view} cadView={cadView} setFilesTab={setFilesTab}/></div>
                 <ModalButtons innerHolderRef={innerHolderRef} currentDisplay={tabDisplay} view={view}/>
             </div>
         </div>

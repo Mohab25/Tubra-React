@@ -35,7 +35,7 @@ export default function CADS(props) {
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
             await fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
-            setCADContent(data)
+            setCADContent(data);
             })
         
           
@@ -50,7 +50,6 @@ export default function CADS(props) {
     switch(view){
         case 'CADView':{
             // something wrong with django serving media images -- needs check
-            console.log(cad_content)
             let the_url = ''
             if(cad_content.CAD_file.includes('localhost')){
                 let name = cad_content.Title.replace('Aerodrome ','')
@@ -59,6 +58,7 @@ export default function CADS(props) {
                 the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/'+file_name
             }
             else {the_url = cad_content.CAD_file}  
+            props.modalCadHandle(the_url)
             return(<CAD title={cad_content.Title} url={the_url} changeView={setView}/>)
         };
         

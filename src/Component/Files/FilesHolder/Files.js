@@ -1,11 +1,14 @@
 import React,{useState,useEffect} from 'react'
+import {useSelector} from 'react-redux'
 import './styles/style.css'
 import FileCard from "../FileCard/fileCard.js";
 
 export default function File(props) {
 
     let [files,setFiles] = useState([])
-    
+    let aerodrome_part = useSelector(state => state.FileTypeChangeReducer.aerodrome_part)    
+    let file_type = useSelector(state => state.FileTypeChangeReducer.fileType)    
+
     let titles={
         'word':'Documented Report',
         'excel':'Documented Calcs',
@@ -13,22 +16,63 @@ export default function File(props) {
     }
 
     useEffect(()=>{
-        if(props.preloaded!=true){
-        switch(props.fileType){
-            case "word":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/word_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-            case "excel":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/excel_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-            case "pdf":{fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/pdf_docs/').then(res=>res.json()).then(data=>setFiles(data));break};
-        }
-    }
-    else{
-        if(props.preloadedData.length==0){setFiles([])}
-        
-        else{
-            setFiles(props.preloadedData)
-        }
-    }
+        let url;
+        switch(aerodrome_part){ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
+            case 'Runway':{ 
+             switch(file_type.toLowerCase()){   
+                case 'word': url= 'http://tubra.com/Reports/obeid_runway_word/'; break; 
+                case 'excel': url = 'http://tubra.com/Reports/obeid_runway_excel/'; break; 
+                case 'pdf':url = 'http://tubra.com/Reports/obeid_runway_pdf/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/';break; 
+             }
+                break;
+            }
 
-    },[props.preloadedData])
+            case 'Taxiway':{ 
+                switch(file_type.toLowerCase()){   
+                   case 'word': url= 'http://tubra.com/Reports/obeid_taxiway_word/'; break; 
+                   case 'excel': url = 'http://tubra.com/Reports/obeid_taxiway_excel/'; break; 
+                   case 'pdf':url = 'http://tubra.com/Reports/obeid_taxiway_pdf/';break; 
+                   case 'all files':url = 'http://tubra.com/Reports/';break; 
+                }
+                   break;
+               }
+
+            case 'Apron':{ 
+            switch(file_type.toLowerCase()){   
+                case 'word': url= 'http://tubra.com/Reports/obeid_apron_word/'; break; 
+                case 'excel': url = 'http://tubra.com/Reports/obeid_apron_excel/'; break; 
+                case 'pdf':url = 'http://tubra.com/Reports/obeid_apron_pdf/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/';break; 
+            }
+                break;
+            }
+
+            case 'General':{ 
+                switch(file_type.toLowerCase()){   
+                    case 'word': url= 'http://tubra.com/Reports/obeid_general_word/'; break; 
+                    case 'excel': url = 'http://tubra.com/Reports/obeid_general_excel/'; break; 
+                    case 'pdf':url = 'http://tubra.com/Reports/obeid_general_pdf/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/';break; 
+                }
+                    break;
+                }
+
+            case 'Reports':{ 
+                switch(file_type.toLowerCase()){   
+                    case 'word': url= 'http://tubra.com/Reports/obeid_reports_word/'; break; 
+                    case 'excel': url = 'http://tubra.com/Reports/obeid_reports_excel/'; break; 
+                    case 'pdf':url = 'http://tubra.com/Reports/obeid_reports_pdf/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/';break; 
+                }
+                    break;
+                }
+
+
+        }
+        console.log('knog him knog him ',url)
+        fetch(url).then(res=>res.json()).then(data=>setFiles(data))
+    },[aerodrome_part,file_type])
 
     const BBorder=()=>{
         switch(props.fileType){
@@ -42,11 +86,12 @@ export default function File(props) {
         <>
         <div className='Files'>
             <div>
-                <h5 style={{borderBottom:BBorder()}}>{titles[`${props.fileType}`]}</h5>
-                <div className='files-row'>{files.map((item,index)=>{
+                <h5 style={{borderBottom:BBorder()}}>{titles[`${file_type.toLowerCase()}`]}</h5>
+                <div className='files-row'>{
+                    files.map((item,index)=>{
                     let file_name = item.Name.substring(0,16)
                     let pk = item.pk
-                    return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={file_name} pk={pk} fileType={props.fileType}/>
+                    return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={file_name} pk={pk} fileType={file_type.toLowerCase()}/>
                 })}
             </div>
         </div>

@@ -21,8 +21,8 @@ export default function PavementConstructionGeojson(props) {
     // what is shown on the modal 
     const [pavementModalData,setPavementModalData] = useState(null)
 
-    useEffect(()=>{
-    fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/pavement_constructions/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)})
+    useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
+    fetch('http://tubra.com/AerodromeFeatures/obeid_aerodrome_parts/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'red'}} onEachFeature={onEachPavementConstruction}/>)})
     },[])
     
     useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
