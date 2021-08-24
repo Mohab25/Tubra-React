@@ -57,6 +57,8 @@ export default function Modal(props) {
         handleHorizontalScroll()
     },[])
 
+    console.log(props.data)
+
     return (
         <div className='backdrop' data-testid='backdrop' ref={backdropRef} onClick={closeModal} onMouseEnter={preventMapActions} >
             <div className='modal-inner-holer' ref={innerHolderRef} onWheelCapture={preventMapActions}>
@@ -67,7 +69,7 @@ export default function Modal(props) {
                 </div>
                 <div data-testid='component-tab' style={{display:tabDisplay=='component'?'flex':'none'}}><AerodromeComponentDetails  textual_data={textual_data}/></div>
                 <div data-testid='annex-tab' style={{display:tabDisplay=='annex'?'flex':'none'}}><AnnexExcerpts  textual_data={textual_data}/></div>
-                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} Category={props.data.Category} Pavement_Name={props.data.Pavement_Name} setView={setView} setCADView={setCADView} view={view} cadView={cadView} setFilesTab={setFilesTab}/></div>
+                <div data-testid='files-tab' style={{display:tabDisplay=='files'?'flex':'none'}}><ModalFilesComponent tabDisplay={tabDisplay} data={props.data} setView={setView} setCADView={setCADView} view={view} cadView={cadView} setFilesTab={setFilesTab}/></div>
                 <ModalButtons innerHolderRef={innerHolderRef} currentDisplay={tabDisplay} view={view}/>
             </div>
         </div>

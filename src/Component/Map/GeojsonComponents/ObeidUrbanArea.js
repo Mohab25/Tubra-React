@@ -27,9 +27,7 @@ export default function ObeidUrbanAreaGeojson(props) {
 
     useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
         let len = ObeidUrbanAreaJSONData.length
-        console.log(len)
         if(ObeidUrbanAreaJSONData.length>=11000){
-            console.log('the pure json',ObeidUrbanAreaJSONData)
             let geojson_ob = {type: "FeatureCollection", features:ObeidUrbanAreaJSONData}
             
             setObeidUrbanAreasData(<GeoJSON key={Math.random()} data={geojson_ob} style={{color:'white',border:'none'}}/>) // #FF1493, #00FFFF

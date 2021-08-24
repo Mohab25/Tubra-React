@@ -16,8 +16,8 @@ export default function CADS(props) {
     let [cad_content,setCADContent] = useState({}) // this will be sent to the cadViewer component.
 
     // this will load CAD from the backend for the main view.
-    useEffect(()=>{ //
-        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawings/').then(res=>res.json()).then(
+    useEffect(()=>{ // http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
+        fetch('http://tubra.com/CAD/drawings/').then(res=>res.json()).then(
             data=>{
                 SetCADDocs(data)
             }
@@ -34,7 +34,8 @@ export default function CADS(props) {
     const handleClick=async (pk)=>{
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
-            await fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
+  
+        await fetch(`http://tubra.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
             setCADContent(data);
             })
         
@@ -55,10 +56,11 @@ export default function CADS(props) {
                 let name = cad_content.Title.replace('Aerodrome ','')
                 let ext = cad_content.CAD_file.includes('.jpg')?".jpg":".png"
                 let file_name = name+ext
-                the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/'+file_name
+                the_url='http://tubra.com/media/CAD/'+file_name
             }
-            else {the_url = cad_content.CAD_file}  
-            props.modalCadHandle(the_url)
+            else {the_url = cad_content.CAD_file.replace('ec2-18-118-61-96.us-east-2.compute.amazonaws','tubra')}  
+            console.log('cad url:',the_url)
+            //props.modalCadHandle(the_url)
             return(<CAD title={cad_content.Title} url={the_url} changeView={setView}/>)
         };
         

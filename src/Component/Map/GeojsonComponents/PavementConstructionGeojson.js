@@ -4,6 +4,7 @@ import {GeoJSON} from 'react-leaflet'
 import L from 'leaflet'
 import createBufferAction from '../../../Actions/bufferActions/createBuffer'
 import Modal from '../Modal/modal'
+import changeFileType from '../../../Actions/FilesActions/changeFileType'
 
 export default function PavementConstructionGeojson(props) {
 
@@ -21,6 +22,8 @@ export default function PavementConstructionGeojson(props) {
     // what is shown on the modal 
     const [pavementModalData,setPavementModalData] = useState(null)
 
+    let modalDispatch = useDispatch()
+
     useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
     fetch('http://tubra.com/AerodromeFeatures/obeid_aerodrome_parts/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'red'}} onEachFeature={onEachPavementConstruction}/>)})
     },[])
@@ -35,10 +38,11 @@ export default function PavementConstructionGeojson(props) {
                 if(isBufferActivated==false){
                     if(isIdentifyToolActive==true){
                         setPavementModalData(e.target.feature.properties)
+                        // this will dispatch certain part that will affect the modal files
+                        modalDispatch(changeFileType({aerodrome_part:e.target.feature.properties.name,fileType:'all files'}))
                     }
                 }
                 else{
-                    console.log(e.target.feature.geometry)
                     createBufferDispatch(createBufferAction({'geom':e.target.feature.geometry,'radius':dispatchedBufferDistance/100000}))// the usual in such cases is to use null, in react it gives an error and this is not solved see https://github.com/palantir/tslint/issues/3832
                 }
                 

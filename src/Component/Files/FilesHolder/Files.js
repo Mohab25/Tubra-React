@@ -23,7 +23,7 @@ export default function File(props) {
                 case 'word': url= 'http://tubra.com/Reports/obeid_runway_word/'; break; 
                 case 'excel': url = 'http://tubra.com/Reports/obeid_runway_excel/'; break; 
                 case 'pdf':url = 'http://tubra.com/Reports/obeid_runway_pdf/';break; 
-                case 'all files':url = 'http://tubra.com/Reports/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/obeid_runway_all_files/';break; 
              }
                 break;
             }
@@ -33,7 +33,7 @@ export default function File(props) {
                    case 'word': url= 'http://tubra.com/Reports/obeid_taxiway_word/'; break; 
                    case 'excel': url = 'http://tubra.com/Reports/obeid_taxiway_excel/'; break; 
                    case 'pdf':url = 'http://tubra.com/Reports/obeid_taxiway_pdf/';break; 
-                   case 'all files':url = 'http://tubra.com/Reports/';break; 
+                   case 'all files':url = 'http://tubra.com/Reports/obeid_taxiway_all_files/';break; 
                 }
                    break;
                }
@@ -43,7 +43,7 @@ export default function File(props) {
                 case 'word': url= 'http://tubra.com/Reports/obeid_apron_word/'; break; 
                 case 'excel': url = 'http://tubra.com/Reports/obeid_apron_excel/'; break; 
                 case 'pdf':url = 'http://tubra.com/Reports/obeid_apron_pdf/';break; 
-                case 'all files':url = 'http://tubra.com/Reports/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/obeid_apron_all_files/';break; 
             }
                 break;
             }
@@ -53,7 +53,7 @@ export default function File(props) {
                     case 'word': url= 'http://tubra.com/Reports/obeid_general_word/'; break; 
                     case 'excel': url = 'http://tubra.com/Reports/obeid_general_excel/'; break; 
                     case 'pdf':url = 'http://tubra.com/Reports/obeid_general_pdf/';break; 
-                    case 'all files':url = 'http://tubra.com/Reports/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/obeid_general_all_files/';break; 
                 }
                     break;
                 }
@@ -63,14 +63,14 @@ export default function File(props) {
                     case 'word': url= 'http://tubra.com/Reports/obeid_reports_word/'; break; 
                     case 'excel': url = 'http://tubra.com/Reports/obeid_reports_excel/'; break; 
                     case 'pdf':url = 'http://tubra.com/Reports/obeid_reports_pdf/';break; 
-                    case 'all files':url = 'http://tubra.com/Reports/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/obeid_reports_all_files/';break; 
                 }
                     break;
                 }
 
 
         }
-        console.log('knog him knog him ',url)
+
         fetch(url).then(res=>res.json()).then(data=>setFiles(data))
     },[aerodrome_part,file_type])
 
@@ -91,8 +91,8 @@ export default function File(props) {
                     files.map((item,index)=>{
                     let file_name = item.Name.substring(0,16)
                     let pk = item.pk
-                    return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={file_name} pk={pk} fileType={file_type.toLowerCase()}/>
-                })}
+                        return <FileCard key={index} changeToDetailedView={props.changeToDetailedView} title={file_name} pk={pk} fileType={item.Document_type.Doc_type.toLowerCase()}/>
+                    })}
             </div>
         </div>
         </div>

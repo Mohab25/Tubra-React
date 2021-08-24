@@ -26,9 +26,11 @@ export default function ModalFilesComponent(props) {
 
 
     // the files with cards grabbed from the state.
-    const ModalWordDocs = <Files fileType='word' changeToDetailedView={changeToDetailedView}/>
-    const ModalExcelDocs = <Files fileType='excel' changeToDetailedView={changeToDetailedView}/>
-    const ModalPdfDocs = <Files fileType='pdf' changeToDetailedView={changeToDetailedView}/>
+    // const ModalWordDocs = <Files fileType='word' changeToDetailedView={changeToDetailedView}/>
+    // const ModalExcelDocs = <Files fileType='excel' changeToDetailedView={changeToDetailedView}/>
+    // const ModalPdfDocs = <Files fileType='pdf' changeToDetailedView={changeToDetailedView}/>
+    
+    const ModalDocs = <Files changeToDetailedView={changeToDetailedView}/>
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block' modalCadHandle={modalCadHandle}/>
 
     switch(props.view.file_view){
@@ -40,11 +42,9 @@ export default function ModalFilesComponent(props) {
         default:{
             return (
                 <div data-testid='docsModal-container' style={{display:props.tabDisplay=='files'?'flex':'none'}}>
-                    <h3 className='modal-entity-title'>{props.Category}{props.Pavement_Name}</h3>
+                    <h3 className='modal-entity-title'>{props.data.Name}</h3>
                     {CADModalFile}
-                    {ModalWordDocs}
-                    {ModalExcelDocs}
-                    {ModalPdfDocs}
+                    {ModalDocs}
                  </div>
             )
         }
