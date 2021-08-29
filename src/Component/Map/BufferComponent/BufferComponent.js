@@ -7,7 +7,8 @@ export default function BufferComponent() {
      /* Buffer creation */
      const bufferGeomAndRadiusOb = useSelector(state=>state.bufferReducer.bufferGeomAndRadiusOb)
      const [buffer_data,setBufferData] = useState()
-     const [buffer_ob,setBufferOb] = useState()
+     const [buffer_ob,setBufferOb] = useState('first load')
+     const bufferActivation = useSelector(state=>state.bufferReducer.isBufferToolActivated)
      const bufferRemoveReducerState = useSelector(state=>state.BufferAddRemoveReducer.bufferRemoveState)
 
     let createBuffer=(json_geom)=>{
@@ -19,7 +20,8 @@ export default function BufferComponent() {
         params: 
             json_geom (Obj): an object holding both the geojson geom, and the distance of the buffer(coming from dispatchedBufferDistance)
              sent to the back to create a buffer around the geometry.
-        */
+        */ 
+       //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/spatial_analysis/make_buffer/',{
         method:'POST',
         mode:'cors',
@@ -30,30 +32,6 @@ export default function BufferComponent() {
        }).then(res=>res.json()).then(data=>load_buffer(data))
     }
 
-    const load_buffer=(buffer_geojson)=>{
-        setBufferData(buffer_geojson)        
-    }
-
-    useEffect(()=>{
-        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
-        setBufferOb(geojson_ob)
-    },[buffer_data])
-
-    useEffect(()=>{
-        // this is the same of the above json, being set again but with an updated onEachFeature
-        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'green'}} onEachFeature={removeBuffer}/>
-        if(bufferRemoveReducerState=='active'){setBufferOb(geojson_ob)}
-    },[bufferRemoveReducerState])
-
-
-    useEffect(()=>{
-        /*
-            this is called when redux state changes, it calls createBuffer
-            bufferGeomAndRadiusOb(obj): object holding both the geojson geom and the distance of the buffer   
-        */
-        createBuffer(bufferGeomAndRadiusOb)
-    },[bufferGeomAndRadiusOb])
-
     let removeBuffer=(feature,layer)=>{
         layer.on({
             click:function(e){
@@ -63,9 +41,35 @@ export default function BufferComponent() {
         })
     }
 
-     return (
+    const load_buffer=(buffer_geojson)=>{
+        setBufferData(buffer_geojson)        
+    }
+
+    useEffect(()=>{
+        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'orange'}} onEachFeature={removeBuffer}/>
+        setBufferOb(geojson_ob)
+    },[buffer_data])
+
+    useEffect(()=>{
+        // this is the same of the above json, being set again but with an updated onEachFeature
+        let geojson_ob = <GeoJSON key={Math.random()} data={buffer_data} style={{color:'orange'}} onEachFeature={removeBuffer}/>
+        if(bufferRemoveReducerState=='active'){setBufferOb(geojson_ob)}
+    },[bufferRemoveReducerState])
+
+
+    useEffect(()=>{
+        /*
+            this is called when redux state changes, it calls createBuffer
+            bufferGeomAndRadiusOb(obj): object holding both the geojson geom and the distance of the buffer   
+        */
+        
+        if(bufferActivation)createBuffer(bufferGeomAndRadiusOb)
+    },[bufferGeomAndRadiusOb])
+
+    return (
         <div>
             {buffer_ob}
         </div>
     )
+    
 }

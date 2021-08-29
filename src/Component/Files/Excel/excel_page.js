@@ -13,7 +13,7 @@ export default function Excel_page(props) {
   // the back button clicked on one of the filesView 
   let viewSwitcher = useSelector(state=>state.AdjustNavReducer.switchToFilesView)
 
-  useEffect(()=>{
+  useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
     fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
       setContent(JSON.parse(data.content))})
       FileViewDispatch(adjustNavLink())

@@ -29,8 +29,8 @@ export default function GeojsonComponent() {
     const [entityModalData,setEntityModalData] = useState(null)
 
 
-    useEffect(()=>{
-        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/features/').then(res=>res.json()).then((data)=>{
+    useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
+        fetch('').then(res=>res.json()).then((data)=>{
             let points_only=[]
             let filtered_data_without_points = data.features.filter(item=>{   // this is happening because i want data without points as i have custom markers for points 
                 if(item.geometry.type!='Point'){return item}
@@ -43,6 +43,7 @@ export default function GeojsonComponent() {
     },[])
     
     useEffect(()=>{
+        
         setAerodromeEntitiesData(<GeoJSON data={AerodromeJSONData} key={Math.random()} style={{color:'green'}} onEachFeature={onEachEntity}/>)
     },[isBufferActivated,isIdentifyToolActive,dispatchedBufferDistance])
 

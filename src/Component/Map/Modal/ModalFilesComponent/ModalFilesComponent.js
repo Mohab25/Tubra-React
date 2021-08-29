@@ -4,12 +4,9 @@ import CAD from '../../../CAD/cads'
 import WordDetailedView from "../../../Files/Word/word_file_page";
 import ExcelDetailedView from "../../../Files/Excel/excel_page";
 import PdfDetailedView from "../../../Files/Pdf/pdf_page";
-
+import CADDetailedView from '../../../CAD/cadViewer'
 
 export default function ModalFilesComponent(props) {
-
-    let [view,setView] = useState('Main')
-
 
     // here the click on a specific resource is handled, the actual click happens in a child component (words). 
     const changeToDetailedView=async (filetype,pk)=>{
@@ -22,24 +19,26 @@ export default function ModalFilesComponent(props) {
         props.setFilesTab({text:backIcon,bgColor:'#0275d8',color:'white'})
     }
 
-    // the files with cards grabbed from the state.
-    const ModalWordDocs = <Files fileType='word' changeToDetailedView={changeToDetailedView}/>
-    const ModalExcelDocs = <Files fileType='excel' changeToDetailedView={changeToDetailedView}/>
-    const ModalPdfDocs = <Files fileType='pdf' changeToDetailedView={changeToDetailedView}/>
-    const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block'/>
+    const modalCadHandle=(url)=>{
+        props.setView({file_view:'cad'})
+        props.setCADView(url)
+    }
+    
+    const ModalDocs = <Files changeToDetailedView={changeToDetailedView}/>
+    const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block' modalCadHandle={modalCadHandle}/>
 
     switch(props.view.file_view){
         case 'word':{return(<WordDetailedView pk={props.view.pk} currentTab={props.tabDisplay}/>)}
         case 'excel':{return(<ExcelDetailedView pk={props.view.pk}/>)}
-        case 'pdf':{return(<PdfDetailedView pk={props.view.pk}/>)}; 
+        case 'pdf':{return(<PdfDetailedView pk={props.view.pk}/>)};  
+        case 'cad':{return(<CADDetailedView url={props.cadView}/>)};  
+    
         default:{
             return (
                 <div data-testid='docsModal-container' style={{display:props.tabDisplay=='files'?'flex':'none'}}>
-                    <h3 className='modal-entity-title'>{props.Category}{props.Pavement_Name}</h3>
+                    <h3 className='modal-entity-title'>{props.data.Name}</h3>
                     {CADModalFile}
-                    {ModalWordDocs}
-                    {ModalExcelDocs}
-                    {ModalPdfDocs}
+                    {ModalDocs}
                  </div>
             )
         }
