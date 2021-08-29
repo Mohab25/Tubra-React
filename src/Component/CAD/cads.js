@@ -1,9 +1,14 @@
 import React,{Fragment} from 'react'
+import {useSelector} from 'react-redux'
 import './styles/styles2.css'
 import Cad_card from './cad_card.js'
 import CAD from './cadViewer'
 import {useState,useEffect} from 'react'
-
+import RunwayFilters from './SidebarContents/RunwayFilters/RunwayFilters';
+import TaxiwayFilters from './SidebarContents/TaxiwayFilters/TaxiwayFilters';
+import ApronFilters from './SidebarContents/ApronFilters/ApronFilters';
+import GeneralFilters from './SidebarContents/GeneralFilters/GeneralFilters';
+import DrainageFilters from './SidebarContents/DrainageFilters/DrainageFilters';
 
 export default function CADS(props) {
     // setting up the view (Main view which holds all file types, and specific views for specific CAD(actual reading views)
@@ -15,15 +20,66 @@ export default function CADS(props) {
     // holders for actual content coming from the backend.
     let [cad_content,setCADContent] = useState({}) // this will be sent to the cadViewer component.
 
-    // this will load CAD from the backend for the main view.
-    useEffect(()=>{ // http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
-        fetch('http://tubra.com/CAD/drawings/').then(res=>res.json()).then(
-            data=>{
-                SetCADDocs(data)
-            }
-            )  
-    },[])
+    let aerodrome_part = useSelector(state => state.FilterTypeChangeReducer.aerodrome_part)    
+    let filter_type = useSelector(state => state.FilterTypeChangeReducer.filterType)    
 
+    // this will load CAD from the backend for the main view.
+    useEffect(()=>{
+        let url;
+        switch(aerodrome_part){ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
+            case 'Runway':{ 
+             switch(filter_type){   
+                case 'Runway Layouts': url= 'http://tubra.com/CAD/obeid_runway_layouts/'; break; 
+                case 'Runway Marking': url = 'http://tubra.com/CAD/obeid_runway_markings/'; break; 
+                case 'Runway Profiles':url = 'http://tubra.com/CAD/obeid_runway_profiles/';break; 
+                case 'Runway X-Sections':url = 'http://tubra.com/CAD/obeid_runway_cross_sections/';break; 
+                case 'General':url = 'http://tubra.com/CAD/obeid_runway_general/';break; 
+             }
+                break;
+            }
+
+            case 'Taxiway':{ 
+                switch(filter_type){   
+                    case 'Taxiway Layouts': url= 'http://tubra.com/CAD/obeid_taxiway_layouts/'; break; 
+                    case 'Taxiway Marking': url = 'http://tubra.com/CAD/obeid_taxiway_markings/'; break; 
+                    case 'Taxiway Profiles':url = 'http://tubra.com/CAD/obeid_taxiway_profiles/';break; 
+                    case 'Taxiway X-Sections':url = 'http://tubra.com/CAD/obeid_taxiway_cross_sections/';break; 
+                    case 'General':url = 'http://tubra.com/CAD/obeid_taxiway_general/';break;  
+                }
+                   break;
+               }
+
+            case 'Apron':{ 
+            switch(filter_type){   
+                case 'Apron Layouts': url= 'http://tubra.com/CAD/obeid_apron_layouts/'; break; 
+                case 'Apron Marking': url = 'http://tubra.com/CAD/obeid_apron_markings/'; break; 
+                case 'Apron Profiles':url = 'http://tubra.com/CAD/obeid_apron_profiles/';break; 
+                case 'Apron X-Sections':url = 'http://tubra.com/CAD/obeid_apron_cross_sections/';break; 
+                case 'General':url = 'http://tubra.com/CAD/obeid_apron_general/';break; }
+                break;
+            }
+
+            case 'General':{ 
+                    url = 'http://tubra.com/CAD/obeid_aerodrome_general/';
+                    break;
+                }
+
+            case 'Drainage':{ 
+                switch(filter_type){   
+                    case 'Drainage Layouts': url= 'http://tubra.com/CAD/obeid_drainage_layouts/'; break; 
+                    case 'Drainage Marking': url = 'http://tubra.com/CAD/obeid_drainage_markings/'; break; 
+                    case 'Drainage Profiles':url = 'http://tubra.com/CAD/obeid_drainage_profiles/';break; 
+                    case 'Drainage X-Sections':url = 'http://tubra.com/CAD/obeid_drainage_cross_sections/';break; 
+                    case 'General':url = 'http://tubra.com/CAD/obeid_drainage_general/';break;
+                    }
+                    break;
+                }
+
+
+        }
+
+    fetch(url).then(res=>res.json()).then(data=>SetCADDocs(data))
+    },[aerodrome_part,filter_type])
 
     // this will handle the submit of the search input
     const handleSubmit=(e)=>{
@@ -46,7 +102,6 @@ export default function CADS(props) {
         }
     
     }
-
 
     switch(view){
         case 'CADView':{
@@ -76,7 +131,13 @@ export default function CADS(props) {
                 <>
                     <div className='CAD'>
                         <div className='CAD-container' style={{display:props.CADContainerDisplay}} data-testid='CAD-container'>
-                            <div className='CAD-side' style={{display:props.sidebarDisplay}} data-testid='CAD-side'></div>
+                            <div className='CAD-side' style={{display:props.sidebarDisplay}} data-testid='CAD-side'>
+                                <RunwayFilters/>
+                                <TaxiwayFilters/>
+                                <ApronFilters/>
+                                <GeneralFilters/>
+                                <DrainageFilters/>
+                            </div>
                             <div className='CAD-main-area'>
                                 <form onSubmit={handleSubmit} style={{display:props.formDisplay}} data-testid='CAD-form'>
                                 <input name='search' placeholder='search..'/>
@@ -84,7 +145,7 @@ export default function CADS(props) {
                                 <div className='CAD-Cards-Holder'>
                                 {cads}
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </>
@@ -93,7 +154,6 @@ export default function CADS(props) {
         }
 }
     }
-
 
     CADS.defaultProps={
         CADContainerDisplay:'grid',

@@ -1,16 +1,17 @@
-import {CHANGEFILETYPE} from '../../Actions/FilesActions/types'
+import {CHANGEFILTERTYPE} from '../../Actions/CADActions/types'
 
 let initialState = {
     aerodrome_part:'',
-    fileType:''
+    filterType:''
 }
 
 export default function(state = initialState, action){
     switch(action.type){
-        case CHANGEFILETYPE:
+        case CHANGEFILTERTYPE:
+
             return {
                 ...state,
-                fileType:action.payload.fileType,
+                filterType:action.payload.filterType,
                 aerodrome_part:action.payload.aerodrome_part
             }
         default:

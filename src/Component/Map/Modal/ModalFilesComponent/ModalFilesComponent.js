@@ -23,12 +23,6 @@ export default function ModalFilesComponent(props) {
         props.setView({file_view:'cad'})
         props.setCADView(url)
     }
-
-
-    // the files with cards grabbed from the state.
-    // const ModalWordDocs = <Files fileType='word' changeToDetailedView={changeToDetailedView}/>
-    // const ModalExcelDocs = <Files fileType='excel' changeToDetailedView={changeToDetailedView}/>
-    // const ModalPdfDocs = <Files fileType='pdf' changeToDetailedView={changeToDetailedView}/>
     
     const ModalDocs = <Files changeToDetailedView={changeToDetailedView}/>
     const CADModalFile = <CAD sidebarDisplay='none' formDisplay='none' CADContainerDisplay='block' modalCadHandle={modalCadHandle}/>

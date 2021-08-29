@@ -28,7 +28,8 @@ export default function PavementConstructionGeojson(props) {
     fetch('http://tubra.com/AerodromeFeatures/obeid_aerodrome_parts/').then(res=>res.json()).then((data)=>{reservePavementData(data);setPavementsData(<GeoJSON data={data.features} key={2} style={{color:'red'}} onEachFeature={onEachPavementConstruction}/>)})
     },[])
     
-    useEffect(()=>{setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
+    useEffect(()=>{
+        setPavementsData(<GeoJSON key={Math.random()} data={pavementJSONData.features} style={{color:'orange'}} onEachFeature={onEachPavementConstruction}/>)
             },[isBufferActivated,isIdentifyToolActive,dispatchedBufferDistance]) // not using dispatchedBufferDistance here caused me a lot of trouble.
     
     const onEachPavementConstruction=(feature,layer)=>{
@@ -50,11 +51,10 @@ export default function PavementConstructionGeojson(props) {
         })
         
     }
-
     return (
-        <div>
+        <>
             {pavementsData}
             {pavementModalData!=null && <Modal map={props.map} data={pavementModalData} modalCloser={setPavementModalData}/>}
-        </div>
+        </>
     )
 }

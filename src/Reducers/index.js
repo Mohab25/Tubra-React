@@ -14,6 +14,7 @@ import AdjustCADNavReducer from "./CADReducers/AdjustCADNavReducer";
 import SearchbarReducer from './FilesReducers/searchbarReducer'
 import MapControlReducer from './3DReducer/MapControlReducer'
 import FileTypeChangeReducer from './FilesReducers/ChangeFileType'
+import FilterTypeChangeReducer from './CADReducers/ChangeFilterType'
 
 export default combineReducers({
     Current_nav_reducer,
@@ -30,5 +31,7 @@ export default combineReducers({
     AdjustCADNavReducer,
     SearchbarReducer,
     MapControlReducer,
-    FileTypeChangeReducer
+    FileTypeChangeReducer,
+    FilterTypeChangeReducer
+
 })

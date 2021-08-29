@@ -11,15 +11,21 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
     const [Markers,setMarkers] = useState([])
     /*Legend */
     const [legend,setLegendNames]=useState([])
+    const [pois,setPois] = useState([])
 
     useEffect(()=>{
-        if(PointsMarkers.length==0){return}
-        let points_icons = PointsMarkers.map((item,index)=>{
+        fetch('http://tubra.com/AerodromeFeatures/pois/').then(res=>res.json()).then(data=>setPois(data))
+    },[])
+
+    useEffect(()=>{
+        if(pois.features.length==0){return}
+        let points_icons = pois.features.map((item,index)=>{
+
             return(
                 renderToStaticMarkup(        
                     <div className='Maker-icon'>
                     <div className='Marker-icon-container'>
-                        <p>{item.properties.Feature_Name.slice(0,1)}</p>
+                        <p>{item.properties.point.slice(0,1)}</p>
                     </div>
                     </div>)
             )
@@ -31,14 +37,14 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
         })
         
         let markers = icons.map((item,index)=>{
-                let pos = PointsMarkers[index].geometry.coordinates
-                return <Marker icon={item} position={[pos[1],pos[0]]} key={Math.random()}/>
+                let pos = pois.features[index].geometry.coordinates
+                return <Marker icon={item} position={[pos[0],pos[1]]} key={Math.random()}/>
         })
 
         setMarkers(markers)
     
         //also you can account for the legend names here, as the legend names should be unique
-        let legend_names = PointsMarkers.map(item=>item.properties.Feature_Name)
+        let legend_names = pois.features.map(item=>item.properties.point)
         let unique_names = legend_names.filter((value,index,self)=>{
             return self.indexOf(value) === index;
         })
@@ -49,7 +55,7 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
         setLegendNames(Legend_names_object)
     
     
-    },[PointsMarkers])
+    },[pois])
 
 
     return (

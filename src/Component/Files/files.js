@@ -11,7 +11,6 @@ import ApronFiles from './SidebarContents/ApronFiles/ApronFiles';
 import GeneralFiles from './SidebarContents/GeneralFiles/GeneralFiles';
 import Reports from './SidebarContents/Reports/Reports';
 
-
 export default function Files() {
     // setting up the view (Main view which holds all file types, and specific views for specific files(actual reading views))
     let [view,setView] = useState('Main')
@@ -60,8 +59,6 @@ export default function Files() {
         setInitialFiles(promises)
     },[promises])
 
-
-
     useEffect(()=>{
         if(initialFiles!=undefined){
         if(initialFiles.length!=0)
@@ -82,15 +79,9 @@ export default function Files() {
             let returned_excel_files = <File preloaded={true} preloadedData={excel_files} changeToDetailedView={changeToDetailedView} fileType='excel'/> 
             let returned_pdf_files = <File preloaded={true} preloadedData={pdf_files} changeToDetailedView={changeToDetailedView} fileType='pdf'/> 
             let returned_files_all = [returned_word_files, returned_excel_files, returned_pdf_files]
-            
-            
-            setFiles(returned_files_all)
 
-            }
-                
-        
+            setFiles(returned_files_all)}
         else{
-            
             setFiles(initialFiles)
         }
     }
@@ -133,4 +124,4 @@ export default function Files() {
 }
         
     }
-    }
+}
