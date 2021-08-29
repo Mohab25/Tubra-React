@@ -14,7 +14,7 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
     const [pois,setPois] = useState([])
 
     useEffect(()=>{
-        fetch('http://tubra.com/AerodromeFeatures/pois/').then(res=>res.json()).then(data=>setPois(data))
+        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/pois/').then(res=>res.json()).then(data=>setPois(data))
     },[])
 
     useEffect(()=>{
