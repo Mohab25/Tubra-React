@@ -120,7 +120,7 @@ export default function MapComponent() {
     return (
         <div className='Map-outer-container'>
             <div className='Map-container'>
-                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?createBuffer:null}>
+                <Map className='Map' center={mapCenter} zoom={zoom} ref={mapRef} onclick={isBufferActivated?createBuffer:null}> 
                     <LayersControl position='topleft' className='layers-control'>
                         <TileLayer url={tile}/>
                         <Overlay name='pavement construction'>
