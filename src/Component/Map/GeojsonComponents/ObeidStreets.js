@@ -21,7 +21,7 @@ export default function ObeidStreetsGeojson(props) {
     const [ObeidStreetsModalData,setObeidStreetsModalData] = useState(null)
 
     useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
-    fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/City_Features/obeid_streets/').then(res=>res.json()).then((data)=>{console.log('streets:',data);reserveObeidStreetsData(data);setObeidStreetssData(<GeoJSON data={data.features} key={Math.random()} style={{color:'#FFDAB9'}} /*onEachFeature={onEachObeidStreets}*//>)})
+    fetch('http://tubra.com/City_Features/obeid_streets/').then(res=>res.json()).then((data)=>{console.log('streets:',data);reserveObeidStreetsData(data);setObeidStreetssData(<GeoJSON data={data.features} key={Math.random()} style={{color:'#FFDAB9'}} /*onEachFeature={onEachObeidStreets}*//>)})
     },[])
     
     // useEffect(()=>{setObeidStreetssData(<GeoJSON key={Math.random()} data={ObeidStreetsJSONData} style={{color:'orange'}} onEachFeature={onEachObeidStreets}/>)

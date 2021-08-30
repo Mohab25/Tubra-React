@@ -21,7 +21,7 @@ export default function ObeidDistrictsGeojson(props) {
     const [ObeidDistrictsModalData,setObeidDistrictsModalData] = useState(null)
 
     useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
-    fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/City_Features/obeid_districts/').then(res=>res.json()).then((data)=>{reserveObeidDistrictsData(data);setObeidDistrictssData(<GeoJSON data={data.features} key={Math.random()} style={{color:'white'}} /*onEachFeature={onEachObeidDistricts}*//>)})
+    fetch('http://tubra.com/City_Features/obeid_districts/').then(res=>res.json()).then((data)=>{reserveObeidDistrictsData(data);setObeidDistrictssData(<GeoJSON data={data.features} key={Math.random()} style={{color:'white'}} /*onEachFeature={onEachObeidDistricts}*//>)})
     },[])
     
     // useEffect(()=>{setObeidDistrictssData(<GeoJSON key={Math.random()} data={ObeidDistrictsJSONData} style={{color:'orange'}} onEachFeature={onEachObeidDistricts}/>)

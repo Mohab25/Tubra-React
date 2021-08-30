@@ -20,50 +20,50 @@ export default function File(props) {
         switch(aerodrome_part){ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
             case 'Runway':{ 
              switch(file_type.toLowerCase()){   
-                case 'word': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_runway_word/'; break; 
-                case 'excel': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_runway_excel/'; break; 
-                case 'pdf':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_runway_pdf/';break; 
-                case 'all files':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_runway_all_files/';break; 
+                case 'word': url= 'http://tubra.com/Reports/obeid_runway_word/'; break; 
+                case 'excel': url = 'http://tubra.com/Reports/obeid_runway_excel/'; break; 
+                case 'pdf':url = 'http://tubra.com/Reports/obeid_runway_pdf/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/obeid_runway_all_files/';break; 
              }
                 break;
             }
 
             case 'Taxiway':{ 
                 switch(file_type.toLowerCase()){   
-                   case 'word': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_taxiway_word/'; break; 
-                   case 'excel': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_taxiway_excel/'; break; 
-                   case 'pdf':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_taxiway_pdf/';break; 
-                   case 'all files':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_taxiway_all_files/';break; 
+                   case 'word': url= 'http://tubra.com/Reports/obeid_taxiway_word/'; break; 
+                   case 'excel': url = 'http://tubra.com/Reports/obeid_taxiway_excel/'; break; 
+                   case 'pdf':url = 'http://tubra.com/Reports/obeid_taxiway_pdf/';break; 
+                   case 'all files':url = 'http://tubra.com/Reports/obeid_taxiway_all_files/';break; 
                 }
                    break;
                }
 
             case 'Apron':{ 
             switch(file_type.toLowerCase()){   
-                case 'word': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_apron_word/'; break; 
-                case 'excel': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_apron_excel/'; break; 
-                case 'pdf':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_apron_pdf/';break; 
-                case 'all files':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_apron_all_files/';break; 
+                case 'word': url= 'http://tubra.com/Reports/obeid_apron_word/'; break; 
+                case 'excel': url = 'http://tubra.com/Reports/obeid_apron_excel/'; break; 
+                case 'pdf':url = 'http://tubra.com/Reports/obeid_apron_pdf/';break; 
+                case 'all files':url = 'http://tubra.com/Reports/obeid_apron_all_files/';break; 
             }
                 break;
             }
 
             case 'General':{ 
                 switch(file_type.toLowerCase()){   
-                    case 'word': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_general_word/'; break; 
-                    case 'excel': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_general_excel/'; break; 
-                    case 'pdf':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_general_pdf/';break; 
-                    case 'all files':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_general_all_files/';break; 
+                    case 'word': url= 'http://tubra.com/Reports/obeid_general_word/'; break; 
+                    case 'excel': url = 'http://tubra.com/Reports/obeid_general_excel/'; break; 
+                    case 'pdf':url = 'http://tubra.com/Reports/obeid_general_pdf/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/obeid_general_all_files/';break; 
                 }
                     break;
                 }
 
             case 'Reports':{ 
                 switch(file_type.toLowerCase()){   
-                    case 'word': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_reports_word/'; break; 
-                    case 'excel': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_reports_excel/'; break; 
-                    case 'pdf':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_reports_pdf/';break; 
-                    case 'all files':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/obeid_reports_all_files/';break; 
+                    case 'word': url= 'http://tubra.com/Reports/obeid_reports_word/'; break; 
+                    case 'excel': url = 'http://tubra.com/Reports/obeid_reports_excel/'; break; 
+                    case 'pdf':url = 'http://tubra.com/Reports/obeid_reports_pdf/';break; 
+                    case 'all files':url = 'http://tubra.com/Reports/obeid_reports_all_files/';break; 
                 }
                     break;
                 }
