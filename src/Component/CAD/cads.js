@@ -29,48 +29,48 @@ export default function CADS(props) {
         switch(aerodrome_part){ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
             case 'Runway':{ 
              switch(filter_type){   
-                case 'Runway Layouts': url= 'http://tubra.com/CAD/obeid_runway_layouts/'; break; 
-                case 'Runway Marking': url = 'http://tubra.com/CAD/obeid_runway_markings/'; break; 
-                case 'Runway Profiles':url = 'http://tubra.com/CAD/obeid_runway_profiles/';break; 
-                case 'Runway X-Sections':url = 'http://tubra.com/CAD/obeid_runway_cross_sections/';break; 
-                case 'General':url = 'http://tubra.com/CAD/obeid_runway_general/';break; 
+                case 'Runway Layouts': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_runway_layouts/'; break; 
+                case 'Runway Marking': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_runway_markings/'; break; 
+                case 'Runway Profiles':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_runway_profiles/';break; 
+                case 'Runway X-Sections':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_runway_cross_sections/';break; 
+                case 'General':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_runway_general/';break; 
              }
                 break;
             }
 
             case 'Taxiway':{ 
                 switch(filter_type){   
-                    case 'Taxiway Layouts': url= 'http://tubra.com/CAD/obeid_taxiway_layouts/'; break; 
-                    case 'Taxiway Marking': url = 'http://tubra.com/CAD/obeid_taxiway_markings/'; break; 
-                    case 'Taxiway Profiles':url = 'http://tubra.com/CAD/obeid_taxiway_profiles/';break; 
-                    case 'Taxiway X-Sections':url = 'http://tubra.com/CAD/obeid_taxiway_cross_sections/';break; 
-                    case 'General':url = 'http://tubra.com/CAD/obeid_taxiway_general/';break;  
+                    case 'Taxiway Layouts': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_taxiway_layouts/'; break; 
+                    case 'Taxiway Marking': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_taxiway_markings/'; break; 
+                    case 'Taxiway Profiles':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_taxiway_profiles/';break; 
+                    case 'Taxiway X-Sections':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_taxiway_cross_sections/';break; 
+                    case 'General':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_taxiway_general/';break;  
                 }
                    break;
                }
 
             case 'Apron':{ 
             switch(filter_type){   
-                case 'Apron Layouts': url= 'http://tubra.com/CAD/obeid_apron_layouts/'; break; 
-                case 'Apron Marking': url = 'http://tubra.com/CAD/obeid_apron_markings/'; break; 
-                case 'Apron Profiles':url = 'http://tubra.com/CAD/obeid_apron_profiles/';break; 
-                case 'Apron X-Sections':url = 'http://tubra.com/CAD/obeid_apron_cross_sections/';break; 
-                case 'General':url = 'http://tubra.com/CAD/obeid_apron_general/';break; }
+                case 'Apron Layouts': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_apron_layouts/'; break; 
+                case 'Apron Marking': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_apron_markings/'; break; 
+                case 'Apron Profiles':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_apron_profiles/';break; 
+                case 'Apron X-Sections':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_apron_cross_sections/';break; 
+                case 'General':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_apron_general/';break; }
                 break;
             }
 
             case 'General':{ 
-                    url = 'http://tubra.com/CAD/obeid_aerodrome_general/';
+                    url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_aerodrome_general/';
                     break;
                 }
 
             case 'Drainage':{ 
                 switch(filter_type){   
-                    case 'Drainage Layouts': url= 'http://tubra.com/CAD/obeid_drainage_layouts/'; break; 
-                    case 'Drainage Marking': url = 'http://tubra.com/CAD/obeid_drainage_markings/'; break; 
-                    case 'Drainage Profiles':url = 'http://tubra.com/CAD/obeid_drainage_profiles/';break; 
-                    case 'Drainage X-Sections':url = 'http://tubra.com/CAD/obeid_drainage_cross_sections/';break; 
-                    case 'General':url = 'http://tubra.com/CAD/obeid_drainage_general/';break;
+                    case 'Drainage Layouts': url= 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_drainage_layouts/'; break; 
+                    case 'Drainage Marking': url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_drainage_markings/'; break; 
+                    case 'Drainage Profiles':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_drainage_profiles/';break; 
+                    case 'Drainage X-Sections':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_drainage_cross_sections/';break; 
+                    case 'General':url = 'http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/obeid_drainage_general/';break;
                     }
                     break;
                 }
@@ -91,7 +91,7 @@ export default function CADS(props) {
         // filetype and pk are coming from a child (fileCard) inside child components (words,excel,pdf)
         // sending get request using the pk, in order to receive content which is sent to the word_file_page 
   
-        await fetch(`http://tubra.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
+        await fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/CAD/drawing/${pk}/`).then(res=>res.json()).then(data=>{
             setCADContent(data);
             })
         
@@ -111,7 +111,7 @@ export default function CADS(props) {
                 let name = cad_content.Title.replace('Aerodrome ','')
                 let ext = cad_content.CAD_file.includes('.jpg')?".jpg":".png"
                 let file_name = name+ext
-                the_url='http://tubra.com/media/CAD/'+file_name
+                the_url='http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/media/CAD/'+file_name
             }
             else {the_url = cad_content.CAD_file.replace('ec2-18-118-61-96.us-east-2.compute.amazonaws','tubra')}  
             console.log('cad url:',the_url)
