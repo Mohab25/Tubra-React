@@ -22,7 +22,7 @@ export default function ObeidUrbanAreaGeojson(props) {
     const [offset,setOffset] = useState(0)
 
     useEffect(()=>{
-        fetch(`http://tubra.com/City_Features/obeid_urban_area/?limit=1000&offset=${0}&/`).then(res=>res.json()).then(data=>{reserveObeidUrbanAreaData(data.features);setOffset(1000)})
+        fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/City_Features/obeid_urban_area/?limit=1000&offset=${0}&/`).then(res=>res.json()).then(data=>{reserveObeidUrbanAreaData(data.features);setOffset(1000)})
     },[])
 
     useEffect(()=>{ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
@@ -36,7 +36,7 @@ export default function ObeidUrbanAreaGeojson(props) {
 
     useEffect(()=>{
         if(offset<11000 && offset!=0){
-            fetch(`http://tubra.com/City_Features/obeid_urban_area/?limit=1000&offset=${offset}&/`).then(res=>res.json()).then(data=>{let new_builds= ObeidUrbanAreaJSONData.concat(data.features);reserveObeidUrbanAreaData(new_builds);setOffset(offset+1000);})
+            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/City_Features/obeid_urban_area/?limit=1000&offset=${offset}&/`).then(res=>res.json()).then(data=>{let new_builds= ObeidUrbanAreaJSONData.concat(data.features);reserveObeidUrbanAreaData(new_builds);setOffset(offset+1000);})
         }
         
     },[offset])
