@@ -93,7 +93,8 @@ export default function Files() {
         case 'word':{return(<WordDoc pk={view.pk} changeView={setView}/>)}
         case 'excel':{return(<ExcelDoc pk={view.pk} changeView={setView}/>)}
         case 'pdf':{
-            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${view.pk}/`).then(res=>res.json()).then(data=>{window.open(data.path.replace('localhost:8000','tubra.com'),'_blank')}).then(setView('Main')).catch(err=>console.log(err))
+            console.log('this is the pk',view.pk)
+            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${view.pk}/`).then(res=>res.json()).then(data=>{console.log(data);window.open(data.path.replace('/home/ubuntu/tubra/venv/Tubra/','http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/'),'_blank')}).then(setView('Main')).catch(err=>console.log(err))
         }; 
         default:{
             

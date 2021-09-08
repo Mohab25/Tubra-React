@@ -12,7 +12,7 @@ export default function PDFFilePage(props) {
       }
     },[])
 
-    if(Object.keys(content).length!=0){window.open(content.path.replace('localhost:8000','tubra.com'),'_blank')
+    if(Object.keys(content).length!=0){console.log('Here');window.open(content.path.replace('localhost:8000','http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com'),'_blank')
     props.changeView('Main')
   }    
     return (<div></div>)
