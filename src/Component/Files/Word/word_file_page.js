@@ -45,7 +45,8 @@ export default function WordFilePage(props) {
 
     useEffect(()=>{
         if(props.pk!=undefined){ //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
-            fetch(`http://http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
+            console.log('this is the pk',props.pk)
+            fetch(`http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/Reports/doc_content/${props.pk}/`).then(res=>res.json()).then(data=>{
             setContent(data)})
         }
         FileViewDispatch(adjustNavLink())
