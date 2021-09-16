@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cb972ff1.chunk.css",
+    "main.js": "/static/js/main.76d3103e.chunk.js",
+    "main.js.map": "/static/js/main.76d3103e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9ecc0a23.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9ecc0a23.js.map",
+    "static/css/2.587523b6.chunk.css": "/static/css/2.587523b6.chunk.css",
+    "static/js/2.acac49ac.chunk.js": "/static/js/2.acac49ac.chunk.js",
+    "static/js/2.acac49ac.chunk.js.map": "/static/js/2.acac49ac.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.587523b6.chunk.css.map": "/static/css/2.587523b6.chunk.css.map",
+    "static/css/main.cb972ff1.chunk.css.map": "/static/css/main.cb972ff1.chunk.css.map",
+    "static/js/2.acac49ac.chunk.js.LICENSE.txt": "/static/js/2.acac49ac.chunk.js.LICENSE.txt",
+    "static/js/mapbox-gl-csp-worker.129f6ed3.worker.js": "/static/js/mapbox-gl-csp-worker.129f6ed3.worker.js",
+    "static/js/mapbox-gl-csp-worker.129f6ed3.worker.js.map": "/static/js/mapbox-gl-csp-worker.129f6ed3.worker.js.map",
+    "static/media/1.49cdd881.jpg": "/static/media/1.49cdd881.jpg",
+    "static/media/1.86669ef8.jpg": "/static/media/1.86669ef8.jpg",
+    "static/media/CAD.6cbea60d.jpg": "/static/media/CAD.6cbea60d.jpg",
+    "static/media/Dark.926a6a57.jpg": "/static/media/Dark.926a6a57.jpg",
+    "static/media/Light.2a348c8f.jpg": "/static/media/Light.2a348c8f.jpg",
+    "static/media/Topo.8b5cb210.jpg": "/static/media/Topo.8b5cb210.jpg",
+    "static/media/excel.07de1788.png": "/static/media/excel.07de1788.png",
+    "static/media/styles.css": "/static/media/taylor-van-riper-yQorCngxzwI-unsplash.ab73e748.jpg",
+    "static/media/word.f3be8ba7.png": "/static/media/word.f3be8ba7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9ecc0a23.js",
+    "static/css/2.587523b6.chunk.css",
+    "static/js/2.acac49ac.chunk.js",
+    "static/css/main.cb972ff1.chunk.css",
+    "static/js/main.76d3103e.chunk.js"
+  ]
+}
