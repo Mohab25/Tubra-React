@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,Fragment} from 'react'
 import { useSelector } from "react-redux";
 import './styles/styles.css'
 import LinearMeasurePane from './LinearMeasurePane'
@@ -24,6 +24,7 @@ export default function Measure(props) {
     const [sec_latlng,set_sec_latlng] = useState([])
 
     const [distance,set_distance] = useState(0)
+    const [prevPoly,setPrevPoly] = useState() 
     const [polylines,add_polylines] = useState([])
 
     const toggleMeasureToolColor=()=>{
@@ -34,48 +35,46 @@ export default function Measure(props) {
         LinearMeasurePaneDisplay=='none'?setLinearMeasurePaneDisplay('block'):setLinearMeasurePaneDisplay('none')
     }
 
-
     if(LinearMeasurePaneDisplay!='none'){
-        map.off().on('click',(e)=>{
-        console.log('map clicked');
-        if(first_latlng.length==0&&sec_latlng.length==0){
-            set_first_latlng(e.latlng)
-        }
-        else if(first_latlng.length!=0&&sec_latlng.length==0){
-            set_sec_latlng(e.latlng)
-            measure(1,e.latlng)
-        }
-        else if(first_latlng.length==0&&sec_latlng.length!=0){
-            set_first_latlng(e.latlng)
-            measure(2,e.latlng)
-        }
-    
-    })}
-
-
+        map.on('click',(e)=>{
+            if(first_latlng.length==0&&sec_latlng.length==0){
+                set_first_latlng(e.latlng)
+            }
+            else if(first_latlng.length!=0&&sec_latlng.length==0){
+                set_sec_latlng(e.latlng)
+                measure(1,e.latlng)
+            }
+            else if(first_latlng.length==0&&sec_latlng.length!=0){
+                set_first_latlng(e.latlng)
+                measure(2,e.latlng)
+            }
+    })
+    }
     const measure =(i,m)=>{
         let l1={},l2={}
         if(i==1){
             l1 = L.latLng(first_latlng.lat,first_latlng.lng)
             l2 = L.latLng(m.lat,m.lng)
+            draw(l1,l2)
             set_first_latlng([])
         }
         else{
             l1 = L.latLng(m.lat,m.lng)
             l2 = L.latLng(sec_latlng.lat,sec_latlng.lng)
-            set_sec_latlng([])
+            draw(l1,l2)
+            //set_sec_latlng([])
         }
-        draw(l1,l2)
+        
     }
 
     let draw=(l1,l2)=>{
         let d = l1.distanceTo(l2)
-        let poly = [l1,l2]
-        let polyline = new L.Polyline(poly)
-        polyline.addTo(map)
-        let poly_set=polylines
-        poly_set.push(polyline)
-        add_polylines(poly_set)
+        // let poly = [l1,l2]
+        // let polyline = new L.Polyline(poly)
+        // polyline.addTo(map)
+        // let poly_set=polylines
+        // poly_set.push(polyline)
+        // add_polylines(poly_set)
         set_distance(d)
     }
 
@@ -90,14 +89,14 @@ export default function Measure(props) {
 
     useEffect(()=>{
         if(LinearMeasurePaneDisplay=='none'&& map!=undefined){
-            map.off();
+            //map.off()
             remove_polylines()
             
         }
     },[LinearMeasurePaneDisplay])
 
     return (
-        <>
+        <Fragment>
         <div data-testid='measure' className='measure' onClick={()=>{toggleMeasureToolColor();toggleLinearMeasurePaneDisplay();props.toggleLinearMeasurement()}} style={{backgroundColor:MeasureToolColor}} onMouseEnter={()=>toggleTooltipDisplay('flex')} onMouseLeave={()=>{toggleTooltipDisplay('none')}}>
             <div className='measure-container'>
                 <div className='measure-box'>
@@ -109,6 +108,6 @@ export default function Measure(props) {
         </div>
         <LinearMeasurePane data-testid='linearMeasurePane' display={LinearMeasurePaneDisplay} distance={distance}/>
         <Tooltip display={toolTipDisplay} name='measure' toolIndex={3}/>
-        </>
+        </Fragment>
     )
 }

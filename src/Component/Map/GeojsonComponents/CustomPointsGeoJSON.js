@@ -6,7 +6,7 @@ import Legend from '../Legend/Legend'
 import Modal from '../Modal/modal'
 
 
-export default function CustomPointsGeoJSON({PointsMarkers}) {
+export default function CustomPointsGeoJSON() {
 
     const [Markers,setMarkers] = useState([])
     /*Legend */
@@ -14,10 +14,11 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
     const [pois,setPois] = useState([])
 
     useEffect(()=>{
-        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/pois/').then(res=>res.json()).then(data=>setPois(data))
+        fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/AerodromeFeatures/pois/').then(res=>res.json()).then(data=>{setPois(data)})
     },[])
 
     useEffect(()=>{
+        if(pois==undefined|| pois.features==undefined) return
         if(pois.features.length==0){return}
         let points_icons = pois.features.map((item,index)=>{
 
@@ -30,19 +31,20 @@ export default function CustomPointsGeoJSON({PointsMarkers}) {
                     </div>)
             )
         })
+
+        if(points_icons!=undefined){
         let icons = points_icons.map((item,index)=>{
             return divIcon({
                     html: item,
               });
         })
-        
+
         let markers = icons.map((item,index)=>{
                 let pos = pois.features[index].geometry.coordinates
-                return <Marker icon={item} position={[pos[0],pos[1]]} key={Math.random()}/>
+                if(pos[0]!=null) {return <Marker icon={item} position={[pos[0][1],pos[0][0]]} key={Math.random()}/>}
         })
-
         setMarkers(markers)
-    
+        }
         //also you can account for the legend names here, as the legend names should be unique
         let legend_names = pois.features.map(item=>item.properties.point)
         let unique_names = legend_names.filter((value,index,self)=>{

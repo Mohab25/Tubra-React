@@ -22,7 +22,7 @@ export default function BufferComponent() {
              sent to the back to create a buffer around the geometry.
         */ 
        //http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com
-       fetch('http://ec2-18-118-61-96.us-east-2.compute.amazonaws.com/spatial_analysis/make_buffer/',{
+       fetch('http://tubra.com/spatial_analysis/make_buffer/',{
         method:'POST',
         mode:'cors',
         headers:{

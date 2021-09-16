@@ -17,6 +17,7 @@
 
 .Legend-items-holder{
     display: flex;
+    overflow-y: scroll;
 }
 
 .Legend-items-holder div{
