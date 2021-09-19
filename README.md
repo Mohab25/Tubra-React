@@ -51,7 +51,7 @@ The system links the map to a CAD Viewer, it also provides a standalone componen
 
 ![CAD Component with different CAD files.](public/img/7.CAD_files.png)
 
-![CAD Component - CAD viewer]()
+![CAD Component - CAD viewer](public/img/9.CAD_Viewer.png)
 
 Also the Same CAD viewer can be viewed from the Map component as a linked attribute file as the user clicks on an entity.
 
